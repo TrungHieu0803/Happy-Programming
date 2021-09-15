@@ -43,6 +43,11 @@
 
   <body>  
       <!-- Header Section Start -->
+      <div class="alert alert-success set-alert" role="alert"  th:style ="${alert} ? 'display: block' : 'display: none' " >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Success!</strong> You have been registered in successfully!<br>
+        <p>Please check your email to verify your account.</p>
+      </div>
       <div class="header">    
         <div class="logo-menu">
           <div class="main-navigation" th:insert="~{/components/navbar :: navbar1}"></div>
@@ -159,7 +164,7 @@
 
                 <div id="cd-signup" class="">
                   <div class="page-login-form register">
-                    <form role="form" class="login-form" method="POST" th:action="@{/register}">
+                    <form role="form" class="login-form" method="POST" th:action="@{/process_register}">
                       <div class="form-group is-empty">
                         <div class="input-icon">
                           <i class="ti-user"></i>

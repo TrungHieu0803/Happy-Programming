@@ -33,8 +33,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             roleRepository.save(new RoleEntity("ROLE_ADMIN"));
         }
 
-        if (roleRepository.findByName("ROLE_MEMBER") == null) {
-            roleRepository.save(new RoleEntity("ROLE_MEMBER"));
+        if (roleRepository.findByName("ROLE_MENTEE") == null) {
+            roleRepository.save(new RoleEntity("ROLE_MENTEE"));
+        }
+        if (roleRepository.findByName("ROLE_MENTOR") == null) {
+            roleRepository.save(new RoleEntity("ROLE_MENTOR"));
         }
 
         // Admin account
@@ -45,7 +48,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
             HashSet<RoleEntity> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_ADMIN"));
-            roles.add(roleRepository.findByName("ROLE_MEMBER"));
+            roles.add(roleRepository.findByName("ROLE_MENTEE"));
             admin.setRoles(roles);
             userRepository.save(admin);
         }
@@ -56,7 +59,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             user.setUsername("member@gmail.com");
             user.setPassword(passwordEncoder.encode("123456"));
             HashSet<RoleEntity> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_MEMBER"));
+            roles.add(roleRepository.findByName("ROLE_MENTEE"));
             user.setRoles(roles);
             userRepository.save(user);
         }

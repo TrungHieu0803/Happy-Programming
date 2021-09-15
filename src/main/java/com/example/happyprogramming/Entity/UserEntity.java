@@ -28,12 +28,13 @@ public class UserEntity  {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "status")
+    @Column(name = "status",nullable = true)
     private int status;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-
+    @Column(name = "enabled")
     private boolean enabled;
+
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"), //ở class nào thì thì joinColumn này sẽ là khóa chính của table mang tên class đó

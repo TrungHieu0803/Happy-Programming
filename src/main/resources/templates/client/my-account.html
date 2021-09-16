@@ -135,6 +135,7 @@
                             <div id="cd-login" class="is-selected">
                                 <div class="page-login-form">
                                     <form role="form" class="login-form" method="POST" th:action="@{/login}">
+                                        <p th:if="${param.error}" class="error danger" style="color: red" >Invalid email or password</p>
                                         <div class="form-group is-empty">
                                             <div class="input-icon">
                                                 <i class="ti-user"></i>

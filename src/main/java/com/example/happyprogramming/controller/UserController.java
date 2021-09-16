@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping({"","/home"})
+    @GetMapping({"/","/home"})
     public String home(){
         return "client/index";
     }

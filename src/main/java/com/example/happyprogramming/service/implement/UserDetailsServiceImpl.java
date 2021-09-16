@@ -24,8 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(s);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+        if (user == null || !user.isEnabled()) {
+            throw new UsernameNotFoundException("User not found or the email was been verified");
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

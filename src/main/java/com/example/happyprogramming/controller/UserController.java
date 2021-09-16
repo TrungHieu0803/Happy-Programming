@@ -19,15 +19,14 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/home")
+    @GetMapping({"","/home"})
     public String home(){
-
         return "client/index";
     }
 
 
     @GetMapping("/login")
-    public String sss( ){
+    public String loginPage(){
         return "client/my-account";
     }
 

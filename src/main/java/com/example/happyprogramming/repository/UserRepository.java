@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     UserEntity findByVerificationCode(String code);
 
 
+
 }

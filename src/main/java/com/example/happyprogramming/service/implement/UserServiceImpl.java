@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService {
             return true;
         }
     }
+
+    @Override
+    public boolean checkEmailForRegister(String email) {
+        return userRepo.findByEmail(email)==null?true:false;
+    }
 }

@@ -300,3 +300,26 @@ window.setTimeout(function () {
         $(this).remove();
     });
 }, 10000);
+
+function checkEmail() {
+
+    var email = document.getElementById('email-check').value;
+
+    jQuery.ajax({
+        url: "/check_email",
+        type: "GET",
+
+        data: {email: email},
+        success: function (result) {
+            console.log(result);
+            $("#checking").html(result);
+        }, error: function () {
+            $("#checking").html("");
+        }
+
+    });
+    if (document.getElementById('email-check').value == "") {
+        document.getElementById('checking').style.display = "none";
+    } else
+        document.getElementById('checking').style.display = "block";
+}

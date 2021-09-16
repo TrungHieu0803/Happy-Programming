@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Controller
@@ -51,6 +53,16 @@ public class UserController {
             return "client/components/verify-success";
         } else {
             return "client/components/verify-fail";
+        }
+    }
+
+    @GetMapping("/check_email")
+    public void checkEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email");
+        if (userService.checkEmailForRegister(email)){
+            response.getWriter().print("<p class=\"text-success\">Available</p>");
+        }else{
+            response.getWriter().print("<p class=\"text-danger\">This email address is already being used</p>");
         }
     }
 }

@@ -22,8 +22,8 @@ public class UserEntity  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "username")
-    private String username;
+    @Column(name = "full_name")
+    private String fullName;
     @Column(name = "password")
     private String password;
     @Column(name = "email")
@@ -41,8 +41,8 @@ public class UserEntity  {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles ;
 
-    public UserEntity(String username,String password,String email,int status){
-        this.username = username;
+    public UserEntity(String fullName,String password,String email,int status){
+        this.fullName = fullName;
         this.password = password;
         this.email = email;
         this.status = status;

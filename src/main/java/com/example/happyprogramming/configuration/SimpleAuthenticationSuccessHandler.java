@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,12 +23,15 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        HttpSession session = request.getSession();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         authorities.forEach(authority -> {
             // nếu quyền có vai trò user, chuyển đến trang "/" nếu login thành công
-            if (authority.getAuthority().equals("ROLE_MENTOR")) {
+            if (authority.getAuthority().equals("ROLE_MENTOR") && authority.getAuthority().equals("ROLE_MENTEE")) {
                 try {
+                    String sessionRole = "mentorAndMentee";
+                    session.setAttribute("role",sessionRole);
                     redirectStrategy.sendRedirect(request, response, "/home");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
@@ -35,6 +39,8 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 }
             }else if(authority.getAuthority().equals("ROLE_MENTEE")){
                 try {
+                    String sessionRole = "mentee";
+                    session.setAttribute("role",sessionRole);
                     redirectStrategy.sendRedirect(request, response, "/home");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block

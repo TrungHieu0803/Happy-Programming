@@ -54,7 +54,7 @@
                         <a href="about.html">
                             Pages <i class="fa fa-angle-down"></i>
                         </a>
-                        <ul class="dropdown">
+                        <ul class="dropdown" >
                             <li>
                                 <a href="about.html">
                                     About
@@ -97,93 +97,52 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">
-                            Candidates <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown">
-                            <li>
-                                <a href="browse-jobs.html">
-                                    Browse Jobs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="browse-categories.html">
-                                    Browse Categories
-                                </a>
-                            </li>
-                            <li>
-                                <a href="add-resume.html">
-                                    Add Resume
-                                </a>
-                            </li>
-                            <li>
-                                <a href="manage-resumes.html">
-                                    Manage Resumes
-                                </a>
-                            </li>
-                            <li>
-                                <a href="job-alerts.html">
-                                    Job Alerts
-                                </a>
-                            </li>
-                        </ul>
+
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right ">
+                    <li class="left">
+                        <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-pencil-alt"></i>Post a request</a>
+                        <a th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}" href="#"><i class="ti-pencil-alt"></i>Post a request</a>
                     </li>
-                    <li>
+                    <li class="left">
+                        <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-pencil-alt"></i>Create CV</a>
+                        <a th:if="${session.role == 'mentee'}" href="#"><i class="ti-pencil-alt"></i>Create CV</a>
+                        <a th:if="${session.role == 'mentorAndMentee'}" href="#0"><i class="ti-pencil-alt"></i>View CV</a>
+                    </li>
+                    <li  class="right">
+                        <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-lock"></i>  Log In</a>
+                    </li>
+                    <li th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}"  class="right">
                         <a href="#">
-                            Employers <i class="fa fa-angle-down"></i>
+                            <i  class="ti-user"></i><i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown">
-                            <li>
-                                <a href="post-job.html">
-                                    Add Job
+                            <li >
+                                <a style="color: black" href="post-job.html">
+                                    Profile
                                 </a>
                             </li>
                             <li>
                                 <a href="manage-jobs.html">
-                                    Manage Jobs
+                                    List request
                                 </a>
                             </li>
                             <li>
                                 <a href="manage-applications.html">
-                                    Manage Applications
+                                    Setting
                                 </a>
                             </li>
                             <li>
-                                <a href="browse-resumes.html">
-                                    Browse Resumes
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blog.html">
-                            Blog <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown">
-                            <li>
-                                <a href="blog.html">
-                                    Blog - Right Sidebar
-                                </a>
-                            </li>
-                            <li>
-                                <a href="blog-left-sidebar.html">
-                                    Blog - Left Sidebar
-                                </a>
-                            </li>
-                            <li><a href="blog-full-width.html">Blog - Full Width</a></li>
-                            <li>
-                                <a href="single-post.html">
-                                    Blog Single Post
-                                </a>
+                                <form th:action="@{/logout}" th:method="POST" >
+                                    <a><input style="color: black" type="submit" value="Logout"></a>
+                                </form>
                             </li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right float-right">
-                    <li class="left"><a href="post-job.html"><i class="ti-pencil-alt"></i> Post A Job</a></li>
-                    <li class="right"><a th:href="@{/login}"><i class="ti-lock"></i>  Log In</a></li>
-                </ul>
+
             </div>
         </div>
         <!-- Mobile Menu Start -->

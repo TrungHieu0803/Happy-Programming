@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -31,6 +32,8 @@ public class UserController {
     public String loginPage(){
         return "client/my-account";
     }
+
+
 
 
     @PostMapping("/process_register")

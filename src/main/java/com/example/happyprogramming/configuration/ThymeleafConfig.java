@@ -8,6 +8,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig {
+
     @Bean
     public ClassLoaderTemplateResolver clientPages() {
         ClassLoaderTemplateResolver configurer = new ClassLoaderTemplateResolver();

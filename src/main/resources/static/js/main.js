@@ -301,25 +301,41 @@ window.setTimeout(function () {
     });
 }, 10000);
 
-function checkEmail() {
-
+function checkEmailForRegister() {
     var email = document.getElementById('email-check').value;
 
     jQuery.ajax({
         url: "/check_email",
         type: "GET",
-
         data: {email: email},
         success: function (result) {
             console.log(result);
-            $("#checking").html(result);
+            $("#message-1").html(result);
         }, error: function () {
-            $("#checking").html("");
+            $("#message-1").html("");
         }
-
     });
     if (document.getElementById('email-check').value == "") {
-        document.getElementById('checking').style.display = "none";
+        document.getElementById('message-1').style.display = "none";
     } else
-        document.getElementById('checking').style.display = "block";
+        document.getElementById('message-1').style.display = "block";
+}
+function checkEmailForChangePass() {
+    var email = document.getElementById('email-change-password').value;
+    document.getElementById('message-2').innerHTML="Processing.............";
+    jQuery.ajax({
+        url: "/change-password",
+        type: "GET",
+        data: {email: email},
+        success: function (result) {
+            $("#message-2").html(result);
+        }, error: function () {
+            $("#message-2").html("");
+        }
+    });
+    if (document.getElementById('email-change-password').value == "") {
+        document.getElementById('message-2').style.display = "none";
+        document.getElementById('btn-change-password').disable = "true";
+    } else
+        document.getElementById('message-2').style.display = "block";
 }

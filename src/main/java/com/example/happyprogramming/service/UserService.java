@@ -14,6 +14,11 @@ public interface UserService {
 
     boolean verify(String verificationCode);
 
-    boolean checkEmailForRegister(String email);
+    boolean checkEmail(String email);
 
+    void changePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
+
+    void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
+
+    void doChangePassword(String email,String newPassword);
 }

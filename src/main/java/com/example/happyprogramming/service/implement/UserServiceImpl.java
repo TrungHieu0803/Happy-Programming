@@ -79,18 +79,58 @@ public class UserServiceImpl implements UserService {
     public boolean verify(String verificationCode) {
         UserEntity user = userRepo.findByVerificationCode(verificationCode);
 
-        if (user == null || user.isEnabled()) {
+        if (user == null ) {
             return false;
         } else {
             user.setVerificationCode(null);
-            user.setEnabled(true);
             userRepo.save(user);
             return true;
         }
     }
 
     @Override
-    public boolean checkEmailForRegister(String email) {
+    public boolean checkEmail(String email) {
         return userRepo.findByEmail(email)==null?true:false;
     }
+
+    @Override
+    public void changePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+        userRepo.save(user);
+        sendEmailChangePassword(user,siteURL);
+    }
+
+    @Override
+    public void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "hieunthe150001@fpt.edu.vn";
+        String senderName = "Happry-Programming";
+        String subject = "Please change your password";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to change your password:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Happy Programming.";
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getFullName());
+        String verifyURL = siteURL + "/do-change-password?code=" + user.getVerificationCode()+"&email="+user.getEmail();
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+        mailSender.send(mimeMessage);
+    }
+
+    @Override
+    public void doChangePassword(String email, String newPassword) {
+        UserEntity user = userRepo.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
+    }
+
 }

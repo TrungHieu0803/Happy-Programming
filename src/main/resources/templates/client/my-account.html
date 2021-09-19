@@ -39,6 +39,7 @@
     <!-- Color CSS Styles  -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
 
+
 </head>
 
 <body>
@@ -181,11 +182,11 @@
                                     </div>
                                     <span class="material-input"></span>
                                 </div>
-                                <p id="checking"></p>
+                                <p id="message-1"></p>
                                 <div class="form-group is-empty">
                                     <div class="input-icon">
                                         <i class="ti-email"></i>
-                                        <input id="email-check" onchange="checkEmail()" type="email" class="form-control"
+                                        <input id="email-check" onchange="checkEmailForRegister()" type="email" class="form-control"
                                                name="email" placeholder="Email"
                                                required>
                                     </div>
@@ -212,17 +213,20 @@
                     <div class="page-login-form" id="cd-reset-password">
                         <p class="cd-form-message">Lost your password? Please enter your email address. You will receive
                             a link to create a new password.</p>
-                        <form class="cd-form">
+                        <div class="cd-form" >
                             <div class="form-group is-empty">
+                                <p id="message-2"></p>
                                 <div class="input-icon">
                                     <i class="ti-email"></i>
-                                    <input type="text" class="form-control" name="email" placeholder="Email">
+                                    <input id="email-change-password"  type="text" class="form-control" name="email" placeholder="Email">
                                 </div>
-                                <span class="material-input"></span></div>
+                                <span class="material-input"></span>
+                            </div>
+
                             <p class="fieldset">
-                                <button class="btn btn-common log-btn" type="submit">Reset password</button>
+                                <button onclick="checkEmailForChangePass()" id="btn-change-password" class="btn btn-common log-btn" >Reset password</button>
                             </p>
-                        </form>
+                        </div>
 
                     </div>
                 </div>

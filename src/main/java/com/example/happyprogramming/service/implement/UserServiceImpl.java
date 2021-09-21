@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public boolean verify(String verificationCode) {
         UserEntity user = userRepo.findByVerificationCode(verificationCode);
 
-        if (user == null ) {
+        if (user == null) {
             return false;
         } else {
             user.setVerificationCode(null);

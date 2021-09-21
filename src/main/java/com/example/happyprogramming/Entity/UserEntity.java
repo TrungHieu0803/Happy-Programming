@@ -59,5 +59,8 @@ public class UserEntity  {
     @PrimaryKeyJoinColumn
     private CVEntity mentorId;
 
+    @OneToMany(mappedBy = "users")
+    private Set<NotificationEntity> notification;
+
 
 }

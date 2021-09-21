@@ -22,11 +22,11 @@ public class RequestEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "mentee_id") // thông qua khóa ngoại address_id
+    @JoinColumn(name = "mentee_id")
     private UserEntity menteeId;
 
     @ManyToOne
-    @JoinColumn(name = "mentor_id") // thông qua khóa ngoại address_id
+    @JoinColumn(name = "mentor_id")
     private UserEntity mentorId;
 
     @Column(length = 1000)

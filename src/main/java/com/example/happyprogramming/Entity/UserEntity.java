@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 /**
@@ -28,12 +29,18 @@ public class UserEntity  {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "status",nullable = true)
-    private int status;
+    @Column(name = "phone",nullable = true)
+    private int phone;
+    @Column(name = "DoB",nullable = true)
+    private Date DoB;
+    @Column(name = "sex",nullable = true)
+    private boolean sex;
+    @Column(name = "avatar",nullable = true)
+    private String avatar;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-    @Column(name = "enabled")
-    private boolean enabled;
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
 
     @ManyToMany
     @JoinTable(name = "user_role",
@@ -41,15 +48,16 @@ public class UserEntity  {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles ;
 
-    public UserEntity(String fullName,String password,String email,int status){
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.status = status;
-    }
 
-    //    quan hệ n-n sẽ có anotation này, kèm theo là join table anotation để tạo bảng trung gian
-//    Tạo bảng trung gian, có 2 khóa chính của 2 bảng user và role join vào làm khóa ngoại
+    @OneToMany(mappedBy = "menteeId")
+    private Set<RequestEntity> requestOfMentee;
+
+    @OneToMany(mappedBy = "mentorId")
+    private Set<RequestEntity> requestForMentor;
+
+    @OneToOne(mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private CVEntity mentorId;
 
 
 }

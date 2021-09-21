@@ -23,11 +23,10 @@ public class RoleEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "roles") //tên của arraylist bên roleEntity để mapped
+    @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users ;
 
     public RoleEntity(String role) {

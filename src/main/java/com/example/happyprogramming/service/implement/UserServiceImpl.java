@@ -1,5 +1,4 @@
 package com.example.happyprogramming.service.implement;
-
 import com.example.happyprogramming.Entity.RoleEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RoleRepository;
@@ -11,7 +10,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
@@ -132,5 +130,4 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
     }
-
 }

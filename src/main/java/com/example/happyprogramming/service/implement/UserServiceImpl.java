@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
             return false;
         } else {
             user.setVerificationCode(null);
+            user.setEnabled(true);
             userRepo.save(user);
             return true;
         }

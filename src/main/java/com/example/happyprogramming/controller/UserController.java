@@ -36,7 +36,10 @@ public class UserController {
         return "client/my-account";
     }
 
-
+    @GetMapping("/create-request")
+    public String createRequest(){
+        return "client/create-request";
+    }
 
 
     @PostMapping("/process_register")

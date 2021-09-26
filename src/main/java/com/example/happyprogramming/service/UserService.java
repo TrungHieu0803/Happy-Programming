@@ -1,5 +1,6 @@
 package com.example.happyprogramming.service;
 
+import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +22,6 @@ public interface UserService {
     void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
 
     void doChangePassword(String email,String newPassword);
+
+    boolean createRequest(RequestEntity requestEntity);
 }

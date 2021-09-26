@@ -1,6 +1,8 @@
 package com.example.happyprogramming.service.implement;
+import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.RoleEntity;
 import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.RoleRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.UserService;
@@ -14,21 +16,25 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
 public class UserServiceImpl implements UserService {
-    @Autowired
     private JavaMailSender mailSender;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserRepository userRepo;
+    private RoleRepository roleRepository;
+    RequestRepository requestRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public UserServiceImpl(JavaMailSender mailSender, BCryptPasswordEncoder passwordEncoder, UserRepository userRepo, RoleRepository roleRepository, RequestRepository requestRepository) {
+        this.mailSender = mailSender;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepo = userRepo;
+        this.roleRepository = roleRepository;
+        this.requestRepository = requestRepository;
+    }
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -130,5 +136,12 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepo.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
+    }
+
+    @Override
+    public boolean createRequest(RequestEntity requestEntity) {
+        requestRepository.save(requestEntity);
+     List<RequestEntity> requestEntityList =  requestRepository.findAll();
+        return true;
     }
 }

@@ -38,6 +38,9 @@ public class RequestEntity {
     @Column(name = "delivery_time")
     private String deliveryTime;
 
+    @Column(name = "deadline_date")
+    private String deadlineDate;
+
     @Column(length = 3000)
     private String content;
 
@@ -46,6 +49,9 @@ public class RequestEntity {
 
     @Column(name = "response_mess")
     private String responseMess;
+
+    @Column(name = "language")
+    private String language;
 
     @Column
     private int status;

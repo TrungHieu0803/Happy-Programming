@@ -29,7 +29,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-
     @GetMapping({"/", "/home"})
     public String home() {
         return "client/index";
@@ -39,11 +38,6 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage() {
         return "client/my-account";
-    }
-
-    @GetMapping("/create-request")
-    public String createRequest() {
-        return "client/create-request";
     }
 
 
@@ -112,22 +106,5 @@ public class UserController {
         return "client/my-account";
     }
 
-    @PostMapping("/create-request")
-    public String createRequest(HttpServletRequest request) {
-        RequestEntity requestEntity = new RequestEntity();
-        String title = request.getParameter("title");
-        String dateDeadLine = request.getParameter("dateDeadLine");
-        String timeDeadLine = request.getParameter("timeDeadLine");
-        String content = request.getParameter("content");
-        String language = request.getParameter("language");
-        requestEntity.setTitle(title);
-        requestEntity.setDeadlineDate(dateDeadLine);
-        requestEntity.setDeliveryTime(timeDeadLine);
-        requestEntity.setContent(content);
-        requestEntity.setLanguage(language);
-        Date date = new Date();
-        requestEntity.setCreatedDate((java.sql.Date) date);
-        userService.createRequest(requestEntity);
-        return "client/index";
-    }
+
 }

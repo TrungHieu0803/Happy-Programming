@@ -21,20 +21,17 @@ import java.util.Set;
 
 @Component
 public class UserServiceImpl implements UserService {
+    @Autowired
     private JavaMailSender mailSender;
-    private BCryptPasswordEncoder passwordEncoder;
-    private UserRepository userRepo;
-    private RoleRepository roleRepository;
-    RequestRepository requestRepository;
 
     @Autowired
-    public UserServiceImpl(JavaMailSender mailSender, BCryptPasswordEncoder passwordEncoder, UserRepository userRepo, RoleRepository roleRepository, RequestRepository requestRepository) {
-        this.mailSender = mailSender;
-        this.passwordEncoder = passwordEncoder;
-        this.userRepo = userRepo;
-        this.roleRepository = roleRepository;
-        this.requestRepository = requestRepository;
-    }
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -138,10 +135,5 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
-    @Override
-    public boolean createRequest(RequestEntity requestEntity) {
-        requestRepository.save(requestEntity);
-     List<RequestEntity> requestEntityList =  requestRepository.findAll();
-        return true;
-    }
+
 }

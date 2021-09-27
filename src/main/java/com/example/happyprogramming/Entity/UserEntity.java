@@ -30,7 +30,7 @@ public class UserEntity  {
     @Column(name = "email")
     private String email;
     @Column(name = "phone",nullable = true)
-    private int phone;
+    private String phone;
     @Column(name = "DoB",nullable = true)
     private Date DoB;
     @Column(name = "sex",nullable = true)

@@ -23,5 +23,5 @@ public interface UserService {
 
     void doChangePassword(String email,String newPassword);
 
-    boolean createRequest(RequestEntity requestEntity);
+
 }

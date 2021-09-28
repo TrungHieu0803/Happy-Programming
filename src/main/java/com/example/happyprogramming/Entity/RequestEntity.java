@@ -33,7 +33,7 @@ public class RequestEntity {
     private String title;
 
     @Column
-    private double budget;
+    private String budget;
 
     @Column(name = "delivery_time")
     private String deliveryTime;

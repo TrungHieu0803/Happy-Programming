@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 
 @Service
 public interface UserService {
+    UserEntity findByEmail(String email);
     void register(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
 
     void sendVerificationEmail(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;

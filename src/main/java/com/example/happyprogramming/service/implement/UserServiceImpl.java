@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity findByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    @Override
     public void register(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);

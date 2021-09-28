@@ -339,3 +339,24 @@ function checkEmailForChangePass() {
     } else
         document.getElementById('message-2').style.display = "block";
 }
+
+function deliveredTimeVerify(){
+    let time = document.getElementById('delivered-time').value;
+    console.log(time);
+    if(isNaN(time) || time == ""){
+        document.getElementById('delivered-time').value = "";
+    }else{
+        document.getElementById('delivered-time').value = time+" Days";
+    }
+}
+
+
+function budgetVerify(){
+    let budget = document.getElementById('budget').value;
+    if(isNaN(budget) || budget == ""){
+        document.getElementById('budget').value = "";
+    }else{
+        document.getElementById('budget').value = budget+"$";
+    }
+}
+

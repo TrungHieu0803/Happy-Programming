@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -25,6 +26,9 @@ import java.util.Date;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    HttpSession session;
 
     @Autowired
     private UserRepository userRepository;
@@ -106,5 +110,11 @@ public class UserController {
         return "client/my-account";
     }
 
+    @GetMapping("/user-profile")
+    public String UserProfile(Model model){
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        model.addAttribute("userinfo", user);
+        return "client/user-profile";
+    }
 
 }

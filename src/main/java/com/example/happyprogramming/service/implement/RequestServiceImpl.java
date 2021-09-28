@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RequestServiceIpmpl implements RequestService {
+public class RequestServiceImpl implements RequestService {
 
     @Autowired
     RequestRepository requestRepository;
@@ -20,4 +20,6 @@ public class RequestServiceIpmpl implements RequestService {
         requestRepository.save(requestEntity);
 
     }
+
+
 }

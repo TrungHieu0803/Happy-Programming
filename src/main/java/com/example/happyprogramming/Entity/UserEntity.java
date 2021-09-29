@@ -32,7 +32,7 @@ public class UserEntity  {
     @Column(name = "phone",nullable = true)
     private String phone;
     @Column(name = "DoB",nullable = true)
-    private Date DoB;
+    private String DoB;
     @Column(name = "sex",nullable = true)
     private boolean sex;
     @Column(name = "avatar",nullable = true)
@@ -86,11 +86,11 @@ public class UserEntity  {
         this.phone = phone;
     }
 
-    public Date getDoB() {
+    public String getDoB() {
         return DoB;
     }
 
-    public void setDoB(Date doB) {
+    public void setDoB(String doB) {
         DoB = doB;
     }
 

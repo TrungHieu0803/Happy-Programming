@@ -45,7 +45,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             UserEntity admin = new UserEntity();
             admin.setEmail("admin@gmail.com");
             admin.setPassword(passwordEncoder.encode("123456"));
-
             HashSet<RoleEntity> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_ADMIN"));
             roles.add(roleRepository.findByName("ROLE_MENTEE"));

@@ -108,7 +108,7 @@
                     </li>
                     <li class="left">
                         <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-pencil-alt"></i>Create CV</a>
-                        <a th:if="${session.role == 'mentee'}" href="#"><i class="ti-pencil-alt"></i>Create CV</a>
+                        <a th:if="${session.role == 'mentee'}" th:href="@{/createCV}"><i class="ti-pencil-alt"></i>Create CV</a>
                         <a th:if="${session.role == 'mentorAndMentee'}" th:href="@{/create-request}"><i class="ti-pencil-alt"></i>View CV</a>
                     </li>
                     <li  class="right">

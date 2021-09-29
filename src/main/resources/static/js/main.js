@@ -324,7 +324,7 @@ function checkEmailForChangePass() {
     var email = document.getElementById('email-change-password').value;
     document.getElementById('message-2').innerHTML="Processing.............";
     jQuery.ajax({
-        url: "/change-password",
+        url: "/reset-password",
         type: "GET",
         data: {email: email},
         success: function (result) {

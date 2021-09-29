@@ -134,10 +134,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void doChangePassword(String email, String newPassword) {
+    public void doResetPassword(String email, String newPassword) {
         UserEntity user = userRepo.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
+    }
+
+    @Override
+    public boolean doChangePassword(String newpPassword,String oldPassword, UserEntity user) {
+        if(passwordEncoder.matches(oldPassword,user.getPassword())){
+            UserEntity currentUser = userRepo.findByEmail(user.getEmail());
+            currentUser.setPassword(passwordEncoder.encode(newpPassword));
+            userRepo.save(currentUser);
+            return true;
+        }else
+            return false;
+
     }
 
 

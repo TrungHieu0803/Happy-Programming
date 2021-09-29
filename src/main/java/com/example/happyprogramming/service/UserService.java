@@ -22,7 +22,8 @@ public interface UserService {
 
     void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
 
-    void doChangePassword(String email,String newPassword);
+    void doResetPassword(String email,String newPassword);
 
+    boolean doChangePassword(String newPassword,String oldPassword, UserEntity user);
 
 }

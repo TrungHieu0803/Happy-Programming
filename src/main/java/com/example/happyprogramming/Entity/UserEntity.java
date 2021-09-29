@@ -21,7 +21,7 @@ import java.util.Set;
 public class UserEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_user", nullable = false)
     private Long id;
     @Column(name = "full_name")
     private String fullName;
@@ -62,6 +62,7 @@ public class UserEntity  {
     @OneToMany(mappedBy = "users")
     private Set<NotificationEntity> notification;
 
+<<<<<<< Updated upstream
     public String getFullName() {
         return fullName;
     }
@@ -108,5 +109,9 @@ public class UserEntity  {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+=======
+    public String getPassword() {
+        return password;
+>>>>>>> Stashed changes
     }
 }

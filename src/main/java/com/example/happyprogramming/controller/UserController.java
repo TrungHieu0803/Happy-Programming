@@ -1,12 +1,12 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 public class UserController {
@@ -32,6 +29,12 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    HttpSession session;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping({"/", "/home"})
     public String home() {
@@ -78,7 +81,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/change-password")
+    @GetMapping("/reset-password")
     public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");
@@ -92,29 +95,45 @@ public class UserController {
         }
     }
 
-    @GetMapping("/do-change-password")
-    public String changePassword(@Param("code") String code, @Param("email") String email, Model model) {
+    @GetMapping("/do-reset-password")
+    public String resetPassword(@Param("code") String code, @Param("email") String email, Model model) {
         if (userService.verify(code)) {
             model.addAttribute("email", email);
-            return "client/components/change-password";
+            return "client/components/reset-password";
         } else {
             return "client/components/verify-fail";
         }
     }
 
-    @PostMapping("/do-change-password")
-    public String changePassword(HttpServletRequest request) {
+    @PostMapping("/do-reset-password")
+    public String resetPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
-        userService.doChangePassword(email, newPassword);
+        userService.doResetPassword(email, newPassword);
         return "client/my-account";
     }
 
+<<<<<<< Updated upstream
     @GetMapping("/user-profile")
     public String UserProfile(Model model){
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         model.addAttribute("userinfo", user);
         return "client/user-profile";
+=======
+    @GetMapping("/change-password")
+    public String changePassword() {
+        return "client/change-password";
+>>>>>>> Stashed changes
     }
 
+    @PostMapping("/change-password")
+    public String doChangePassword(HttpServletRequest request) {
+        String oldPassword =  request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        if (userService.doChangePassword(newPassword, oldPassword, user)) {
+            return "client/index";
+        } else
+            return "client/change-password";
+    }
 }

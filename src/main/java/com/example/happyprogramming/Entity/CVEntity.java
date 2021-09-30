@@ -43,4 +43,6 @@ public class CVEntity {
             joinColumns = @JoinColumn(name = "mentor_id"), //ở class nào thì thì joinColumn này sẽ là khóa chính của table mang tên class đó
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
+
+
 }

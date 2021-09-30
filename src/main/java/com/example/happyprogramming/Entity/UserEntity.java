@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Set;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "[User]")
-public class UserEntity  {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user", nullable = false)
@@ -29,13 +28,13 @@ public class UserEntity  {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "phone",nullable = true)
+    @Column(name = "phone", nullable = true)
     private String phone;
-    @Column(name = "DoB",nullable = true)
+    @Column(name = "DoB", nullable = true)
     private String DoB;
-    @Column(name = "sex",nullable = true)
+    @Column(name = "sex", nullable = true)
     private boolean sex;
-    @Column(name = "avatar",nullable = true)
+    @Column(name = "avatar", nullable = true)
     private String avatar;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
@@ -46,7 +45,7 @@ public class UserEntity  {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"), //ở class nào thì thì joinColumn này sẽ là khóa chính của table mang tên class đó
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles ;
+    private Set<RoleEntity> roles;
 
 
     @OneToMany(mappedBy = "menteeId")
@@ -62,7 +61,7 @@ public class UserEntity  {
     @OneToMany(mappedBy = "users")
     private Set<NotificationEntity> notification;
 
-<<<<<<< Updated upstream
+
     public String getFullName() {
         return fullName;
     }
@@ -109,9 +108,10 @@ public class UserEntity  {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-=======
+    }
+
     public String getPassword() {
         return password;
->>>>>>> Stashed changes
+
     }
 }

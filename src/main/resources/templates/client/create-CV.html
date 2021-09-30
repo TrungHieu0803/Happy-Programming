@@ -162,9 +162,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Skills</label> <br>
-                            <th:block th:field="*{skills}">
-                                <input type="checkbox" name="skills_CV" th:each="item : ${listSkills}" th:value="${item.getSkillName()}" th:utext="${item.getSkillName()}"><br>
-                            </th:block>
+                                <input th:field="*{skills}" type="checkbox" name="skills_CV" th:each="item : ${listSkills}" th:value="${item.id}" th:text="${item.skillName}"> <br>
                             <span class="material-input"></span>
                         </div>
                         <input type="submit" value="Submit">

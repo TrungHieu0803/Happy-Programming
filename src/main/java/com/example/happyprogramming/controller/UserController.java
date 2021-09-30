@@ -31,9 +31,6 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    HttpSession session;
-
-    @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping({"/", "/home"})
@@ -113,22 +110,21 @@ public class UserController {
         return "client/my-account";
     }
 
-<<<<<<< Updated upstream
     @GetMapping("/user-profile")
-    public String UserProfile(Model model){
+    public String UserProfile(Model model) {
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         model.addAttribute("userinfo", user);
         return "client/user-profile";
-=======
+    }
+
     @GetMapping("/change-password")
     public String changePassword() {
         return "client/change-password";
->>>>>>> Stashed changes
     }
 
     @PostMapping("/change-password")
     public String doChangePassword(HttpServletRequest request) {
-        String oldPassword =  request.getParameter("oldPassword");
+        String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         if (userService.doChangePassword(newPassword, oldPassword, user)) {
@@ -137,3 +133,4 @@ public class UserController {
             return "client/change-password";
     }
 }
+

@@ -6,7 +6,6 @@ import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;
-import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 

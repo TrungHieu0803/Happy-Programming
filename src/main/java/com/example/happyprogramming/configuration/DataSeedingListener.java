@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -53,9 +52,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 
         // Member account
-        if (userRepository.findByEmail("ngoc@gmail.com") == null) {
+        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
             UserEntity user = new UserEntity();
-            user.setEmail("ngoc@gmail.com");
+            user.setEmail("xuhao9xx@gmail.com");
             user.setPassword(passwordEncoder.encode("12"));
             user.setFullName("Trung Hieu");
             user.setEnabled(true);

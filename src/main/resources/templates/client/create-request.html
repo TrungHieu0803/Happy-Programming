@@ -99,46 +99,52 @@
 <div id="content" class="my-account">
     <div class="container">
         <div class="row">
-<div class="col-md-8 col-sm-8 col-xs-12">
-    <div class="job-alerts-item">
-        <h3 class="alerts-title">Create reqest</h3>
-        <form class="form" th:method="POST" th:action="@{/create-request}" th:object="${requestForm}">
-            <div class="form-group is-empty">
-                <label class="control-label">Title *</label>
-                <input th:field="*{title}" class="form-control" type="text" name="title" placeholder="I am looking for...">
-                <span class="material-input"></span>
-                <span class="material-input"></span>
-            </div>
-            <div class="form-group is-empty">
-                <label class="control-label">Once you place your order, when would you like your service delivered (DAY)?*</label>
-                <input th:field="*{deliveryTime}" id="delivered-time" onchange="deliveredTimeVerify()" class="form-control" type="text" name="deliveredTime" placeholder="Enter number of days">
-            </div>
-            <div class="form-group is-empty">
-                <label class="control-label">What is your budget for this service($)?*</label>
-                <input th:field="*{budget}" style="width: 30%" id="budget" onchange="budgetVerify()" class="form-control" type="text" name="budget" placeholder="Your budget is">
-            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="job-alerts-item" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
+                    <h3 class="alerts-title">Create reqest</h3>
+                    <form class="form" th:method="POST" th:action="@{/create-request}" th:object="${requestForm}">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Title *</label>
+                            <input th:field="*{title}" class="form-control" type="text" name="title"
+                                   placeholder="I am looking for...">
+                            <span class="material-input"></span>
+                            <span class="material-input"></span>
+                        </div>
+                        <div class="form-group is-empty">
+                            <label class="control-label">Once you place your order, when would you like your service
+                                delivered (DAY)?*</label>
+                            <input th:field="*{deliveryTime}" id="delivered-time" onchange="deliveredTimeVerify()"
+                                   class="form-control" type="text" name="deliveredTime"
+                                   placeholder="Enter number of days">
+                        </div>
+                        <div class="form-group is-empty">
+                            <label class="control-label">What is your budget for this service($)?*</label>
+                            <input th:field="*{budget}" style="width: 30%" id="budget" onchange="budgetVerify()"
+                                   class="form-control" type="text" name="budget" placeholder="Your budget is">
+                        </div>
 
-            <div class="form-group is-empty">
-                <label class="control-label">Content *</label>
-                <input th:field="*{content}" name="content" id="editor" type="text" cols="30" rows="30" placeholder="My requests are...">
-                <span class="material-input"></span>
-                <span class="material-input"></span>
-            </div>
-            <div class="form-group is-empty">
-                <label class="control-label">Programming Language(Framework) *</label>
-                <select multiple="multiple" name="skill" class="form-control" th:field="*{skills}">
-                    <option th:each="listSkills : ${listSkill}" th:value="${listSkills.getId()}"
-                     th:utext="${listSkills.getSkillName()}">C++</option>
+                        <div class="form-group is-empty">
+                            <label class="control-label">Content *</label>
+                            <input th:field="*{content}" name="content" id="editor" type="text" cols="30" rows="30"
+                                   placeholder="My requests are...">
+                            <span class="material-input"></span>
+                            <span class="material-input"></span>
+                        </div>
+                        <div class="form-group is-empty">
+                            <label class="control-label">Programming Language(Framework) *</label>
+                            <select multiple="multiple" name="skill" class="form-control" th:field="*{skills}">
+                                <option th:each="listSkills : ${listSkill}" th:value="${listSkills.getId()}"
+                                        th:utext="${listSkills.getSkillName()}"></option>
 
-                </select>
-                <span class="material-input"></span>
-                <span class="material-input"></span></div>
-            <button type="submit" class="btn btn-common">OK</button>
-        </form>
-    </div>
-    </div>
+                            </select>
+                            <span class="material-input"></span>
+                            <span class="material-input"></span></div>
+                        <button type="submit" class="btn btn-common">OK</button>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
 </div>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
 <script>

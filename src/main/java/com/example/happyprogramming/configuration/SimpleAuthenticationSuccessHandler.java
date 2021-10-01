@@ -36,7 +36,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         authorities.forEach(authority -> {
             // nếu quyền có vai trò user, chuyển đến trang "/" nếu login thành công
-            if (authority.getAuthority().equals("ROLE_MENTOR") && authority.getAuthority().equals("ROLE_MENTEE")) {
+            if (authority.getAuthority().equals("ROLE_MENTOR")) {
                 try {
                     String sessionRole = "mentorAndMentee";
                     session.setAttribute("role",sessionRole);

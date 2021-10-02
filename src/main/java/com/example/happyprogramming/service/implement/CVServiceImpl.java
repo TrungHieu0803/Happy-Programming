@@ -34,6 +34,7 @@ public class CVServiceImpl implements ICVService {
     public void saveCV(CVEntity cv) {
         HashSet<RoleEntity> roles = new HashSet<>();
         roles.add(roleRepository.findByName("ROLE_MENTOR"));
+        roles.add(roleRepository.findByName("ROLE_MENTEE"));
         UserEntity user = userRepository.findByEmail(cv.getUser().getEmail());
         user.setFullName(cv.getUser().getFullName());
         user.setDoB(cv.getUser().getDoB());

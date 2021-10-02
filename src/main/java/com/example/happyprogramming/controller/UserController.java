@@ -49,8 +49,7 @@ public class UserController {
     public String processRegister(UserEntity user, HttpServletRequest request, Model model)
             throws UnsupportedEncodingException, MessagingException {
         userService.register(user, getSiteURL(request));
-        boolean alert = true;
-        model.addAttribute("alert", alert);
+        model.addAttribute("alert", true);
         return "client/my-account";
     }
 
@@ -118,18 +117,24 @@ public class UserController {
     }
 
     @GetMapping("/change-password")
-    public String changePassword() {
+    public String changePassword(Model model) {
+        model.addAttribute("isChanged",null);
         return "client/change-password";
     }
 
     @PostMapping("/change-password")
-    public String doChangePassword(HttpServletRequest request) {
+    public String doChangePassword(HttpServletRequest request,Model model) {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        model.addAttribute("alert", true);
         if (userService.doChangePassword(newPassword, oldPassword, user)) {
-            return "client/index";
+            model.addAttribute("isChanged",true);
+            model.addAttribute("mess","Your password has been changed.");
+            return "client/change-password";
         } else
+            model.addAttribute("isChanged",false);
+            model.addAttribute("mess","Password is wrong! Please enter again.");
             return "client/change-password";
     }
 }

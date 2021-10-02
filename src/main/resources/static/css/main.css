@@ -205,6 +205,7 @@ a:focus {
   padding: 0px !important;
 }
 .page-header {
+  background: url(static/img/banner1.jpg);
   padding: 40px 0;
   margin: 0;
   border-top: 1px solid #999;

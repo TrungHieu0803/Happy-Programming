@@ -142,8 +142,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean doChangePassword(String newpPassword,String oldPassword, UserEntity user) {
-        if(passwordEncoder.matches(oldPassword,user.getPassword())){
-            UserEntity currentUser = userRepo.findByEmail(user.getEmail());
+        UserEntity currentUser = userRepo.findByEmail(user.getEmail());
+        if(passwordEncoder.matches(oldPassword,currentUser.getPassword())){
             currentUser.setPassword(passwordEncoder.encode(newpPassword));
             userRepo.save(currentUser);
             return true;

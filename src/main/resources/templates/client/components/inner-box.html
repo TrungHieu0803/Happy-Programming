@@ -15,10 +15,11 @@
                 <li><a href="bookmarked.html">Bookmarked Jobs</a></li>
                 <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li>
             </ul>
-            <h3 class="active">Manage Job</h3>
+            <h3>Manage requests invited to me</h3>
             <ul class="lest item">
-                <li><a href="manage-applications.html">Manage Applications</a></li>
-                <li><a href="job-alerts.html">Job Alerts</a></li>
+                <li><a class="active" th:href="@{/invited-request-wait}">Waiting</a></li>
+                <li><a th:href="@{/invited-request-rejected}">Rejected</a></li>
+                <li><a th:href="@{/invited-request-approved}">Approved</a></li>
             </ul>
             <ul class="lest">
                 <li><a th:href="@{/change-password}">Change Password</a></li>

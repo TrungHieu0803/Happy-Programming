@@ -60,4 +60,15 @@ public class RequestEntity {
     @PrimaryKeyJoinColumn
     private CommentAndRateEntity commentAndRate;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

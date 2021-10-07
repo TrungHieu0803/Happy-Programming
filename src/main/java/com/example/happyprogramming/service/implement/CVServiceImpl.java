@@ -1,6 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
 import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.RoleEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.CVRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 
 
 @Component
@@ -39,6 +41,7 @@ public class CVServiceImpl implements ICVService {
         user.setFullName(cv.getUser().getFullName());
         user.setDoB(cv.getUser().getDoB());
         user.setRoles(roles);
+        user.setPhone(cv.getUser().getPhone());
         userRepository.save(user);
         cv.setUser(user);
         CVEntity CVupdate = cvRepository.findByUser(user);
@@ -54,4 +57,5 @@ public class CVServiceImpl implements ICVService {
             cvRepository.save(CVupdate);
         }
     }
+
 }

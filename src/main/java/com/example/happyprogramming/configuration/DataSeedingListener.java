@@ -52,11 +52,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 
         // Member account
-        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
+        if (userRepository.findByEmail("anhptvhe150038@fpt.edu.vn") == null) {
             UserEntity user = new UserEntity();
-            user.setEmail("xuhao9xx@gmail.com");
-            user.setPassword(passwordEncoder.encode("12"));
-            user.setFullName("Trung Hieu");
+            user.setEmail("anhptvhe150038@fpt.edu.vn");
+            user.setPassword(passwordEncoder.encode("123456789"));
+            user.setFullName("Anh");
             user.setEnabled(true);
             HashSet<RoleEntity> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_MENTEE"));

@@ -48,7 +48,9 @@ public class CVController {
         if(cv != null){
             session.setAttribute("userInformation",cv.getUser());
             session.setAttribute("role","mentorAndMentee");
+            session.setAttribute("skills",cv.getSkills());
         }
         return "client/index";
     }
+
 }

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Jobboard">
+
+    <title>Happy Programming</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+
+    <link rel="stylesheet" th:href="@{/css/jasny-bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}" type="text/css">
+    <!-- Material CSS -->
+    <link rel="stylesheet" th:href="@{/css/material-kit.css}" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/fonts/themify-icons.css}">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/extras/animate.css}" type="text/css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" th:href="@{/extras/owl.carousel.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/extras/owl.theme.css}" type="text/css">
+    <!-- Rev Slider CSS -->
+    <link rel="stylesheet" th:href="@{/extras/settings.css}" type="text/css">
+    <!-- Slicknav js -->
+    <link rel="stylesheet" th:href="@{/css/slicknav.css}" type="text/css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css">
+    <!-- Responsive CSS Styles -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
+
+    <!-- Color CSS Styles  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen" />
+    <title>Happy Programming</title>
+</head>
+<body>
+<!-- Header Section Start -->
+<th:block th:insert="~{/components/navbar :: navbar1}"></th:block>
+<!-- Header Section End -->
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <th:block th:insert="~{/components/inner-box :: inner-box}"></th:block>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="job-alerts-item candidates">
+                    <h3 class="alerts-title">Manage Jobs</h3>
+                    <div class="alerts-list">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>Title</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Delivered time</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Content</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Actions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <th:block th:each="item : ${listApprovedRequest}">
+                        <div class="alerts-content" >
+                            <div class="row" >
+                                <div class="col-md-3" >
+                                    <h3 th:utext="${item.getTitle()}"></h3>
+                                    <span >$<i th:utext="${item.budget}"></i></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><span class="full-time" th:utext="${item.getDeliveryTime()}"></span></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><span th:text="${item.getContent()}"></span></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <form th:action="@{/reject}" th:method="POST">
+                                        <input  type="hidden" th:name ="id" th:value="${item.id}"/>
+                                        <input type="submit"  th:value="Reject"/>
+                                    </form>
+                                    <form th:action="@{/approve}" th:method="POST">
+                                        <input  type="hidden" th:name ="id" th:value="${item.id}"/>
+                                        <input type="submit"  th:value="Approve"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+
+
+                    <br>
+                    <!--                    Paging-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer Section Start -->
+<th:block th:insert="~{/components/footer :: footer}"></th:block>
+<!-- Footer Section End -->
+<a href="#" class="back-to-top">
+    <i class="ti-arrow-up"></i>
+</a>
+
+<div  id="loading">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_one"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_four"></div>
+            <div class="object" id="object_five"></div>
+            <div class="object" id="object_six"></div>
+            <div class="object" id="object_seven"></div>
+            <div class="object" id="object_eight"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Main JS  -->
+<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material-kit.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.parallax.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slicknav.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.counterup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/waypoints.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/form-validator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/contact-form-script.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.tools.min.js}"></script>
+</body>
+</html>

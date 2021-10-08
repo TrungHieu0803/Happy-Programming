@@ -12,9 +12,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -149,6 +156,27 @@ public class UserServiceImpl implements UserService {
             return true;
         }else
             return false;
+
+    }
+
+    @Override
+    public UserEntity saveAvatar(MultipartFile avatar, String email) throws IOException {
+        UserEntity user = userRepo.findByEmail(email);
+        Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
+        Path staticPath = Paths.get("src\\main\\resources\\static");
+        Path imagePath = Paths.get("img");
+        String pathAvatar = avatar.getOriginalFilename().toString();
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(avatar.getOriginalFilename());
+        try (OutputStream os = Files.newOutputStream(file)) {
+            os.write(avatar.getBytes());
+        }
+        user.setAvatar("/img/"+pathAvatar);
+        userRepo.save(user);
+        return user;
 
     }
 

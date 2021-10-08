@@ -3,8 +3,10 @@ package com.example.happyprogramming.service;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Service
@@ -25,5 +27,7 @@ public interface UserService {
     void doResetPassword(String email,String newPassword);
 
     boolean doChangePassword(String newPassword,String oldPassword, UserEntity user);
+
+    UserEntity saveAvatar(MultipartFile avatar, String email) throws IOException;
 
 }

@@ -161,22 +161,8 @@ public class UserController {
     @PostMapping("/upload-avatar")
     @ResponseStatus(HttpStatus.CREATED)
     public String uploadImage(@RequestParam("avatar") MultipartFile avatar) throws IOException{
-        Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
-        Path staticPath = Paths.get("src\\main\\resources\\static");
-        Path imagePath = Paths.get("img");
-        String pathAvatar = avatar.getOriginalFilename().toString();
-        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
-            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
-        }
-        Path file = CURRENT_FOLDER.resolve(staticPath)
-                .resolve(imagePath).resolve(avatar.getOriginalFilename());
-        try (OutputStream os = Files.newOutputStream(file)) {
-            os.write(avatar.getBytes());
-        }
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
-        user.setAvatar("/img/"+pathAvatar);
-        System.out.print( pathAvatar);
-        session.setAttribute("userInformation",user);
+        session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
         return "client/user-profile";
 
     }

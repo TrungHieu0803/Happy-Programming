@@ -11,18 +11,17 @@
         <div class="inner-box">
             <h3 class="active">Manage Account</h3>
             <ul class="lest item">
-                <li><a href="resume.html">My Resume</a></li>
-                <li><a href="bookmarked.html">Bookmarked Jobs</a></li>
+                <li><a th:href="@{/user-profile}">My profile</a></li>
                 <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li>
+                <li><a th:href="@{/change-password}">Change Password</a></li>
             </ul>
             <h3>Manage requests invited to me</h3>
             <ul class="lest item">
-                <li><a class="active" th:href="@{/invited-request-wait}">Waiting</a></li>
+                <li><a th:href="@{/invited-request-wait}">Waiting</a></li>
                 <li><a th:href="@{/invited-request-rejected}">Rejected</a></li>
                 <li><a th:href="@{/invited-request-approved}">Approved</a></li>
             </ul>
             <ul class="lest">
-                <li><a th:href="@{/change-password}">Change Password</a></li>
                 <li>
                     <form th:action="@{/logout}" th:method="POST">
                         <a><input style="color: black" type="submit" value="Logout"></a>

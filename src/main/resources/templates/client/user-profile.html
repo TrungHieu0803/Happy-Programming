@@ -102,11 +102,8 @@
             <div class="col-md-8 col-sm-8 col-xs-12" >
                 <div class="inner-box my-resume" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
                     <div class="author-resume">
-                        <div class="thumb">
-                            <img src="assets/img/resume/img-1.jpg" alt="">
-                        </div>
-                        <div class="author-info">
-                            <h3 th:utext="${userinfo.getFullName()}"></h3>
+                        <div class="author-info col-md-4 col-sm-8">
+                            <h2 th:utext="${session.userInformation.getFullName()}"></h2>
                             <div class="social-link">
                                 <a class="twitter" target="_blank" data-original-title="twitter" href="#"
                                    data-toggle="tooltip" data-placement="top"><i class="fa fa-twitter"></i></a>
@@ -118,23 +115,35 @@
                                    data-toggle="tooltip" data-placement="top"><i class="fa fa-linkedin"></i></a>
                             </div>
                         </div>
+                        <div class="hover-img col-md-2 col-sm-8" style="width: 35%; height:35% ">
+
+                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()==null}" th:src="@{/img/banner1.jpg}" alt="">
+                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()!=null}" th:src="@{${session.userInformation.getAvatar()}}" alt="khong co anh">
+                            <form th:action="@{/upload-avatar}" th:method="POST" enctype="multipart/form-data">
+                                <div class="middle">
+                                    <a href="#" ><input  type="file" value="Update" id="but_upload" name="avatar"></a>
+                                    <input type="submit" value="Update">
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
                     <div class="about-me item">
                         <h3>Email<i class="ti-pencil"></i></h3>
-                        <p th:utext="${userinfo.getEmail()}"></p>
+                        <p th:utext="${session.userInformation.getEmail()}"></p>
                     </div>
                     <div class="work-experence item">
                         <h3>Date of birth<i class="ti-pencil"></i></h3>
-                        <p th:utext="${userinfo.getDoB()}"></p>
+                        <p th:utext="${session.userInformation.getDoB()}"></p>
                     </div>
                     <div class="education item">
                         <h3>Phone<i class="ti-pencil"></i></h3>
-                        <p th:utext="${userinfo.getPhone()}"><span><i class="ti-phone"></i></span></p>
+                        <p th:utext="${session.userInformation.getPhone()}"><span><i class="ti-phone"></i></span></p>
                     </div>
                     <div class="gender item">
                         <h3>Gender<i class="ti-pencil"></i></h3>
-                        <p th:if="${userinfo.isSex() == true}">Male </p>
-                        <p th:if="${userinfo.isSex() == false}">Female </p>
+                        <p th:if="${session.userInformation.isSex() == true}">Male </p>
+                        <p th:if="${session.userInformation.isSex() == false}">Female </p>
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ public class CVController {
             session.setAttribute("role","mentorAndMentee");
             session.setAttribute("skills",cv.getSkills());
         }
-        return "client/index";
+        return "redirect:/home";
     }
 
 }

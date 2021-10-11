@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Jobboard">
+
+    <title>JobBoard - Bootstrap HTML5 Job Portal Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+
+    <link rel="stylesheet" th:href="@{/css/jasny-bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}" type="text/css">
+    <!-- Material CSS -->
+    <link rel="stylesheet" th:href="@{/css/material-kit.css}" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/fonts/themify-icons.css}">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/extras/animate.css}" type="text/css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" th:href="@{/extras/owl.carousel.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/extras/owl.theme.css}" type="text/css">
+    <!-- Rev Slider CSS -->
+    <link rel="stylesheet" th:href="@{/extras/settings.css}" type="text/css">
+    <!-- Slicknav js -->
+    <link rel="stylesheet" th:href="@{/css/slicknav.css}" type="text/css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css">
+    <!-- Responsive CSS Styles -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
+
+    <!-- Color CSS Styles  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+
+</head>
+<body>
+<div class="header">
+    <div class="logo-menu">
+        <div class="main-navigation" th:insert="~{/components/navbar :: navbar1}"></div>
+
+        <!-- Off Canvas Navigation -->
+        <div class="navmenu navmenu-default navmenu-fixed-left offcanvas">
+            <!--- Off Canvas Side Menu -->
+            <div class="close" data-toggle="offcanvas" data-target=".navmenu">
+                <i class="ti-close"></i>
+            </div>
+            <h3 class="title-menu">All Pages</h3>
+            <ul class="nav navmenu-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index-02.html">Home Page 2</a></li>
+                <li><a href="index-03.html">Home Page 3</a></li>
+                <li><a href="index-04.html">Home Page 4</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="job-page.html">Job Page</a></li>
+                <li><a href="job-details.html">Job Details</a></li>
+                <li><a href="resume.html">Resume Page</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="pricing.html">Pricing Tables</a></li>
+                <li><a href="browse-jobs.html">Browse Jobs</a></li>
+                <li><a href="browse-categories.html">Browse Categories</a></li>
+                <li><a href="add-resume.html">Add Resume</a></li>
+                <li><a href="manage-resumes.html">Manage Resumes</a></li>
+                <li><a href="job-alerts.html">Job Alerts</a></li>
+                <li><a href="post-job.html">Add Job</a></li>
+                <li><a href="manage-jobs.html">Manage Jobs</a></li>
+                <li><a href="manage-applications.html">Manage Applications</a></li>
+                <li><a href="browse-resumes.html">Browse Resumes</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="faq.html">Faq</a></li>
+                <li><a href="my-account.html">Login</a></li>
+            </ul><!--- End Menu -->
+        </div> <!--- End Off Canvas Side Menu -->
+        <div class="tbtn wow pulse" id="menu" data-wow-iteration="infinite" data-wow-duration="500ms"
+             data-toggle="offcanvas" data-target=".navmenu">
+            <p><i class="ti-files"></i> All Pages</p>
+        </div>
+    </div>
+</div>
+<div class="page-header" style="background: url(static/img/banner1.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title " style="color: #ff6470">My Account</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="job-detail section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="content-area">
+                    <div class="box">
+                        <div class="header-content pull-left">
+                            <h3><a href="#">Front-end developer</a></h3>
+                            <p><span>Date Posted: Feb 20, 2018</span></p>
+                            <p>Monthly Salary: <strong class="price">$7000 - $7500</strong></p>
+                        </div>
+                        <div class="detail-company pull-right text-right">
+                            <div class="img-thum">
+                                <img class="img-responsive" src="assets/img/jobs/recent-job-detail.jpg" alt="">
+                            </div>
+                            <div class="name">
+                                <h4>LemonKids LLC</h4>
+                                <h5>New York, NY </h5>
+                                <p>8 Current jobs openings</p>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="meta">
+                                <span><a class="btn btn-border btn-sm" href="#"><i
+                                        class="ti-email"></i> Email</a></span>
+                                <span><a class="btn btn-border btn-sm" href="#"><i
+                                        class="ti-info-alt"></i> Job Aleart</a></span>
+                                <span><a class="btn btn-border btn-sm" href="#"><i
+                                        class="ti-save"></i> Save This job</a></span>
+                                <span><a class="btn btn-border btn-sm" href="#"><i
+                                        class="ti-alert"></i> Report Abuse</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="box">
+                            <h4>Job Description</h4>
+                            <p>LemonKids LLC. In marketing communications, we dream it and create it. All of the
+                                company’s promotional and communication needs are completed in-house by these
+                                “creatives” in an advertising agency-based set-up. This includes everything from
+                                advertising, promotions and print production to media relations, exhibition coordination
+                                and website maintenance. Everyone from artists, writers, designers, media buyers, event
+                                coordinators, video producers/editors and public relations specialists work together to
+                                bring campaigns and product-centric promotions to life.</p>
+                            <p>If you’re a dreamer, gather up your portfolio and show us your vision. Garmin is adding
+                                one more enthusiastic individual to our in-house Communications expert team.</p>
+                            <h4>Qualification</h4>
+                            <p>Minimum of 5 years creative experience in a graphic design studio or advertising ad
+                                agency environment is required. Qualified candidates for this role will possess the
+                                following education, experience and skills:</p>
+                            <ul>
+                                <li><i class="ti-check-box"></i>Demonstrated strong and effective verbal, written, and
+                                    interpersonal communication skills
+                                </li>
+                                <li><i class="ti-check-box"></i>Must be team-oriented, possess a positive attitude and
+                                    work well with others
+                                </li>
+                                <li><i class="ti-check-box"></i>Ability to prioritize and multi-task in a flexible, fast
+                                    paced and challenging environment
+                                </li>
+                            </ul>
+                            <h4>Key responsibilities also include</h4>
+                            <ul>
+                                <li><i class="ti-check-box"></i>Provide technical health advice to Head of Country
+                                    Programmes and field advisors at all key stages of the project management cycle
+                                    including needs assessment.
+                                </li>
+                                <li><i class="ti-check-box"></i>Technical strategy and design, implementation as well as
+                                    sector specific monitoring and evaluation.
+                                </li>
+                                <li><i class="ti-check-box"></i>This includes travel to field programmes as well as
+                                    review of proposals, key reports and surveys prior to external submission.
+                                </li>
+                            </ul>
+                            <h4>Requirements</h4>
+                            <ul>
+                                <li><i class="ti-check-box"></i>Must have minimum of 3 years experience running,
+                                    maneuvering, driving, and navigating equipment such as bulldozer, excavators,
+                                    rollers, and front-end loaders.
+                                </li>
+                                <li><i class="ti-check-box"></i>Must have minimum of 3 years experience running,
+                                    maneuvering, driving, and navigating equipment such as bulldozer, excavators,
+                                    rollers, and front-end loaders.
+                                    Strongly prefer candidates with High School Diploma
+                                </li>
+                            </ul>
+                            <h4>Benefits</h4>
+                            <ul>
+                                <li><i class="ti-check-box"></i>Must have minimum of 3 years experience running,
+                                    maneuvering, driving, and navigating equipment such as bulldozer, excavators,
+                                    rollers, and front-end loaders.
+                                </li>
+                                <li><i class="ti-check-box"></i>Strongly prefer candidates with High School Diploma</li>
+                            </ul>
+                            <a href="#" class="btn btn-common">Apply for this Job Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 position-stick"  >
+                <aside>
+                    <div class="sidebar">
+                        <div class="box">
+                            <h2 class="small-title">Featured Jobs</h2>
+                            <div class="thumb">
+                                <a href="#"><img src="assets/img/jobs/features-img-1.jpg" alt="img"></a>
+                            </div>
+                            <div class="text-box">
+                                <h4><a href="#">Web Development</a></h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. maiores aperiam quam
+                                    perspiciatis.</p>
+                                <a href="#" class="text"><i class="fa fa-map-marker"></i>Moorgate, London</a>
+                                <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
+                                <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
+                                <a href="#" class="btn btn-common btn-sm">Apply for this Job</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<th:block th:insert="~{/components/footer :: footer}"></th:block>
+
+<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material-kit.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.parallax.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slicknav.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.counterup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/waypoints.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/form-validator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/contact-form-script.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.tools.min.js}"></script>
+</body>
+</html>

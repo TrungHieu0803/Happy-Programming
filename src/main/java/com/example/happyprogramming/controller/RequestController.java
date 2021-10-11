@@ -51,7 +51,7 @@ public class RequestController {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         requestEntity.setCreatedDate(date);
         requestService.createRequest(requestEntity);
-        return "client/index";
+        return "redirect:/home";
     }
 
     @GetMapping("/invited-request-wait")

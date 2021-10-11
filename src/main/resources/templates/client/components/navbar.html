@@ -114,6 +114,12 @@
                     <li  class="right">
                         <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-lock"></i>  Log In</a>
                     </li>
+                    <li  class="right">
+                        <a th:if="${session.role != null}">
+                            <i class="ti-bell"><span class="notinumber" style="color: #FF4F57"> 2</span></i>
+
+                        </a>
+                    </li>
                     <li th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}"  class="right">
                         <a href="#">
                             <i  class="ti-user"></i><i class="fa fa-angle-down"></i>

@@ -97,7 +97,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/reset-password")
+    @PostMapping("/reset-password")
     public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");

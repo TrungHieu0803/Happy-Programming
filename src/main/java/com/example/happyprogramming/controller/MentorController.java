@@ -17,5 +17,10 @@ public class MentorController {
         return "client/index";
     }
 
+    @GetMapping("/mentor-detail")
+    public String mentorDetail(){
+        return "client/mentor-detail";
+    }
+
 
 }

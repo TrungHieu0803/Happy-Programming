@@ -48,6 +48,9 @@ public class RequestController {
     public String createRequest(HttpServletRequest request, @ModelAttribute("requestForm") RequestEntity requestEntity) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         requestEntity.setMenteeId(user);
+        String content = request.getParameter("content");
+        requestEntity.setContent(content);
+        System.out.print(content);
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         requestEntity.setCreatedDate(date);
         requestService.createRequest(requestEntity);

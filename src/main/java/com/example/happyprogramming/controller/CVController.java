@@ -42,8 +42,6 @@ public class CVController {
     @PostMapping("/createCV")
     public  String createCV(@ModelAttribute("newCV") CVEntity cvEntity) {
         ICVService.saveCV(cvEntity);
-        if(cvEntity.getSkills()==null)
-            System.out.println("Nguyen trung hieu");
         CVEntity cv = ICVService.findByUser((UserEntity) session.getAttribute("userInformation"));
         if(cv != null){
             session.setAttribute("userInformation",cv.getUser());

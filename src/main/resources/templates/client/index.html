@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,35 +37,39 @@
     <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
 
     <!-- Color CSS Styles  -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
 </head>
 <body>
 
 <div class="header">
     <!-- Start intro section -->
     <section id="intro" class="section-intro">
-        <div class="logo-menu" >
+        <div class="logo-menu">
             <!-- Header Section End -->
             <th:block th:insert="~{/components/navbar :: navbar1}"></th:block>
             <div class="search-container">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Find the mentor that fits your request</h1><br><h2>More than <strong>12,000</strong> mentors are waiting to help you!</h2>
+                            <h1>Find the mentor that fits your request</h1><br>
+                            <h2>More than <strong>12,000</strong> mentors are waiting to help you!</h2>
                             <div class="content">
                                 <form method="" action="" th:object="${listSkillForSearch}">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="search-category-container">
                                                 <label class="styled-select">
-                                                    <select class="dropdown-product selectpicker" th:field="${listSkillForSearch}">
-                                                        <option th:each="skill : ${listSkill}" th:value="${skill.id}" th:utext="${skill.skillName}"></option>
+                                                    <select class="dropdown-product selectpicker"
+                                                            th:field="${listSkillForSearch}">
+                                                        <option th:each="skill : ${listSkill}" th:value="${skill.id}"
+                                                                th:utext="${skill.skillName}"></option>
                                                     </select>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-md-1 col-sm-6">
-                                            <button type="button" class="btn btn-search-icon"><i class="ti-search"></i></button>
+                                            <button type="button" class="btn btn-search-icon"><i class="ti-search"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -86,13 +90,17 @@
         <h2 class="section-title">Mentor of month</h2>
         <div class="row">
             <div class="col-md-12">
-                <div class="job-list">
-                    <div class="thumb">
-                        <a href="job-details.html"><img th:src="@{/img/jobs/img-1.jpg}" alt=""></a>
-                    </div>
-                    <th:block th:each="mentor : ${listMentor}">
+                <th:block th:each="mentor : ${listMentor}">
+                    <div class="job-list">
+                        <div class="thumb">
+                            <a href="#"><img th:src="@{*{mentor.user.avatar}}" alt="User's avatar"></a>
+                            <p th:utext="*{mentor.user.fullName}"></p>
+                        </div>
                         <div class="job-list-content">
-                            <h4><a href="job-details.html" th:utext="*{mentor.user.fullName}"></a><span class="full-time" th:each="skill : *{mentor.skills}" th:utext="*{skill.skillName}"></span></h4>
+                            <h4>
+                                <a href="#" th:utext="*{mentor.title}"></a>
+                                <span class="full-time" th:each="skill : *{mentor.skills}" th:utext="*{skill.skillName}"></span>
+                            </h4>
                             <p th:utext="*{mentor.introduction}"></p>
                             <div class="job-tag">
                                 <div class="pull-left">
@@ -105,19 +113,20 @@
                                     <div class="icon">
                                         <i class="ti-heart"></i>
                                     </div>
-                                    <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>
+                                    <a th:href="@{/mentor-detail(id=${mentor.id})}" class="btn btn-common btn-rm">More
+                                        Detail</a>
                                 </div>
                             </div>
                         </div>
-                    </th:block>
-                </div>
+                    </div>
+                </th:block>
             </div>
             <div class="col-md-12">
                 <div class="showing pull-left">
                     <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
                 </div>
                 <ul class="pagination pull-right">
-                    <li class="active"><a href="#" class="btn btn-common" ><i class="ti-angle-left"></i> prev</a></li>
+                    <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
                     <li><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
@@ -132,7 +141,7 @@
 Find Job Section End
 
 Category Section Start
-<section class="section text-center" >
+<section class="section text-center">
     <div class="container">
         <!-- Start Animations Text -->
         <h1>
@@ -143,7 +152,8 @@ Category Section Start
         <!-- End Animations Text -->
 
         <!-- Start Buttons -->
-        <a rel="nofollow" target="_blank" href="https://rebrand.ly/gg-jobboard-purchase" class="btn btn-common btn-large"><i class="fa fa-cart"></i> Purchase Now</a>
+        <a rel="nofollow" target="_blank" href="https://rebrand.ly/gg-jobboard-purchase"
+           class="btn btn-common btn-large"><i class="fa fa-cart"></i> Purchase Now</a>
     </div>
     </div>
 </section>
@@ -348,7 +358,8 @@ Category Section Start
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -375,7 +386,8 @@ Category Section Start
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -402,7 +414,8 @@ Category Section Start
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -534,7 +547,7 @@ Category Section Start
     <i class="ti-arrow-up"></i>
 </a>
 
-<div  id="loading">
+<div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
             <div class="object" id="object_one"></div>

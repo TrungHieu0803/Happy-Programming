@@ -9,4 +9,6 @@ import java.util.ArrayList;
 public interface MentorService {
 
     ArrayList<CVEntity> getAllMentor();
+
+    CVEntity findMentorById(int id);
 }

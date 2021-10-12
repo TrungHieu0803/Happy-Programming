@@ -50,11 +50,15 @@ public class RequestEntity {
     @Column
     private int status;
 
+    @Column(name = "mentor_name")
+    private String mentorName;
+
     @ManyToMany
     @JoinTable(name = "request_skills",
             joinColumns = @JoinColumn(name = "request_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
+
 
 
     public String getTitle() {

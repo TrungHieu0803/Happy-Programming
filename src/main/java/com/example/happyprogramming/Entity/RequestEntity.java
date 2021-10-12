@@ -56,9 +56,6 @@ public class RequestEntity {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
 
-    @OneToOne(mappedBy = "request")
-    @PrimaryKeyJoinColumn
-    private CommentAndRateEntity commentAndRate;
 
     public String getTitle() {
         return title;

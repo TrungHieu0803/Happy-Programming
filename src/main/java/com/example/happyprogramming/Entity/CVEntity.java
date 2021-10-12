@@ -44,5 +44,6 @@ public class CVEntity {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
 
-
+    @OneToMany(mappedBy = "mentor")
+    Set<CommentAndRateEntity> commentAndRateEntities;
 }

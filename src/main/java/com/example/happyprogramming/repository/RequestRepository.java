@@ -5,6 +5,7 @@ import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,5 @@ import java.util.Optional;
 public interface RequestRepository  extends JpaRepository<RequestEntity,Long> {
     List<RequestEntity> findRequestEntitiesByMentorIdAndStatus(UserEntity mentorId, int status);
     Optional<RequestEntity> findById(Long id);
+    ArrayList<RequestEntity> findByStatus(int status);
 }

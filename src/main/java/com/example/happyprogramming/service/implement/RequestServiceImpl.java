@@ -8,6 +8,7 @@ import com.example.happyprogramming.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Optional<RequestEntity> findById(Long id){
         return requestRepository.findById(id);
+    }
+
+    @Override
+    public ArrayList<RequestEntity> findByStatus(int status) {
+        return requestRepository.findByStatus(status);
     }
 
 }

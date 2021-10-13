@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -97,4 +98,12 @@ public class RequestController {
         };
         request.getRequestDispatcher("/invited-request-wait");
     }
+    @GetMapping("/list-requests")
+    public String listRequest(Model model, @RequestParam ("status") int status){
+        UserEntity user = (UserEntity)  session.getAttribute("userinfo");
+        ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
+        model.addAttribute("listRequests", listRequest);
+        return "/client/list-requests";
+    }
+
 }

@@ -24,7 +24,7 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
-    public CVEntity findMentorById(int id) {
+    public CVEntity findMentorById(long id) {
         return cvRepository.findByUser(userRepository.findById(id));
     }
 }

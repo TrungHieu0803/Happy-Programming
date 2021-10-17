@@ -23,7 +23,7 @@ public class MentorController {
     }
 
     @GetMapping("/mentor-detail")
-    public String mentorDetail(@RequestParam("id") int mentorId, Model model){
+    public String mentorDetail(@RequestParam("id") long mentorId, Model model){
         model.addAttribute("mentor",mentorService.findMentorById(mentorId));
         return "client/mentor-detail";
     }

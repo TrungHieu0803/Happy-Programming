@@ -10,5 +10,5 @@ public interface MentorService {
 
     ArrayList<CVEntity> getAllMentor();
 
-    CVEntity findMentorById(int id);
+    CVEntity findMentorById(long id);
 }

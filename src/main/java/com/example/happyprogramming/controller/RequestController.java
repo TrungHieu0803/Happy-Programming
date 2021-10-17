@@ -34,6 +34,7 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
     @Autowired
     RequestRepository requestRepository;
 
@@ -100,7 +101,6 @@ public class RequestController {
     }
     @GetMapping("/list-requests")
     public String listRequest(Model model, @RequestParam ("status") int status){
-        UserEntity user = (UserEntity)  session.getAttribute("userinfo");
         ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
         model.addAttribute("listRequests", listRequest);
         return "/client/list-requests";

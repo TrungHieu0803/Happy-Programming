@@ -320,6 +320,7 @@ function checkEmailForRegister() {
     } else
         document.getElementById('message-1').style.display = "block";
 }
+
 function checkEmailForChangePass() {
     var email = document.getElementById('email-change-password').value;
     document.getElementById('message-2').innerHTML="Processing.............";

@@ -33,6 +33,7 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
     @Autowired
     RequestRepository requestRepository;
 
@@ -45,7 +46,7 @@ public class RequestController {
     }
 
     @PostMapping("/create-request")
-    public String createRequest(HttpServletRequest request, @ModelAttribute("requestForm") RequestEntity requestEntity) {
+    public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         requestEntity.setMenteeId(user);
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -76,25 +77,29 @@ public class RequestController {
         return "/client/approved-requests";
     }
     @PostMapping("/reject")
-    public void rejectRequest(Model model, HttpServletRequest request){
+    public String rejectRequest(HttpServletRequest request){
        Long id = Long.parseLong(request.getParameter("id"));
+       String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setStatus(2);
+            req.setResponseMess(response);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
     @PostMapping("/approve")
-    public void approveRequest(Model model, HttpServletRequest request){
+    public String approveRequest(HttpServletRequest request){
         Long id = Long.parseLong(request.getParameter("id"));
+        String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
+            req.setResponseMess(response);
             req.setStatus(3);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
 }

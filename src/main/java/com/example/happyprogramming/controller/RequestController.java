@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,7 +53,7 @@ public class RequestController {
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         requestEntity.setCreatedDate(date);
         requestService.createRequest(requestEntity);
-        return "client/index";
+        return "redirect:/home";
     }
 
     @GetMapping("/invited-request-wait")
@@ -102,4 +103,11 @@ public class RequestController {
         }
         return "redirect:/invited-request-wait";
     }
+    @GetMapping("/list-requests")
+    public String listRequest(Model model, @RequestParam ("status") int status){
+        ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
+        model.addAttribute("listRequests", listRequest);
+        return "/client/list-requests";
+    }
+
 }

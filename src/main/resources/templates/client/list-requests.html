@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ChangePassword</title>
+    <title>Happy Programing</title>
     <link rel="shortcut icon" th:href="@{/img/favicon.png}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
@@ -32,11 +32,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
 </head>
 <body>
-<div class="alert set-alert" th:classappend="${isChanged}? alert-success:alert-danger" role="alert" th:style="${alert} ? 'display: block' : 'display: none' ">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-    </button>
-    <strong th:utext="${mess}"></strong><br>
-</div>
 <div class="header">
     <div class="logo-menu">
         <div class="main-navigation" th:insert="~{/components/navbar :: navbar1}"></div>
@@ -87,7 +82,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="product-title " style="color: #ff6470">Change password</h2>
+                    <h2 class="product-title " style="color: #ff6470">My Account</h2>
 
                 </div>
             </div>
@@ -101,30 +96,55 @@
         <div class="row">
             <th:block th:insert="~{/components/inner-box :: inner-box}"></th:block>
 
-            <div class="col-md-8 col-sm-8 col-xs-12" >
-                <div class="job-alerts-item" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
-                    <h3 class="alerts-title">Change Password</h3>
-                    <form class="form" th:method="POST" th:action="@{/change-password}">
-                        <div class="form-group is-empty">
-                            <label class="control-label">Old Password*</label>
-                            <input class="form-control" type="password" name="oldPassword">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="job-alerts-item">
+                    <h3 class="alerts-title">List requests</h3>
+                    <div class="alerts-list">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>Date</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Requests</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Mentor</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Actions</p>
+                            </div>
                         </div>
-                        <div class="form-group is-empty">
-                            <label class="control-label">New Password*</label>
-                            <input class="form-control" type="password" name="newPassword">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
+                    </div>
+                    <div th:each = "request : ${listRequests}" class="alerts-content">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3 th:utext="*{request.getCreatedDate()}"></h3>
+                            </div>
+                            <div class="col-md-3">
+                                <h3 th:utext="*{request.getTitle()}"></h3>
+                            </div>
+                            <div class="col-md-3">
+                                <a th:href="@{/mentor-detail(id=*{request.getMentorId()})}"><h3 th:utext="*{request.getMentorName()}"></h3></a>
+                            </div>
+                            <div class="col-md-3">
+                                <input th:if="*{request.getStatus()==0}" value="Complete" type="button">
+                                <input th:if="*{request.getStatus()==1}" value="Cancel" type="button">
+                                <input th:if="*{request.getStatus()==2}" value="Delete" type="button">
+                                <input th:if="*{request.getStatus()==3}" value="Delete" type="button">
+                            </div>
                         </div>
-                        <div class="form-group is-empty">
-                            <label class="control-label">Repeat Password*</label>
-                            <input class="form-control" type="password">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
-                        </div>
-                        <button type="submit" class="btn btn-common">Save Change</button>
-                    </form>
+                    </div>
+                    <br>
+                    <ul class="pagination">
+                        <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
+                    </ul>
+
                 </div>
             </div>
         </div>

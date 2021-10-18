@@ -26,16 +26,19 @@ public class CVEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @Column(name = "title",length = 50)
+    private String title;
+
     @Column(length = 500)
     private String profession;
 
     @Column(name = "social_media_contact",length = 500)
     private String socialMediaContact;
 
-    @Column(length = 4000)
+    @Column(length = 2000)
     private String introduction;
 
-    @Column(length = 2000)
+    @Column(length = 1000)
     private String achievement;
 
     @ManyToMany
@@ -44,5 +47,6 @@ public class CVEntity {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
 
-
+    @OneToMany(mappedBy = "mentor")
+    Set<CommentAndRateEntity> commentAndRateEntities;
 }

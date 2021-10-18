@@ -5,6 +5,7 @@ import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,5 @@ public interface RequestService {
     void createRequest(RequestEntity requestEntity);
     List<RequestEntity> findRequestEntitiesByMentorIdAndStatus(UserEntity id, int status);
     Optional<RequestEntity> findById(Long id);
-
+    ArrayList<RequestEntity> findByStatus(int status);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,205 +37,123 @@
     <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
 
     <!-- Color CSS Styles  -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
 </head>
 <body>
 
-    <div class="header">
-        <!-- Start intro section -->
-        <section id="intro" class="section-intro">
-            <div class="logo-menu" >
+<div class="header">
+    <!-- Start intro section -->
+    <section id="intro" class="section-intro">
+        <div class="logo-menu">
             <!-- Header Section End -->
             <th:block th:insert="~{/components/navbar :: navbar1}"></th:block>
             <div class="search-container">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Find the mentor that fits your requests</h1><br><h2>More than <strong>12,000</strong> jobs are waiting to Kickstart your career!</h2>
+                            <h1>Find the mentor that fits your request</h1><br>
+                            <h2>More than <strong>12,000</strong> mentors are waiting to help you!</h2>
                             <div class="content">
-                                <form method="" action="">
+                                <form method="" action="" th:object="${listSkillForSearch}">
                                     <div class="row">
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="skills / keywords / mentor name">
-                                                <i class="ti-time"></i>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="search-category-container">
+                                                <label class="styled-select">
+                                                    <select class="dropdown-product selectpicker"
+                                                            th:field="${listSkillForSearch}">
+                                                        <option th:each="skill : ${listSkill}" th:value="${skill.id}"
+                                                                th:utext="${skill.skillName}"></option>
+                                                    </select>
+                                                </label>
                                             </div>
                                         </div>
-<!--                                        <div class="col-md-4 col-sm-6">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <input class="form-control" type="email" placeholder="city / province / zip code">-->
-<!--                                                <i class="ti-location-pin"></i>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-3 col-sm-6">-->
-<!--                                            <div class="search-category-container">-->
-<!--                                                <label class="styled-select">-->
-<!--                                                    <select class="dropdown-product selectpicker">-->
-<!--                                                        <option>All Categories</option>-->
-<!--                                                        <option>Finance</option>-->
-<!--                                                        <option>IT & Engineering</option>-->
-<!--                                                        <option>Education/Training</option>-->
-<!--                                                        <option>Art/Design</option>-->
-<!--                                                        <option>Sale/Markting</option>-->
-<!--                                                        <option>Healthcare</option>-->
-<!--                                                        <option>Science</option>-->
-<!--                                                        <option>Food Services</option>-->
-<!--                                                    </select>-->
-<!--                                                </label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
                                         <div class="col-md-1 col-sm-6">
-                                            <button type="button" class="btn btn-search-icon"><i class="ti-search"></i></button>
+                                            <button type="button" class="btn btn-search-icon"><i class="ti-search"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="popular-jobs">
                                 <b>Popular Keywords: </b>
-                                <a href="#">Web Design</a>
-                                <a href="#">Manager</a>
-                                <a href="#">Programming</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <!-- end intro section  -->
+</div>
+<section class="find-job section">
+    <div class="container">
+        <h2 class="section-title">Mentor of month</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:each="mentor : ${listMentor}">
+                    <div class="job-list">
+                        <div class="thumb">
+                            <a href="#"><img th:src="@{*{mentor.user.avatar}}" alt="User's avatar"></a>
+                            <p th:utext="*{mentor.user.fullName}"></p>
+                        </div>
+                        <div class="job-list-content">
+                            <h4>
+                                <a href="#" th:utext="*{mentor.title}"></a>
+                                <span class="full-time" th:each="skill : *{mentor.skills}" th:utext="*{skill.skillName}"></span>
+                            </h4>
+                            <p th:utext="*{mentor.introduction}"></p>
+                            <div class="job-tag">
+                                <div class="pull-left">
+                                    <div class="meta-tag">
+                                        <span><a th:href="${mentor.socialMediaContact}"><i class="ti-facebook"></i></a></span>
+                                        <span><a th:href="${mentor.socialMediaContact}"><i class="ti-github"></i></a></span>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="icon">
+                                        <i class="ti-heart"></i>
+                                    </div>
+                                    <a th:href="@{/mentor-detail(id=${mentor.id})}" class="btn btn-common btn-rm">More
+                                        Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
-        </section>
-        <!-- end intro section  -->
+            <div class="col-md-12">
+                <div class="showing pull-left">
+                    <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
+                </div>
+                <ul class="pagination pull-right">
+                    <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-<!--    <section class="find-job section">-->
-<!--        <div class="container">-->
-<!--            <h2 class="section-title">Hot Jobs</h2>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="job-list">-->
-<!--                        <div class="thumb">-->
-<!--                            <a href="job-details.html"><img th:src="@{/img/jobs/img-1.jpg}" alt=""></a>-->
-<!--                        </div>-->
-<!--                        <div class="job-list-content">-->
-<!--                            <h4><a href="job-details.html">Need a web designer</a><span class="full-time">Full-Time</span></h4>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quaerat aut veniam molestiae atque dolorum omnis temporibus consequuntur saepe. Nemo atque consectetur saepe corporis odit in dicta reprehenderit, officiis, praesentium?</p>-->
-<!--                            <div class="job-tag">-->
-<!--                                <div class="pull-left">-->
-<!--                                    <div class="meta-tag">-->
-<!--                                        <span><a href="browse-categories.html"><i class="ti-brush"></i>Art/Design</a></span>-->
-<!--                                        <span><i class="ti-location-pin"></i>Washington, USA</span>-->
-<!--                                        <span><i class="ti-time"></i>60/Hour</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="pull-right">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="ti-heart"></i>-->
-<!--                                    </div>-->
-<!--                                    <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="job-list">-->
-<!--                        <div class="thumb">-->
-<!--                            <a href="job-details.html"><img th:src="@{/img/jobs/img-2.jpg}" alt=""></a>-->
-<!--                        </div>-->
-<!--                        <div class="job-list-content">-->
-<!--                            <h4><a href="job-details.html">Front-end developer needed</a><span class="full-time">Full-Time</span></h4>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quaerat aut veniam molestiae atque dolorum omnis temporibus consequuntur saepe. Nemo atque consectetur saepe corporis odit in dicta reprehenderit, officiis, praesentium?</p>-->
-<!--                            <div class="job-tag">-->
-<!--                                <div class="pull-left">-->
-<!--                                    <div class="meta-tag">-->
-<!--                                        <span><a href="browse-categories.html"><i class="ti-desktop"></i>Technologies</a></span>-->
-<!--                                        <span><i class="ti-location-pin"></i>Cupertino, CA, USA</span>-->
-<!--                                        <span><i class="ti-time"></i>60/Hour</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="pull-right">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="ti-heart"></i>-->
-<!--                                    </div>-->
-<!--                                    <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="job-list">-->
-<!--                        <div class="thumb">-->
-<!--                            <a href="job-details.html"><img th:src="@{/img/jobs/img-3.jpg}" alt=""></a>-->
-<!--                        </div>-->
-<!--                        <div class="job-list-content">-->
-<!--                            <h4><a href="job-details.html">Senior Accountant</a><span class="part-time">Part-Time</span></h4>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quaerat aut veniam molestiae atque dolorum omnis temporibus consequuntur saepe. Nemo atque consectetur saepe corporis odit in dicta reprehenderit, officiis, praesentium?</p>-->
-<!--                            <div class="job-tag">-->
-<!--                                <div class="pull-left">-->
-<!--                                    <div class="meta-tag">-->
-<!--                                        <span><a href="browse-categories.html"><i class="ti-home"></i>Finance</a></span>-->
-<!--                                        <span><i class="ti-location-pin"></i>Delaware, USA</span>-->
-<!--                                        <span><i class="ti-time"></i>60/Hour</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="pull-right">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="ti-heart"></i>-->
-<!--                                    </div>-->
-<!--                                    <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="job-list">-->
-<!--                        <div class="thumb">-->
-<!--                            <a href="job-details.html"><img th:src="@{/img/jobs/img-4.jpg}" alt=""></a>-->
-<!--                        </div>-->
-<!--                        <div class="job-list-content">-->
-<!--                            <h4><a href="job-details.html">Fullstack web developer needed</a><span class="full-time">Full-Time</span></h4>-->
-<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quaerat aut veniam molestiae atque dolorum omnis temporibus consequuntur saepe. Nemo atque consectetur saepe corporis odit in dicta reprehenderit, officiis, praesentium?</p>-->
-<!--                            <div class="job-tag">-->
-<!--                                <div class="pull-left">-->
-<!--                                    <div class="meta-tag">-->
-<!--                                        <span><a href="browse-categories.html"><i class="ti-desktop"></i>Technologies</a></span>-->
-<!--                                        <span><i class="ti-location-pin"></i>New York, USA</span>-->
-<!--                                        <span><i class="ti-time"></i>60/Hour</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="pull-right">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="ti-heart"></i>-->
-<!--                                    </div>-->
-<!--                                    <a href="job-details.html" class="btn btn-common btn-rm">More Detail</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-12">-->
-<!--                    <div class="showing pull-left">-->
-<!--                        <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>-->
-<!--                    </div>-->
-<!--                    <ul class="pagination pull-right">-->
-<!--                        <li class="active"><a href="#" class="btn btn-common" ><i class="ti-angle-left"></i> prev</a></li>-->
-<!--                        <li><a href="#">1</a></li>-->
-<!--                        <li><a href="#">2</a></li>-->
-<!--                        <li><a href="#">3</a></li>-->
-<!--                        <li><a href="#">4</a></li>-->
-<!--                        <li><a href="#">5</a></li>-->
-<!--                        <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--&lt;!&ndash; Find Job Section End &ndash;&gt;-->
+</section>
+Find Job Section End
 
-<!-- Category Section Start -->
-<section class="section text-center" >
+Category Section Start
+<section class="section text-center">
     <div class="container">
         <!-- Start Animations Text -->
         <h1>
+
+            You are using Free Lite version of Job Board<br> Purchase Full version to Get all Pages and Features
         </h1>
         <br>
         <!-- End Animations Text -->
 
         <!-- Start Buttons -->
-        <a rel="nofollow" target="_blank" href="https://rebrand.ly/gg-jobboard-purchase" class="btn btn-common btn-large"><i class="fa fa-cart"></i> Purchase Now</a>
+        <a rel="nofollow" target="_blank" href="https://rebrand.ly/gg-jobboard-purchase"
+           class="btn btn-common btn-large"><i class="fa fa-cart"></i> Purchase Now</a>
     </div>
     </div>
 </section>
@@ -257,141 +175,141 @@
                                     <img th:src="@{/img/features/img-1.jpg}" alt="">
                                 </a>
                             </figure>
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>-->
-<!--                            </div>-->
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
+                            </div>
                         </div>
                     </div>
                     <div class="item-foot">
-                        <span><i class="ti-calendar"></i> xxxxxxxxxxxx</span>
-                        <span><i class="ti-time"></i> xxxxxxxxxxx</span>
+                        <span><i class="ti-calendar"></i> 4 months ago</span>
+                        <span><i class="ti-time"></i> Full Time</span>
                         <div class="view-iocn">
                             <a href="job-page.html"><i class="ti-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            <div class="col-md-4 col-sm-6 col-xs-12">-->
-<!--                <div class="featured-item">-->
-<!--                    <div class="featured-wrap">-->
-<!--                        <div class="featured-inner">-->
-<!--                            <figure class="item-thumb">-->
-<!--                                <a class="hover-effect" href="job-page.html">-->
-<!--                                    <img th:src="@{/img/features/img-2.jpg}" alt="">-->
-<!--                                </a>-->
-<!--                            </figure>-->
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> Delaware, United States</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item-foot">-->
-<!--                        <span><i class="ti-calendar"></i> 5 months ago</span>-->
-<!--                        <span><i class="ti-time"></i> Part Time</span>-->
-<!--                        <div class="view-iocn">-->
-<!--                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 col-sm-6 col-xs-12">-->
-<!--                <div class="featured-item">-->
-<!--                    <div class="featured-wrap">-->
-<!--                        <div class="featured-inner">-->
-<!--                            <figure class="item-thumb">-->
-<!--                                <a class="hover-effect" href="job-page.html">-->
-<!--                                    <img th:src="@{/img/features/img-3.jpg}" alt="">-->
-<!--                                </a>-->
-<!--                            </figure>-->
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item-foot">-->
-<!--                        <span><i class="ti-calendar"></i> 3 months ago</span>-->
-<!--                        <span><i class="ti-time"></i> Full Time</span>-->
-<!--                        <div class="view-iocn">-->
-<!--                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 col-sm-6 col-xs-12">-->
-<!--                <div class="featured-item">-->
-<!--                    <div class="featured-wrap">-->
-<!--                        <div class="featured-inner">-->
-<!--                            <figure class="item-thumb">-->
-<!--                                <a class="hover-effect" href="job-page.html">-->
-<!--                                    <img th:src="@{/img/features/img-3.jpg}" alt="">-->
-<!--                                </a>-->
-<!--                            </figure>-->
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> Washington, United States</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item-foot">-->
-<!--                        <span><i class="ti-calendar"></i> 1 months ago</span>-->
-<!--                        <span><i class="ti-time"></i> Part Time</span>-->
-<!--                        <div class="view-iocn">-->
-<!--                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 col-sm-6 col-xs-12">-->
-<!--                <div class="featured-item">-->
-<!--                    <div class="featured-wrap">-->
-<!--                        <div class="featured-inner">-->
-<!--                            <figure class="item-thumb">-->
-<!--                                <a class="hover-effect" href="job-page.html">-->
-<!--                                    <img th:src="@{/img/features/img-2.jpg}" alt="">-->
-<!--                                </a>-->
-<!--                            </figure>-->
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item-foot">-->
-<!--                        <span><i class="ti-calendar"></i> 6 months ago</span>-->
-<!--                        <span><i class="ti-time"></i> Full Time</span>-->
-<!--                        <div class="view-iocn">-->
-<!--                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 col-sm-6 col-xs-12">-->
-<!--                <div class="featured-item">-->
-<!--                    <div class="featured-wrap">-->
-<!--                        <div class="featured-inner">-->
-<!--                            <figure class="item-thumb">-->
-<!--                                <a class="hover-effect" href="job-page.html">-->
-<!--                                    <img src="assets/img/features/img-1.jpg" alt="">-->
-<!--                                </a>-->
-<!--                            </figure>-->
-<!--                            <div class="item-body">-->
-<!--                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>-->
-<!--                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item-foot">-->
-<!--                        <span><i class="ti-calendar"></i> 7 months ago</span>-->
-<!--                        <span><i class="ti-time"></i> Part Time</span>-->
-<!--                        <div class="view-iocn">-->
-<!--                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                    <div class="featured-wrap">
+                        <div class="featured-inner">
+                            <figure class="item-thumb">
+                                <a class="hover-effect" href="job-page.html">
+                                    <img th:src="@{/img/features/img-2.jpg}" alt="">
+                                </a>
+                            </figure>
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> Delaware, United States</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-foot">
+                        <span><i class="ti-calendar"></i> 5 months ago</span>
+                        <span><i class="ti-time"></i> Part Time</span>
+                        <div class="view-iocn">
+                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                    <div class="featured-wrap">
+                        <div class="featured-inner">
+                            <figure class="item-thumb">
+                                <a class="hover-effect" href="job-page.html">
+                                    <img th:src="@{/img/features/img-3.jpg}" alt="">
+                                </a>
+                            </figure>
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-foot">
+                        <span><i class="ti-calendar"></i> 3 months ago</span>
+                        <span><i class="ti-time"></i> Full Time</span>
+                        <div class="view-iocn">
+                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                    <div class="featured-wrap">
+                        <div class="featured-inner">
+                            <figure class="item-thumb">
+                                <a class="hover-effect" href="job-page.html">
+                                    <img th:src="@{/img/features/img-3.jpg}" alt="">
+                                </a>
+                            </figure>
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> Washington, United States</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-foot">
+                        <span><i class="ti-calendar"></i> 1 months ago</span>
+                        <span><i class="ti-time"></i> Part Time</span>
+                        <div class="view-iocn">
+                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                    <div class="featured-wrap">
+                        <div class="featured-inner">
+                            <figure class="item-thumb">
+                                <a class="hover-effect" href="job-page.html">
+                                    <img th:src="@{/img/features/img-2.jpg}" alt="">
+                                </a>
+                            </figure>
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-foot">
+                        <span><i class="ti-calendar"></i> 6 months ago</span>
+                        <span><i class="ti-time"></i> Full Time</span>
+                        <div class="view-iocn">
+                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                    <div class="featured-wrap">
+                        <div class="featured-inner">
+                            <figure class="item-thumb">
+                                <a class="hover-effect" href="job-page.html">
+                                    <img src="assets/img/features/img-1.jpg" alt="">
+                                </a>
+                            </figure>
+                            <div class="item-body">
+                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
+                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-foot">
+                        <span><i class="ti-calendar"></i> 7 months ago</span>
+                        <span><i class="ti-time"></i> Part Time</span>
+                        <div class="view-iocn">
+                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -405,7 +323,7 @@
                 <h1 class="title-text">
                     Looking for a Job
                 </h1>
-                <p>Join thousand of mentors and be supported what you deserve!</p>
+                <p>Join thousand of employers and earn what you deserve!</p>
                 <a href="my-account.html" class="btn btn-common">Get Started Now</a>
             </div>
         </div>
@@ -440,7 +358,8 @@
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -467,7 +386,8 @@
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -494,7 +414,8 @@
                             </h3>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
+                            vitae.
                         </p>
                         <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
                     </div>
@@ -618,7 +539,7 @@
 <!-- Infobox Section End -->
 
 <!-- Footer Section Start -->
-    <th:block th:insert="~{/components/footer :: footer}"></th:block>
+<th:block th:insert="~{/components/footer :: footer}"></th:block>
 <!-- Footer Section End -->
 
 <!-- Go To Top Link -->
@@ -626,7 +547,7 @@
     <i class="ti-arrow-up"></i>
 </a>
 
-<div  id="loading">
+<div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
             <div class="object" id="object_one"></div>

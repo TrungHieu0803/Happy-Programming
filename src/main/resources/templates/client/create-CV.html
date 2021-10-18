@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -39,7 +39,7 @@
 
     <!-- Color CSS Styles  -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen" />
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
 
 </head>
 
@@ -128,23 +128,30 @@
                         </div>
                         <div class="form-group is-empty">
                             <label class="control-label">Profession</label>
-                            <input type="text" class="form-control" name="profession" th:name="profession" th:id="profession" th:if="${cv != null}" th:value="${cv.getProfession()}">
-                            <input type="text" class="form-control" name="profession" th:name="profession" th:id="profession" th:if="${cv == null}">
+                            <textarea class="form-control"  th:name="title" th:id="title" th:if="${cv != null}" th:utext="${cv.getTitle()}"></textarea>
+                            <textarea class="form-control"  th:name="title" th:id="title" th:if="${cv == null}"></textarea>
+
+                            <span class="material-input"></span>
+                        </div>
+                        <div class="form-group is-empty">
+                            <label class="control-label">Profession</label>
+                            <textarea class="form-control"  th:name="profession" th:id="profession" th:if="${cv != null}" th:utext="${cv.getProfession()}"></textarea>
+                            <textarea class="form-control"  th:name="profession" th:id="profession" th:if="${cv == null}"></textarea>
 
                             <span class="material-input"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Introduction</label><br>
-                            <input name="description" cols="50" rows="10" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv != null}" th:value="${cv.getIntroduction()}"></input>
-                            <input name="description" cols="50" rows="10" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv == null}"></input>
+                            <textarea name="description" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv != null}" th:utext="${cv.getIntroduction()}"></textarea>
+                            <textarea name="description" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv == null}"></textarea>
 
                             <span class="material-input"></span>
                         </div>
 
                         <div class="form-group is-empty">
                             <label class="control-label">Achievement</label><br>
-                            <input name="achievement" cols="50" rows="10" class="form-control" th:name="achievement" th:id="achievement" th:if="${cv != null}" th:value="${cv.getAchievement()}"></input>
-                            <input name="achievement" cols="50" rows="10" class="form-control" th:name="achievement" th:id="achievement" th:if="${cv == null}"></input>
+                            <textarea name="achievement" cols="30" rows="30" class="form-control" th:name="achievement" th:id="achievement" th:if="${cv != null}" th:utext="${cv.getAchievement()}"></textarea>
+                            <textarea name="achievement" cols="30" rows="30" class="form-control" th:name="achievement" th:id="achievement" th:if="${cv == null}"></textarea>
 
                             <span class="material-input"></span>
                         </div>
@@ -174,5 +181,43 @@
 </section>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
 </body>
+<script>
 
+    ClassicEditor.create(document.querySelector('#profession')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+    ClassicEditor.create(document.querySelector('#introduction')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+    ClassicEditor.create(document.querySelector('#achievement')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+
+</script>
+<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material-kit.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.parallax.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slicknav.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.counterup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/waypoints.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/form-validator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/contact-form-script.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.tools.min.js}"></script>
+</body>
 </html>

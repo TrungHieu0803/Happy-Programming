@@ -1,7 +1,15 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ChangePassword</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Jobboard">
+
+    <title>JobBoard - Bootstrap HTML5 Job Portal Template</title>
+
+    <!-- Favicon -->
     <link rel="shortcut icon" th:href="@{/img/favicon.png}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
@@ -30,13 +38,10 @@
 
     <!-- Color CSS Styles  -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+
 </head>
 <body>
-<div class="alert set-alert" th:classappend="${isChanged}? alert-success:alert-danger" role="alert" th:style="${alert} ? 'display: block' : 'display: none' ">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-    </button>
-    <strong th:utext="${mess}"></strong><br>
-</div>
 <div class="header">
     <div class="logo-menu">
         <div class="main-navigation" th:insert="~{/components/navbar :: navbar1}"></div>
@@ -79,57 +84,84 @@
         </div>
     </div>
 </div>
-<!-- Header Section End -->
-
-<!-- Page Header Start -->
-<div class="page-header" th:style="'background: url(static/img/banner1.jpg)'">
+<div class="page-header" style="background: url(static/img/banner1.jpg)">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="product-title " style="color: #ff6470">Change password</h2>
+                    <h2 class="product-title " style="color: #ff6470">Mentor detail</h2>
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<div id="content" class="my-account">
+<section class="job-detail section">
     <div class="container">
         <div class="row">
-            <th:block th:insert="~{/components/inner-box :: inner-box}"></th:block>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="content-area">
+                    <div class="box">
+                        <div class="header-content pull-left">
+                            <h3 th:utext="${mentor.title}"></h3>
+                            <p>Start from: <strong class="price">$50 - $100</strong></p>
+                        </div>
+                        <div class="detail-company pull-right text-right">
+                            <div class="img-thum">
+                                <img class="img-responsive" th:src="${mentor.user.avatar}" alt="Avatar">
+                            </div>
+                            <div class="name">
+                                <h4 th:utext="${mentor.user.fullName}" ></h4>
+                                <h5>New York, NY </h5>
+                                <p>8 Current jobs openings</p>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="meta">
+                                <span>
+                                    <a class="btn btn-border btn-sm" href="#" th:each="skill : ${mentor.skills}" th:utext="*{skill.skillName}"></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="box">
+                            <h3>Job Description</h3>
+                            <div th:utext="${mentor.introduction}"></div>
 
-            <div class="col-md-8 col-sm-8 col-xs-12" >
-                <div class="job-alerts-item" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
-                    <h3 class="alerts-title">Change Password</h3>
-                    <form class="form" th:method="POST" th:action="@{/change-password}">
-                        <div class="form-group is-empty">
-                            <label class="control-label">Old Password*</label>
-                            <input class="form-control" type="password" name="oldPassword">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
+                            <h3>Profession</h3>
+                            <div th:utext="${mentor.profession}"></div>
+                            <h3>Achievement</h3>
+                            <div th:utext="${mentor.achievement}"></div>
+                            <a href="#" class="btn btn-common">Apply for this Job Now</a>
                         </div>
-                        <div class="form-group is-empty">
-                            <label class="control-label">New Password*</label>
-                            <input class="form-control" type="password" name="newPassword">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
-                        </div>
-                        <div class="form-group is-empty">
-                            <label class="control-label">Repeat Password*</label>
-                            <input class="form-control" type="password">
-                            <span class="material-input"></span>
-                            <span class="material-input"></span>
-                        </div>
-                        <button type="submit" class="btn btn-common">Save Change</button>
-                    </form>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 position-stick"  >
+                <aside>
+                    <div class="sidebar">
+                        <div class="box">
+                            <h2 class="small-title">Featured Jobs</h2>
+                            <div class="thumb">
+                                <a href="#"><img src="assets/img/jobs/features-img-1.jpg" alt="img"></a>
+                            </div>
+                            <div class="text-box">
+                                <h4><a href="#">Web Development</a></h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. maiores aperiam quam
+                                    perspiciatis.</p>
+                                <a href="#" class="text"><i class="fa fa-map-marker"></i>Moorgate, London</a>
+                                <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
+                                <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
+                                <a href="#" class="btn btn-common btn-sm">Apply for this Job</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </div>
     </div>
-</div>
+</section>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
 
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>

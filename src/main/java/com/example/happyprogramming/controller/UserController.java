@@ -1,23 +1,34 @@
 package com.example.happyprogramming.controller;
 
 
+import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.MentorService;
+import com.example.happyprogramming.service.SkillService;
 import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class UserController {
@@ -33,8 +44,17 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MentorService mentorService;
+
+    @Autowired
+    private SkillService skillService;
+
     @GetMapping({"/", "/home"})
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("listMentor",mentorService.getAllMentor());
+        model.addAttribute("listSkill",skillService.getAllSkill());
+        model.addAttribute("listSkillForSearch",new SkillEntity());
         return "client/index";
     }
 
@@ -77,7 +97,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/reset-password")
+    @PostMapping("/reset-password")
     public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");
@@ -136,6 +156,15 @@ public class UserController {
             model.addAttribute("isChanged",false);
             model.addAttribute("mess","Password is wrong! Please enter again.");
             return "client/change-password";
+    }
+
+    @PostMapping("/upload-avatar")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String uploadImage(@RequestParam("avatar") MultipartFile avatar) throws IOException{
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
+        return "client/user-profile";
+
     }
 }
 

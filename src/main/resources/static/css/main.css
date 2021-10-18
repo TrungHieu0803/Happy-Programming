@@ -8,6 +8,12 @@
 /* ==========================================================================
    Common Styles
    ========================================================================== */
+.position-stick{
+  position: sticky;
+  position: -webkit-sticky;
+  top:100px;
+
+}
 body {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;

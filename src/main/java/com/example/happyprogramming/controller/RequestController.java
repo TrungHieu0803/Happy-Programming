@@ -43,7 +43,7 @@ public class RequestController {
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
         model.addAttribute("listSkill",listSkill);
         model.addAttribute("requestForm",new RequestEntity());
-        return "/client/create-request";
+        return "client/create-request";
     }
 
     @PostMapping("/create-request")
@@ -61,21 +61,21 @@ public class RequestController {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
         model.addAttribute("listWaitingRequest",list);
-        return "/client/waiting-requests";
+        return "client/waiting-requests";
     }
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
         model.addAttribute("listRejectedRequest",list);
-        return "/client/rejected-requests";
+        return "client/rejected-requests";
     }
     @GetMapping("/invited-request-approved")
     public String listApprovedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
         model.addAttribute("listApprovedRequest",list);
-        return "/client/approved-requests";
+        return "client/approved-requests";
     }
     @PostMapping("/reject")
     public String rejectRequest(HttpServletRequest request){
@@ -107,7 +107,7 @@ public class RequestController {
     public String listRequest(Model model, @RequestParam ("status") int status){
         ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
         model.addAttribute("listRequests", listRequest);
-        return "/client/list-requests";
+        return "client/list-requests";
     }
 
 }

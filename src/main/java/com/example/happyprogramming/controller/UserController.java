@@ -52,8 +52,9 @@ public class UserController {
 
     @GetMapping({"/", "/home"})
     public String home(Model model) {
-        model.addAttribute("listMentor",mentorService.getAllMentor());
+        model.addAttribute("listMentor",mentorService.getPaginatedMentors().getPaginatedList());
         model.addAttribute("listSkill",skillService.getAllSkill());
+        model.addAttribute("pageNumbers", mentorService.getPaginatedMentors().getPageNumbers());
         model.addAttribute("listSkillForSearch",new SkillEntity());
         return "client/index";
     }

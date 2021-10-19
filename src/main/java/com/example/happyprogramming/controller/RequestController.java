@@ -78,26 +78,30 @@ public class RequestController {
         return "/client/approved-requests";
     }
     @PostMapping("/reject")
-    public void rejectRequest(Model model, HttpServletRequest request){
+    public String rejectRequest(HttpServletRequest request){
        Long id = Long.parseLong(request.getParameter("id"));
+       String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setStatus(2);
+            req.setResponseMess(response);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
     @PostMapping("/approve")
-    public void approveRequest(Model model, HttpServletRequest request){
+    public String approveRequest(HttpServletRequest request){
         Long id = Long.parseLong(request.getParameter("id"));
+        String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
+            req.setResponseMess(response);
             req.setStatus(3);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
     @GetMapping("/list-requests")
     public String listRequest(Model model, @RequestParam ("status") int status){

@@ -135,14 +135,7 @@
                                     <p><span th:text="${item.getContent()}"></span></p>
                                 </div>
                                 <div class="col-md-3">
-                                    <form th:action="@{/reject}" th:method="POST">
-                                        <input  type="hidden" th:name ="id" th:value="${item.id}"/>
-                                        <input type="submit"  th:value="Reject"/>
-                                    </form>
-                                    <form th:action="@{/approve}" th:method="POST">
-                                        <input  type="hidden" th:name ="id" th:value="${item.id}"/>
-                                        <input type="submit"  th:value="Approve"/>
-                                    </form>
+                                    <p><a th:href="@{/details}"></a>View details</p>
                                 </div>
                             </div>
                         </div>

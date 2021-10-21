@@ -5,8 +5,10 @@ import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RequestRepository;
+import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;
+import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,22 +40,41 @@ public class RequestController {
     @Autowired
     RequestRepository requestRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
         model.addAttribute("listSkill",listSkill);
         model.addAttribute("requestForm",new RequestEntity());
+        model.addAttribute("recommend",true);
         return "client/create-request";
     }
 
     @PostMapping("/create-request")
-    public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity) {
+    public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity,
+                                @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        requestEntity.setMenteeId(user);
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        requestEntity.setCreatedDate(date);
-        requestService.createRequest(requestEntity);
-        return "redirect:/home";
+        if(recommend){
+
+            requestEntity.setMenteeId(user);
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            requestEntity.setCreatedDate(date);
+            requestService.createRequest(requestEntity);
+            return "redirect:/home";
+        }else{
+            int mentorId= Integer.parseInt(request.getParameter("mentorId"));
+            UserEntity userEntity = userRepository.findById(mentorId);
+            requestEntity.setMentorId(userEntity);
+            requestEntity.setMentorName(userEntity.getFullName());
+            requestEntity.setMenteeId(user);
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            requestEntity.setCreatedDate(date);
+            requestService.createRequest(requestEntity);
+            return "redirect:/home";
+        }
+
     }
 
     @GetMapping("/invited-request-wait")

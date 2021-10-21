@@ -20,8 +20,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void createRequest(RequestEntity requestEntity) {
-        requestRepository.save(requestEntity);
 
+        requestRepository.save(requestEntity);
     }
 
     @Override

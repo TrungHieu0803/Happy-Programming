@@ -36,6 +36,7 @@ public class MentorController {
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
         model.addAttribute("listSkill",listSkill);
         model.addAttribute("requestForm",new RequestEntity());
+        model.addAttribute("mentorId",mentorId);
         return "client/mentor-detail";
     }
 

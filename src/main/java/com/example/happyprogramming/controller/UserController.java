@@ -1,12 +1,15 @@
 package com.example.happyprogramming.controller;
 
 
+import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.SkillService;
 import com.example.happyprogramming.service.UserService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -51,11 +54,13 @@ public class UserController {
     private SkillService skillService;
 
     @GetMapping({"/", "/home"})
-    public String home(Model model) {
-        model.addAttribute("listMentor",mentorService.getPaginatedMentors().getPaginatedList());
+    public String home(Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
+        Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
+        model.addAttribute("listMentor",page.getPaginatedList());
+        model.addAttribute("pageNumbers", page.getPageNumbers());
         model.addAttribute("listSkill",skillService.getAllSkill());
-        model.addAttribute("pageNumbers", mentorService.getPaginatedMentors().getPageNumbers());
         model.addAttribute("listSkillForSearch",new SkillEntity());
+        model.addAttribute("currentPage",pageNumber);
         return "client/index";
     }
 

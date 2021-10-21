@@ -1,6 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
+import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
@@ -74,7 +75,6 @@ public class RequestController {
             requestService.createRequest(requestEntity);
             return "redirect:/home";
         }
-
     }
 
     @GetMapping("/invited-request-wait")
@@ -125,9 +125,13 @@ public class RequestController {
         return "redirect:/invited-request-wait";
     }
     @GetMapping("/list-requests")
-    public String listRequest(Model model, @RequestParam ("status") int status){
-        ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
-        model.addAttribute("listRequests", listRequest);
+    public String listRequest(Model model, @RequestParam ("status") int status,
+                              @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
+        Pagination<RequestEntity> listRequest = requestService.findByStatus(status,pageNumber);
+        model.addAttribute("listRequests", listRequest.getPaginatedList());
+        model.addAttribute("pageNumbers",listRequest.getPageNumbers());
+        model.addAttribute("status",status);
+        model.addAttribute("currentPage",pageNumber);
         return "client/list-requests";
     }
 

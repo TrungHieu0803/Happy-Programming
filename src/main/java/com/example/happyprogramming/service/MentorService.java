@@ -16,6 +16,6 @@ public interface MentorService {
 
     CVEntity findMentorById(long id);
 
-    Pagination<CVEntity> getPaginatedMentors();
+    Pagination<CVEntity> getPaginatedMentors(int pageNumber);
 
 }

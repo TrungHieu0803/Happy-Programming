@@ -42,7 +42,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Pagination<RequestEntity> findByStatus(int status, int pageNumber) {
-        PageRequest pageRequest = PageRequest.of(pageNumber-1,1);
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,10);
         Page<RequestEntity> page = requestRepository.findByStatus(pageRequest,status);
         int totalPages = page.getTotalPages();
         List<RequestEntity> requestList = page.getContent();

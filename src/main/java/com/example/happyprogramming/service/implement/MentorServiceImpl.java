@@ -37,7 +37,7 @@ public class MentorServiceImpl implements MentorService {
 
     @Override
     public Pagination<CVEntity> getPaginatedMentors(int pageNumber) {
-        PageRequest pageRequest = PageRequest.of(pageNumber-1,1);
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,10);
         Page<CVEntity> page = cvRepository.findAll(pageRequest);
         int totalPages = page.getTotalPages();
         List<CVEntity> cvList = page.getContent();

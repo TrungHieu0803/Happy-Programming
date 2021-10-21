@@ -386,3 +386,15 @@ window.onclick = function(event) {
     }
 }
 
+function displayRate(id){
+    modal.style.display = "block";
+    console.log(id);
+}
+function hideRate(){
+
+        modal.style.display = "none";
+
+}
+
+
+

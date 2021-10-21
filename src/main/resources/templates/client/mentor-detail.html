@@ -153,7 +153,8 @@
                                 <a href="#" class="text"><i class="fa fa-map-marker"></i>Moorgate, London</a>
                                 <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
                                 <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
-                                <a th:href="" class="btn btn-common btn-sm">Apply for this Job</a>
+                                <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Apply for this Job</a>
+                                <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Apply for this Job</a>
                             </div>
                         </div>
                     </div>
@@ -164,6 +165,20 @@
 </section>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
 
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <th:block th:insert="~{/components/create-request-form :: create-request-form-inside}"></th:block>
+    </div>
+</div>
+<script>
+    ClassicEditor.create(document.querySelector('#editor')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/material.min.js}"></script>

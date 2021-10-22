@@ -1,16 +1,22 @@
 package com.example.happyprogramming.service.implement;
 
 
+import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Component
 public class RequestServiceImpl implements RequestService {
@@ -20,8 +26,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void createRequest(RequestEntity requestEntity) {
-        requestRepository.save(requestEntity);
 
+        requestRepository.save(requestEntity);
     }
 
     @Override
@@ -35,8 +41,14 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public ArrayList<RequestEntity> findByStatus(int status) {
-        return requestRepository.findByStatus(status);
+    public Pagination<RequestEntity> findByStatus(int status, int pageNumber) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,10);
+        Page<RequestEntity> page = requestRepository.findByStatus(pageRequest,status);
+        int totalPages = page.getTotalPages();
+        List<RequestEntity> requestList = page.getContent();
+        List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+        Pagination<RequestEntity> result = new Pagination<>(requestList,pageNumbers);
+        return result;
     }
 
 }

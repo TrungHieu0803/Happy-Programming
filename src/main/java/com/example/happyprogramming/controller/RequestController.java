@@ -1,12 +1,15 @@
 package com.example.happyprogramming.controller;
 
 
+import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RequestRepository;
+import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;
+import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,25 +37,44 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
     @Autowired
     RequestRepository requestRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
         model.addAttribute("listSkill",listSkill);
         model.addAttribute("requestForm",new RequestEntity());
-        return "/client/create-request";
+        model.addAttribute("recommend",true);
+        return "client/create-request";
     }
 
     @PostMapping("/create-request")
-    public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity) {
+    public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity,
+                                @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        requestEntity.setMenteeId(user);
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        requestEntity.setCreatedDate(date);
-        requestService.createRequest(requestEntity);
-        return "redirect:/home";
+        if(recommend){
+
+            requestEntity.setMenteeId(user);
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            requestEntity.setCreatedDate(date);
+            requestService.createRequest(requestEntity);
+            return "redirect:/home";
+        }else{
+            int mentorId= Integer.parseInt(request.getParameter("mentorId"));
+            UserEntity userEntity = userRepository.findById(mentorId);
+            requestEntity.setMentorId(userEntity);
+            requestEntity.setMentorName(userEntity.getFullName());
+            requestEntity.setMenteeId(user);
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            requestEntity.setCreatedDate(date);
+            requestService.createRequest(requestEntity);
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/invited-request-wait")
@@ -60,50 +82,57 @@ public class RequestController {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
         model.addAttribute("listWaitingRequest",list);
-        return "/client/waiting-requests";
+        return "client/waiting-requests";
     }
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
         model.addAttribute("listRejectedRequest",list);
-        return "/client/rejected-requests";
+        return "client/rejected-requests";
     }
     @GetMapping("/invited-request-approved")
     public String listApprovedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
         model.addAttribute("listApprovedRequest",list);
-        return "/client/approved-requests";
+        return "client/approved-requests";
     }
     @PostMapping("/reject")
-    public void rejectRequest(Model model, HttpServletRequest request){
+    public String rejectRequest(HttpServletRequest request){
        Long id = Long.parseLong(request.getParameter("id"));
+       String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setStatus(2);
+            req.setResponseMess(response);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
     @PostMapping("/approve")
-    public void approveRequest(Model model, HttpServletRequest request){
+    public String approveRequest(HttpServletRequest request){
         Long id = Long.parseLong(request.getParameter("id"));
+        String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
+            req.setResponseMess(response);
             req.setStatus(3);
             requestRepository.save(req);
-        };
-        request.getRequestDispatcher("/invited-request-wait");
+        }
+        return "redirect:/invited-request-wait";
     }
     @GetMapping("/list-requests")
-    public String listRequest(Model model, @RequestParam ("status") int status){
-        UserEntity user = (UserEntity)  session.getAttribute("userinfo");
-        ArrayList<RequestEntity> listRequest = requestService.findByStatus(status);
-        model.addAttribute("listRequests", listRequest);
-        return "/client/list-requests";
+    public String listRequest(Model model, @RequestParam ("status") int status,
+                              @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
+        Pagination<RequestEntity> listRequest = requestService.findByStatus(status,pageNumber);
+        model.addAttribute("listRequests", listRequest.getPaginatedList());
+        model.addAttribute("pageNumbers",listRequest.getPageNumbers());
+        model.addAttribute("status",status);
+        model.addAttribute("currentPage",pageNumber);
+        return "client/list-requests";
     }
 
 }

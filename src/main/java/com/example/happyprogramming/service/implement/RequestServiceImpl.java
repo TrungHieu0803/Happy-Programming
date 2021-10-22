@@ -51,4 +51,15 @@ public class RequestServiceImpl implements RequestService {
         return result;
     }
 
+    @Override
+    public void updateRequest(RequestEntity request) {
+        Optional<RequestEntity> requestOptional = requestRepository.findById(request.getId());
+        RequestEntity requestUpdate = requestOptional.get();
+        requestUpdate.setContent(request.getContent());
+        requestUpdate.setTitle(request.getTitle());
+        requestUpdate.setBudget(request.getBudget());
+        requestRepository.save(requestUpdate);
+
+    }
+
 }

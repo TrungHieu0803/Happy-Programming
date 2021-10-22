@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Happy Programing</title>
+    <title>ChangePassword</title>
     <link rel="shortcut icon" th:href="@{/img/favicon.png}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
@@ -30,6 +30,7 @@
 
     <!-- Color CSS Styles  -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 <div class="header">
@@ -82,7 +83,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="product-title " style="color: #ff6470">My Account</h2>
+                    <h2 class="product-title " style="color: #ff6470">Change password</h2>
 
                 </div>
             </div>
@@ -91,102 +92,59 @@
 </div>
 
 
-<div id="content" class="my-account">
+<div id="content" class="my-account" >
     <div class="container">
-        <div class="row">
-            <th:block th:insert="~{/components/inner-box :: inner-box}"></th:block>
-
-            <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="job-alerts-item">
-                    <h3 class="alerts-title">List requests</h3>
-                    <div class="alerts-list">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p>Date</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Requests</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Mentor</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Actions</p>
-                            </div>
+        <div class="row"  >
+            <div class="col-sm-12 col-md-9 col-md-offset-2">
+                <div class="job-alerts-item" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;" >
+                    <h3 class="alerts-title">Create reqest</h3>
+                    <form class="form" th:method="POST" th:action="@{/update-request}" th:object="${requestForm}">
+                        <input type="hidden" th:value="${request.getId()}" th:name="requestId">
+                        <div class="form-group is-empty">
+                            <label class="control-label">Title *</label>
+                            <input th:name="title" th:id="title" class="form-control" type="text" name="title"
+                                   placeholder="I am looking for..." th:value="${request.getTitle()}">
+                            <span class="material-input"></span>
+                            <span class="material-input"></span>
                         </div>
-                    </div>
-                    <div th:each="request : ${listRequests}" class="alerts-content">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h3 th:utext="*{request.getCreatedDate()}"></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h3 th:utext="*{request.getTitle()}"></h3>
-                            </div>
-<!--                            <div class="col-md-3">-->
-<!--                                <a th:href="@{/mentor-detail(id=*{request.getMentorId()})}"><h3-->
-<!--                                        th:utext="*{request.getMentorName()}"></h3></a><br>-->
-<!--                                <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}"><h5 class="active action-btn" >Rate</h5></a>-->
-                            </div>
-                            <div class="col-md-3">
-                                <input th:if="*{request.getStatus()==0}" value="Complete" type="button">
-                                <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
-                                <input th:if="*{request.getStatus()==1}" value="Cancel" type="button">
-                                <input th:if="*{request.getStatus()==2}" value="Delete" type="button">
-                                <input th:if="*{request.getStatus()==3}" value="Delete" type="button">
-                            </div>
+                        <div class="form-group is-empty">
+                            <label class="control-label">Once you place your order, when would you like your service
+                                delivered (DAY)?*</label>
+                            <input  th:name="deliveryTime" th:id="deliveryTime" onchange="deliveredTimeVerify()"
+                                   class="form-control" type="text"
+                                   placeholder="Enter number of days" th:value="${request.getDeliveryTime()}">
                         </div>
-                    </div>
-                    <br>
-                    <ul class="pagination">
-                        <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a>
-                        </li>
-                        <li class="page-item" th:each="pageNumber : ${pageNumbers}"
-                            th:classappend="${pageNumber==currentPage}?active">
-                            <a class="page-link" th:href="@{/list-requests(pageNumber=${pageNumber},status=${status})}"
-                               th:text="${pageNumber}">1</a>
-                        </li>
-                        <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a>
-                        </li>
-                    </ul>
+                        <div class="form-group is-empty">
+                            <label class="control-label">What is your budget for this service($)?*</label>
+                            <input style="width: 30%" th:name="budget" th:id="budget" onchange="budgetVerify()"
+                                   class="form-control" type="text" placeholder="Your budget is" th:value="${request.getBudget()}">
+                        </div>
 
+                        <div class="form-group is-empty">
+                            <label class="control-label">Content *</label>
+                            <textarea th:name="content" id="editor" cols="30" rows="30"
+                                      placeholder="My requests are..." th:utext="${request.getContent()}"></textarea>
+                            <span class="material-input"></span>
+                            <span class="material-input"></span>
+                        </div>
+                        <button type="submit" class="btn btn-common">OK</button>
+                        <input value="0" type="hidden"  data-glyphicon="0">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
-<div id="myModal" class="modal">
-    <!-- Modal content -->
+<script>
+    ClassicEditor.create(document.querySelector('#editor')).then(eidt => {
+        console.log("da" + eidt);
+    })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
-    <div class="modal-content">
-        <form class="form" action="">
-            <a class="icon-close" onclick="hideRate()">Close</a>
-            <input id="ratings-hidden" name="rating" type="hidden">
-            <textarea class="form-control animated" cols="50" id="new-review" name="comment"
-                      placeholder="Enter your review here..." rows="5"></textarea>
-            <div class="container d-flex justify-content-center">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="stars">
-                            <input class="star star-5" id="star-5" type="radio" name="star"/>
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star"/>
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star"/>
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star"/>
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star"/>
-                            <label class="star star-1" for="star-1"></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="btn btn-success btn-lg" type="submit">Save</button>
-        </form>
-    </div>
-</div>
 
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>

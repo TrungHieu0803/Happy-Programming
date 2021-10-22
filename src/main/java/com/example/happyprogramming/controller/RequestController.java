@@ -134,5 +134,20 @@ public class RequestController {
         model.addAttribute("currentPage",pageNumber);
         return "client/list-requests";
     }
+    @GetMapping("/update-request")
+    public  String updateRequest(@RequestParam("id") long id, Model model){
+        RequestEntity request = requestRepository.getById(id);
+        model.addAttribute("request", request);
+        model.addAttribute("requestForm",new RequestEntity());
+        return "client/update-request";
+    }
+    @PostMapping("/update-request")
+    public  String doUpdate(@ModelAttribute("requestForm") RequestEntity requestEntity, HttpServletRequest request){
+        long requestId = Integer.parseInt(request.getParameter("requestId"));
+        requestEntity.setId(requestId);
+        requestService.updateRequest(requestEntity);
+        return "redirect:/list-request";
+    }
+
 
 }

@@ -16,4 +16,5 @@ public interface RequestService {
     List<RequestEntity> findRequestEntitiesByMentorIdAndStatus(UserEntity id, int status);
     Optional<RequestEntity> findById(Long id);
     Pagination<RequestEntity> findByStatus(int status, int pageNumber);
+    void updateRequest(RequestEntity request);
 }

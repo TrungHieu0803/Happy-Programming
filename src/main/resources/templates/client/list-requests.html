@@ -123,20 +123,21 @@
                             <div class="col-md-3">
                                 <h3 th:utext="*{request.getTitle()}"></h3>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" th:if="*{request.getStatus()!=0}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId()})}"><h3
                                         th:utext="*{request.getMentorName()}"></h3></a><br>
                                 <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}"><h5 class="active action-btn" >Rate</h5></a>
                             </div>
+                            <div class="col-md-3" th:if="*{request.getStatus()==0}">
+                                <a href="#"><h3>Find mentors</h3></a>
+                            </div>
                             <div class="col-md-3">
-                                <input th:if="*{request.getStatus()==0}" value="Complete" type="button">
+                                <input th:if="*{request.getStatus()==0}" value="Delete" type="button">
+                                <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
                                 <input th:if="*{request.getStatus()==1}" value="Cancel" type="button">
                                 <input th:if="*{request.getStatus()==2}" value="Delete" type="button">
-                                <input th:if="*{request.getStatus()==3}" value="Delete" type="button">
-                                <input th:if="*{request.getStatus()==1}" value="Accect" type="button">
                                 <input th:if="*{request.getStatus()==2}" value="View detail" type="button">
                                 <input th:if="*{request.getStatus()==3}" value="View detail" type="button">
-                                <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
                             </div>
                         </div>
                     </div>
@@ -164,6 +165,7 @@
 
     <div class="modal-content">
         <form class="form" action="">
+            <input id="mentor-id" type="hidden">
             <a class="icon-close" onclick="hideRate()">Close</a>
             <input id="ratings-hidden" name="rating" type="hidden">
             <textarea class="form-control animated" cols="50" id="new-review" name="comment"
@@ -172,21 +174,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="stars">
-                            <input class="star star-5" id="star-5" type="radio" name="star"/>
+                            <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
                             <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star"/>
+                            <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
                             <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star"/>
+                            <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
                             <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star"/>
+                            <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
                             <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star"/>
+                            <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
                             <label class="star star-1" for="star-1"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success btn-lg" type="submit">Save</button>
+            <button class="btn btn-success btn-lg" type="button" onclick="saveReview()">Save</button>
         </form>
     </div>
 </div>

@@ -146,7 +146,7 @@ public class RequestController {
         long requestId = Integer.parseInt(request.getParameter("requestId"));
         requestEntity.setId(requestId);
         requestService.updateRequest(requestEntity);
-        return "redirect:/list-request";
+        return "redirect:/list-requests?status=0";
     }
 
 

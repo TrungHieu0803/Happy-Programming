@@ -58,6 +58,7 @@ public class RequestServiceImpl implements RequestService {
         requestUpdate.setContent(request.getContent());
         requestUpdate.setTitle(request.getTitle());
         requestUpdate.setBudget(request.getBudget());
+        requestUpdate.setDeliveryTime(request.getDeliveryTime());
         requestRepository.save(requestUpdate);
 
     }

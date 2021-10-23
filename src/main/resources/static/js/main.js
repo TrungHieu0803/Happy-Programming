@@ -342,12 +342,12 @@ function checkEmailForChangePass() {
 }
 
 function deliveredTimeVerify(){
-    let time = document.getElementById('delivered-time').value;
+    let time = document.getElementById('deliveryTime').value;
     console.log(time);
     if(isNaN(time) || time == ""){
-        document.getElementById('delivered-time').value = "";
+        document.getElementById('deliveryTime').value = "";
     }else{
-        document.getElementById('delivered-time').value = time+" Days";
+        document.getElementById('deliveryTime').value = time+" Days";
     }
 }
 
@@ -389,10 +389,33 @@ window.onclick = function(event) {
 function displayRate(id){
     modal.style.display = "block";
     console.log(id);
+    document.getElementById('mentor-id').value = id;
 }
 function hideRate(){
-
         modal.style.display = "none";
+}
+
+function saveReview(){
+    var mentorId = document.getElementById('mentor-id').value;
+    var comment = document.getElementById('new-review').value;
+    var selectedVal = "";
+    var selected = $("input[type='radio'][name='star']:checked");
+    if (selected.length > 0) {
+        selectedVal = selected.val();
+    }
+    console.log(selectedVal);
+    jQuery.ajax({
+        url: "/save-rate-comment",
+        type: "POST",
+        data: {mentorId:mentorId,
+                comment: comment,
+                starNumber: selectedVal},
+        success: function (result) {
+            $("#message-2").html(result);
+        }, error: function () {
+            $("#message-2").html("");
+        }
+    });
 
 }
 

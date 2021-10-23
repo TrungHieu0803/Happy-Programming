@@ -126,7 +126,7 @@
                             <div class="col-md-3" th:if="*{request.getStatus()!=0}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId()})}"><h3
                                         th:utext="*{request.getMentorName()}"></h3></a><br>
-                                <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}"><h5 class="active action-btn" >Rate</h5></a>
+                                <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}">Rate</a>
                             </div>
                             <div class="col-md-3" th:if="*{request.getStatus()==0}">
                                 <a href="#"><h3>Find mentors</h3></a>

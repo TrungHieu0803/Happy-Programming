@@ -431,6 +431,17 @@ function saveReview(){
     modal.style.display = "none";
 
 }
+function loadData(){
+    jQuery.ajax({
+        url: "/get-notification",
+        type: "GET",
+        success: function (result) {
+            document.getElementById('noti1').innerHTML=result;
+        }, error: function () {
+        }
+    });
+}
+
 
 
 

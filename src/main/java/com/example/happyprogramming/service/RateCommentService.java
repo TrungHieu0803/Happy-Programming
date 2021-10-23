@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RateCommentService {
 
-    public String getRateComment(int mentorId,int menteeId);
+    String getRateComment(int mentorId,Long menteeId);
+
+    void saveRateComment(int id, String comment, int starNumber);
 }

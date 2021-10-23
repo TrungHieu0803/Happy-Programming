@@ -408,8 +408,8 @@ function hideRate(){
 }
 
 function saveReview(){
-    var mentorId = document.getElementById('mentor-id').value;
-    var comment = document.getElementById('new-review').value;
+    var id = document.getElementById('rate-comment-id').value;
+    var comment = document.getElementById('new-comment').value;
     var selectedVal = "";
     var selected = $("input[type='radio'][name='star']:checked");
     if (selected.length > 0) {
@@ -419,15 +419,16 @@ function saveReview(){
     jQuery.ajax({
         url: "/save-rate-comment",
         type: "POST",
-        data: {mentorId:mentorId,
+        data: {rateCommentId:id,
                 comment: comment,
                 starNumber: selectedVal},
-        success: function (result) {
-            $("#message-2").html(result);
+        success: function () {
+
         }, error: function () {
-            $("#message-2").html("");
+
         }
     });
+    modal.style.display = "none";
 
 }
 

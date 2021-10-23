@@ -29,18 +29,17 @@ public class RateCommentController {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         Long menteeId = new Long(user.getId());
 
-        if(rateCommentService.getRateComment(mentorId,menteeId.intValue())==null){
-            response.getWriter().print("hieuahsdoiashodi");
-        }else{
-            response.getWriter().print(rateCommentService.getRateComment(mentorId,menteeId.intValue()));
-        }
+
+            response.getWriter().print(rateCommentService.getRateComment(mentorId,user.getId()));
+
     }
 
     @PostMapping("/save-rate-comment")
     public void saveRateComment(HttpServletRequest request){
-        int mentorId = Integer.parseInt(request.getParameter("mentorId"));
+        int id = Integer.parseInt(request.getParameter("rateCommentId"));
         String comment = request.getParameter("comment");
-        int starNumber = Integer.parseInt("starNumber");
+        int starNumber = Integer.parseInt(request.getParameter("starNumber"));
+        rateCommentService.saveRateComment(id,comment,starNumber);
 
     }
 }

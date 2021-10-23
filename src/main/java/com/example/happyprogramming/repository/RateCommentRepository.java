@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Repository
 public interface RateCommentRepository extends JpaRepository<CommentAndRateEntity,Long> {
 
-    ArrayList<CommentAndRateEntity> findByMentor(CVEntity mentor);
+    CommentAndRateEntity findByMentorAndMenteeId(CVEntity mentor, Long menteeId);
 
     CommentAndRateEntity findById(long id);
 

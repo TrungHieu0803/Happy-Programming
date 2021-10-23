@@ -26,20 +26,16 @@ public class RateCommentServiceImpl implements RateCommentService {
     private CVRepository cvRepository;
 
     @Override
-    public String getRateComment(int mentorId, int menteeId) {
+    public String getRateComment(int mentorId, Long menteeId) {
         UserEntity user = userRepository.findById(mentorId);
         CVEntity mentor = cvRepository.findByUser(user);
-        ArrayList<CommentAndRateEntity> commentAndRateList = rateCommentRepository.findByMentor(mentor);
-        CommentAndRateEntity commentAndRate = new CommentAndRateEntity();
-        for (int i =0; i < commentAndRateList.size();i++){
-            if(commentAndRateList.get(i).getMenteeId()==menteeId)
-                commentAndRate = commentAndRateList.get(i);
-        }
+        CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMenteeId(mentor,menteeId);
         String result="<form class=\"form\" action=\"\">\n" +
                 "            <input id=\"mentor-id\" type=\"hidden\">\n" +
+                "            <input id=\"rate-comment-id\" value =\""+commentAndRate.getId()+"\" type=\"hidden\">\n" +
                 "            <a class=\"icon-close\" onclick=\"hideRate()\">Close</a>\n" +
                 "            <input id=\"ratings-hidden\" name=\"rating\" type=\"hidden\">\n" +
-                "            <textarea class=\"form-control animated\" cols=\"50\" id=\"new-review\" name=\"comment\"\n" +
+                "            <textarea class=\"form-control animated\" cols=\"50\" id=\"new-comment\" name=\"comment\"\n" +
                 "                      placeholder=\"Enter your review here...\" rows=\"5\">"+commentAndRate.getComment()+"</textarea>\n" +
                 "            <div class=\"container d-flex justify-content-center\">\n" +
                 "                <div class=\"row\">\n" +
@@ -64,6 +60,15 @@ public class RateCommentServiceImpl implements RateCommentService {
 
         return result;
     }
+
+    @Override
+    public void saveRateComment(int id, String comment, int starNumber) {
+        CommentAndRateEntity commentAndRate = rateCommentRepository.findById(id);
+        commentAndRate.setComment(comment);
+        commentAndRate.setRate(starNumber);
+        rateCommentRepository.save(commentAndRate);
+    }
+
     public String getRateNumber(int star, int ratedStar){
         return star==ratedStar?"checked":"";
     }

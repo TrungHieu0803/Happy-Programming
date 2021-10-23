@@ -331,6 +331,7 @@ function checkEmailForChangePass() {
         success: function (result) {
             $("#message-2").html(result);
         }, error: function () {
+            console.log("aosdoaihsdoiashod")
             $("#message-2").html("");
         }
     });
@@ -387,9 +388,20 @@ window.onclick = function(event) {
 }
 
 function displayRate(id){
-    modal.style.display = "block";
     console.log(id);
+    modal.style.display = "block";
+    jQuery.ajax({
+        url: "/get-rate-comment",
+        type: "GET",
+        data: {mentorId:id},
+        success: function (result) {
+            $("#rate-comment").html(result);
+        }, error: function () {
+            $("#message-2").html("");
+        }
+    });
     document.getElementById('mentor-id').value = id;
+
 }
 function hideRate(){
         modal.style.display = "none";

@@ -433,10 +433,14 @@ function saveReview(){
 }
 function loadData(){
     jQuery.ajax({
-        url: "/get-notification",
+        url: "/get-uncheck-notification",
         type: "GET",
         success: function (result) {
-            document.getElementById('noti1').innerHTML=result;
+            if(result=="0"){
+                document.getElementById('noti1').innerHTML="";
+            }else{
+                document.getElementById('noti1').innerHTML=result;
+            }
         }, error: function () {
         }
     });
@@ -444,8 +448,20 @@ function loadData(){
 function displayNotification(){
     if(document.getElementById('notification').style.display=="none"){
         document.getElementById('notification').style.display="block";
+        document.getElementById('noti1').innerHTML="";
+        if(document.getElementById('fill-content').innerHTML==""){
+            console.log("get data")
+            jQuery.ajax({
+                url: "/get-notification-content",
+                type: "GET",
+                success: function (result) {
+                    $('#fill-content').html(result);
+                }, error: function () {
+                }
+            });
+        }
     }else{
-        document.getElementById('notification').style.display="none"
+        document.getElementById('notification').style.display="none";
     }
 }
 

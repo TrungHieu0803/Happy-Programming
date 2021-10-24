@@ -15,8 +15,13 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @GetMapping("/get-notification")
+    @GetMapping("/get-uncheck-notification")
     public void getNotification(HttpServletResponse response) throws IOException {
         response.getWriter().print(notificationService.getUncheckedNoti());
+    }
+    @GetMapping("/get-notification-content")
+    public void getNotificationContent(HttpServletResponse response)throws IOException{
+        response.getWriter().print(notificationService.getNotification());
+        System.out.print(notificationService.getNotification());
     }
 }

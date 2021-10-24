@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface NotificationRepository extends JpaRepository<NotificationEntity,Long> {
 
     ArrayList<NotificationEntity> findByStatus(int status);
+
+    ArrayList<NotificationEntity> findTop5ByOrderByCreatedDateDesc();
 }

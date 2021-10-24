@@ -441,6 +441,13 @@ function loadData(){
         }
     });
 }
+function displayNotification(){
+    if(document.getElementById('notification').style.display=="none"){
+        document.getElementById('notification').style.display="block";
+    }else{
+        document.getElementById('notification').style.display="none"
+    }
+}
 
 
 

@@ -8,6 +8,31 @@
 /* ==========================================================================
    Common Styles
    ========================================================================== */
+#text-notification{
+  height: 50px;
+  border-bottom: 1px solid #464343;
+  padding: 10px;
+}
+#text-notification h3{
+  color: #d7d3d3;
+}
+.detail-notification{
+  border-bottom: solid 1px black;
+  margin: 10px;
+}
+.header{
+  position: relative;
+}
+#notification{
+  position: absolute;
+  top: 60px;
+  right: 200px;
+  background-color: rgba(33, 33, 33, 0.8);
+  width: 35%;
+  z-index: 5;
+  border: 1px solid #464343;
+
+}
 #noti{
   position: relative;
 }
@@ -19,6 +44,13 @@
   padding-left: 5px;
   padding-right: 5px;
   background-color: #ff070a;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #faf7f7
 }
 
 div.stars {

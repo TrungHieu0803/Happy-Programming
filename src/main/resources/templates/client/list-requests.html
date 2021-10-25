@@ -140,10 +140,10 @@
                                 <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}">Rate</a>
                             </div>
                             <div class="col-md-3">
-                                <input th:if="*{request.getStatus()==0}" value="Delete" type="button">
+                                <a th:href="@{delete-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Delete" type="button"></a>
                                 <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
-                                <input th:if="*{request.getStatus()==1}" value="Cancel" type="button">
-                                <input th:if="*{request.getStatus()==2}" value="Delete" type="button">
+                                <a th:href="@{cancel-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==1}" value="Cancel" type="button"></a>
+                                <a th:href="@{delete-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==2}" value="Delete" type="button"></a>
                                 <input th:if="*{request.getStatus()==2}" value="View detail" type="button">
                                 <input th:if="*{request.getStatus()==3}" value="View detail" type="button">
                             </div>

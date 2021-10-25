@@ -1,7 +1,6 @@
 package com.example.happyprogramming.service.implement;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
 import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +59,23 @@ public class RequestServiceImpl implements RequestService {
         requestUpdate.setDeliveryTime(request.getDeliveryTime());
         requestRepository.save(requestUpdate);
 
+    }
+
+    @Override
+    public void deleteRequest(Long id) {
+        Optional<RequestEntity> requestOptional = requestRepository.findById(id);
+        RequestEntity deleteRequest = requestOptional.get();
+        deleteRequest.setStatus(4);
+        requestRepository.save(deleteRequest);
+    }
+
+    @Override
+    public void cancelRequest(Long id) {
+        Optional<RequestEntity> requestOptional = requestRepository.findById(id);
+        RequestEntity cancelRequest = requestOptional.get();
+        cancelRequest.setStatus(0);
+        cancelRequest.setMentorId(null);
+        requestRepository.save(cancelRequest);
     }
 
 }

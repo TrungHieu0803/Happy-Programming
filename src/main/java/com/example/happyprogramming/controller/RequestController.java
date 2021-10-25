@@ -58,6 +58,7 @@ public class RequestController {
                                 @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         if(recommend){
+
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
@@ -80,8 +81,15 @@ public class RequestController {
     public String listWaitingRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
+        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> listApproved = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
+        int k = list.size()+listApproved.size()+listRejected.size();
+        model.addAttribute("l1",(float)list.size()*100/k);
+        model.addAttribute("l2", (float)listRejected.size()*100/k);
+        model.addAttribute("l3", (float)listApproved.size()*100/k);
         model.addAttribute("listWaitingRequest",list);
-        return "client/waiting-requests";
+
+        return "/client/waiting-requests";
     }
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
@@ -99,8 +107,8 @@ public class RequestController {
     }
     @PostMapping("/reject")
     public String rejectRequest(HttpServletRequest request){
-       Long id = Long.parseLong(request.getParameter("id"));
-       String response = request.getParameter("response");
+        Long id = Long.parseLong(request.getParameter("id"));
+        String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();

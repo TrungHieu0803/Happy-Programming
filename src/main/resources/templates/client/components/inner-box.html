@@ -56,10 +56,10 @@
                 <li><a th:href="@{/change-password}">Change Password</a></li>
             </ul>
             <h3>List requests</h3>
-            <ul class="lest item">
-                <li><a th:href="@{/list-requests(status=0)}">Active</a></li>
-                <li><a th:href="@{/list-requests(status=1)}">Paused</a></li>
-                <li><a th:href="@{/list-requests(status=2)}">Pending</a></li>
+            <ul class="lest item ">
+                <li><a th:href="@{/list-requests(status=0)}">Pending</a></li>
+                <li><a th:href="@{/list-requests(status=1)}">Active</a></li>
+                <li><a th:href="@{/list-requests(status=2)}">Paused</a></li>
                 <li><a th:href="@{/list-requests(status=3)}">Approved</a></li>
             </ul>
             <h3>Manage requests invited to me</h3>
@@ -78,6 +78,6 @@
         </div>
     </div>
 </div>
-</script>
+
 </body>
 </html>

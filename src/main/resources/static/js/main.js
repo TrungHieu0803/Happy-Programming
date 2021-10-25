@@ -331,6 +331,7 @@ function checkEmailForChangePass() {
         success: function (result) {
             $("#message-2").html(result);
         }, error: function () {
+            console.log("aosdoaihsdoiashod")
             $("#message-2").html("");
         }
     });
@@ -342,12 +343,12 @@ function checkEmailForChangePass() {
 }
 
 function deliveredTimeVerify(){
-    let time = document.getElementById('delivered-time').value;
+    let time = document.getElementById('deliveryTime').value;
     console.log(time);
     if(isNaN(time) || time == ""){
-        document.getElementById('delivered-time').value = "";
+        document.getElementById('deliveryTime').value = "";
     }else{
-        document.getElementById('delivered-time').value = time+" Days";
+        document.getElementById('deliveryTime').value = time+" Days";
     }
 }
 
@@ -360,4 +361,110 @@ function budgetVerify(){
         document.getElementById('budget').value = budget+"$";
     }
 }
+
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function displayRate(id){
+    console.log(id);
+    modal.style.display = "block";
+    jQuery.ajax({
+        url: "/get-rate-comment",
+        type: "GET",
+        data: {mentorId:id},
+        success: function (result) {
+            $("#rate-comment").html(result);
+        }, error: function () {
+            $("#message-2").html("");
+        }
+    });
+    document.getElementById('mentor-id').value = id;
+
+}
+function hideRate(){
+        modal.style.display = "none";
+}
+
+function saveReview(){
+    var id = document.getElementById('rate-comment-id').value;
+    var comment = document.getElementById('new-comment').value;
+    var selectedVal = "";
+    var selected = $("input[type='radio'][name='star']:checked");
+    if (selected.length > 0) {
+        selectedVal = selected.val();
+    }
+    console.log(selectedVal);
+    jQuery.ajax({
+        url: "/save-rate-comment",
+        type: "POST",
+        data: {rateCommentId:id,
+                comment: comment,
+                starNumber: selectedVal},
+        success: function () {
+
+        }, error: function () {
+
+        }
+    });
+    modal.style.display = "none";
+
+}
+function loadData(){
+    jQuery.ajax({
+        url: "/get-uncheck-notification",
+        type: "GET",
+        success: function (result) {
+            if(result=="0"){
+                document.getElementById('noti1').innerHTML="";
+            }else{
+                document.getElementById('noti1').innerHTML=result;
+            }
+        }, error: function () {
+        }
+    });
+}
+function displayNotification(){
+    if(document.getElementById('notification').style.display=="none"){
+        document.getElementById('notification').style.display="block";
+        document.getElementById('noti1').innerHTML="";
+        if(document.getElementById('fill-content').innerHTML==""){
+            console.log("get data")
+            jQuery.ajax({
+                url: "/get-notification-content",
+                type: "GET",
+                success: function (result) {
+                    $('#fill-content').html(result);
+                }, error: function () {
+                }
+            });
+        }
+    }else{
+        document.getElementById('notification').style.display="none";
+    }
+}
+
+
+
 

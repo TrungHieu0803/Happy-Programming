@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
 </head>
-<body>
+<body >
 <div class="logo-menu" >
 <!--    <nav class="navbar navbar-default main-navigation" role="navigation" data-spy="affix" data-offset-top="50">-->
     <nav class="navbar navbar-default " role="navigation" data-spy="affix" data-offset-top="50" th:fragment="navbar1">
@@ -115,9 +116,9 @@
                         <a th:if="${session.role == null}" th:href="@{/login}"><i class="ti-lock"></i>  Log In</a>
                     </li>
                     <li  class="right">
-                        <a th:if="${session.role != null}">
-                            <i class="ti-bell"><span class="notinumber" style="color: #FF4F57"> 2</span></i>
-
+                        <a th:if="${session.role != null}" id="noti" onclick="displayNotification()">
+                            <i class="ti-bell"></i>
+                            <span class="notinumber" id="noti1"></span>
                         </a>
                     </li>
                     <li th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}"  class="right">

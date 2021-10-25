@@ -36,5 +36,4 @@ public class NotificationEntity {
     @Column
     private int status;
 
-
 }

@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -60,7 +58,14 @@ public class RequestController {
     public String listWaitingRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
+        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> listApproved = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
+        int k = list.size()+listApproved.size()+listRejected.size();
+        model.addAttribute("l1",(float)list.size()*100/k);
+        model.addAttribute("l2", (float)listRejected.size()*100/k);
+        model.addAttribute("l3", (float)listApproved.size()*100/k);
         model.addAttribute("listWaitingRequest",list);
+
         return "/client/waiting-requests";
     }
     @GetMapping("/invited-request-rejected")

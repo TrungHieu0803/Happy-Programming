@@ -104,7 +104,7 @@
             <div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="job-alerts-item candidates">
                     <h3 class="alerts-title">Waiting requests</h3>
-<!--                    <button id="myBtn">Statistic requests</button>-->
+                    <button onclick="draw()">Statistic requests</button>
                     <div class="alerts-list">
                         <div class="row">
                             <div class="col-md-3">
@@ -172,7 +172,36 @@
     </div>
 </div>
 
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script th:inline="javascript">
+    function draw() {
 
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Statistic invited requests"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##.##\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [{
+                    y: [[${l1}]],
+                    label: "Waiting"
+                }, {
+                    y: [[${l2}]],
+                    label: "Rejected"
+                }, {
+                    y: [[${l3}]],
+                    label: "Approved"
+                }]
+            }]
+        });
+        chart.render();
+
+    }
+</script>
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -215,6 +244,7 @@
 </a>
 
 <!-- Main JS  -->
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/material.min.js}"></script>

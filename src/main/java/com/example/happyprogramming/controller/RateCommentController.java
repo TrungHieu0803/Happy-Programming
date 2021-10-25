@@ -30,7 +30,7 @@ public class RateCommentController {
         Long menteeId = new Long(user.getId());
 
 
-            response.getWriter().print(rateCommentService.getRateComment(mentorId,user.getId()));
+        response.getWriter().print(rateCommentService.getRateComment(mentorId,user.getId()));
 
     }
 

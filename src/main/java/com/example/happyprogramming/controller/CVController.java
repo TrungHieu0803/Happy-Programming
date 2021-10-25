@@ -51,4 +51,8 @@ public class CVController {
         return "redirect:/home";
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "admin/index";
+    }
 }

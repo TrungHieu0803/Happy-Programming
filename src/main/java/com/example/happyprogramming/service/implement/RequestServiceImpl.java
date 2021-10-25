@@ -26,7 +26,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void createRequest(RequestEntity requestEntity) {
-
+        requestEntity.setStatus(1);
         requestRepository.save(requestEntity);
     }
 

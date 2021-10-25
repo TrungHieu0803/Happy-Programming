@@ -58,7 +58,6 @@ public class RequestController {
                                 @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         if(recommend){
-
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);

@@ -62,7 +62,7 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
-            requestService.createRequest(requestEntity);
+            requestService.createRequest(requestEntity,0);
             return "redirect:/home";
         }else{
             int mentorId= Integer.parseInt(request.getParameter("mentorId"));
@@ -72,7 +72,7 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
-            requestService.createRequest(requestEntity);
+            requestService.createRequest(requestEntity,1);
             return "redirect:/home";
         }
     }
@@ -156,5 +156,16 @@ public class RequestController {
         return "redirect:/list-requests?status=0";
     }
 
+    @GetMapping("/delete-request")
+    public String deleteRequest(@RequestParam("id") Long id){
+        requestService.deleteRequest(id);
+    return "redirect:/list-requests?status=0";
+    }
+
+    @GetMapping("/cancel-request")
+    public String cancelRequest(@RequestParam("id") Long id){
+        requestService.cancelRequest(id);
+        return "redirect:/list-requests?status=1";
+    }
 
 }

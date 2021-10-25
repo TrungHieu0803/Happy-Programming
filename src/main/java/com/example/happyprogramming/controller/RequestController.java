@@ -61,7 +61,7 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
-            requestService.createRequest(requestEntity);
+            requestService.createRequest(requestEntity,0);
             return "redirect:/home";
         }else{
             int mentorId= Integer.parseInt(request.getParameter("mentorId"));
@@ -71,7 +71,7 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
-            requestService.createRequest(requestEntity);
+            requestService.createRequest(requestEntity,1);
             return "redirect:/home";
         }
     }

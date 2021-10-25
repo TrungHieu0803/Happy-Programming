@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public interface RequestService {
-    void createRequest(RequestEntity requestEntity);
+    void createRequest(RequestEntity requestEntity, int status);
     List<RequestEntity> findRequestEntitiesByMentorIdAndStatus(UserEntity id, int status);
     Optional<RequestEntity> findById(Long id);
     Pagination<RequestEntity> findByStatus(int status, int pageNumber);

@@ -26,7 +26,7 @@ public class CommentAndRateEntity {
 
     @ManyToOne
     @JoinColumn(name = "mentor_id")
-    private UserEntity mentor;
+    private CVEntity mentor;
 
     @Column(name = "comment",length = 2000)
     private String comment;

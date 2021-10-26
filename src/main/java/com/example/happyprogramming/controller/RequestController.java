@@ -139,7 +139,8 @@ public class RequestController {
     @GetMapping("/list-requests")
     public String listRequest(Model model, @RequestParam ("status") int status,
                               @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
-        Pagination<RequestEntity> listRequest = requestService.findByStatus(status,pageNumber);
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        Pagination<RequestEntity> listRequest = requestService.findByStatus(user,status,pageNumber);
         model.addAttribute("listRequests", listRequest.getPaginatedList());
         model.addAttribute("pageNumbers",listRequest.getPageNumbers());
         model.addAttribute("status",status);

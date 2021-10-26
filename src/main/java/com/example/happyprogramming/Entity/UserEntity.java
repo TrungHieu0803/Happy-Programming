@@ -57,9 +57,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "mentee")
     private Set<CommentAndRateEntity> reviewOfMentee;
 
-    @OneToMany(mappedBy = "mentor")
-    private Set<CommentAndRateEntity> reviewForMentor;
-
     @OneToOne(mappedBy = "user")
     @PrimaryKeyJoinColumn
     private CVEntity mentorId;

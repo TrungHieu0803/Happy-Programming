@@ -39,9 +39,9 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Pagination<RequestEntity> findByStatus(int status, int pageNumber) {
+    public Pagination<RequestEntity> findByStatus(UserEntity mentee,int status, int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber-1,10);
-        Page<RequestEntity> page = requestRepository.findByStatus(pageRequest,status);
+        Page<RequestEntity> page = requestRepository.findByStatusAndAndMenteeId(pageRequest,status,mentee);
         int totalPages = page.getTotalPages();
         List<RequestEntity> requestList = page.getContent();
         List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());

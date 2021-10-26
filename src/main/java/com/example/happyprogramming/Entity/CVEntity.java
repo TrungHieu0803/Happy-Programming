@@ -41,10 +41,19 @@ public class CVEntity {
     @Column(length = 1000)
     private String achievement;
 
+    @Column(name = "rated_numbers")
+    private int ratedNumbers;
+
+    @Column(name = "average_star")
+    private double averageStar;
+
     @ManyToMany
     @JoinTable(name = "mentor_skills",
             joinColumns = @JoinColumn(name = "mentor_id"), //ở class nào thì thì joinColumn này sẽ là khóa chính của table mang tên class đó
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<SkillEntity> skills ;
+
+    @OneToMany(mappedBy = "mentor")
+    Set<CommentAndRateEntity> commentAndRateEntities;
 
 }

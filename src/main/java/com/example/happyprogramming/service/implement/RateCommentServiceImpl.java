@@ -28,7 +28,8 @@ public class RateCommentServiceImpl implements RateCommentService {
 
     @Override
     public String getRateComment(int mentorId, UserEntity mentee) {
-        UserEntity mentor = userRepository.findById(mentorId);
+        UserEntity user = userRepository.findById(mentorId);
+        CVEntity mentor = cvRepository.findByUser(user);
         CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMentee(mentor,mentee);
         String comment = commentAndRate.getComment()!=null?commentAndRate.getComment():"";
         String result="<form class=\"form\" action=\"\">\n" +
@@ -58,27 +59,42 @@ public class RateCommentServiceImpl implements RateCommentService {
                 "            </div>\n" +
                 "            <button class=\"btn btn-success btn-lg\" type=\"button\" onclick=\"saveReview()\">Save</button>\n" +
                 "        </form>";
-
         return result;
     }
 
     @Override
     public void saveRateComment(int id, String comment, int starNumber) {
         CommentAndRateEntity commentAndRate = rateCommentRepository.findById(id);
+        CVEntity mentor = commentAndRate.getMentor();
+        if(mentor.getRatedNumbers()==0 && commentAndRate.getRate()==0){
+            mentor.setAverageStar(starNumber);
+            mentor.setRatedNumbers(1);
+        }else if(mentor.getRatedNumbers()!=0 && commentAndRate.getRate()==0){
+            double aveStar = (mentor.getAverageStar() * mentor.getRatedNumbers() + starNumber) / (mentor.getRatedNumbers()+1);
+            mentor.setAverageStar(aveStar);
+            mentor.setRatedNumbers(mentor.getRatedNumbers()+1);
+        }else{
+            double aveStar = (mentor.getAverageStar() * mentor.getRatedNumbers() - commentAndRate.getRate() + starNumber)/mentor.getRatedNumbers();
+            mentor.setAverageStar(aveStar);
+        }
         commentAndRate.setComment(comment);
         commentAndRate.setRate(starNumber);
         rateCommentRepository.save(commentAndRate);
+        cvRepository.save(mentor);
     }
 
     @Override
     public void enableRateAndComment(UserEntity mentor, UserEntity mentee) {
         CommentAndRateEntity commentAndRate = new CommentAndRateEntity();
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        CVEntity mentorUpdate = cvRepository.findByUser(mentor);
         commentAndRate.setCreatedDate(date);
-        commentAndRate.setMentor(mentor);
+        commentAndRate.setMentor(mentorUpdate);
         commentAndRate.setMentee(mentee);
+        commentAndRate.setRate(0);
         rateCommentRepository.save(commentAndRate);
     }
+
 
     public String getRateNumber(int star, int ratedStar){
         return star==ratedStar?"checked":"";

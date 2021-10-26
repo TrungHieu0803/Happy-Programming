@@ -46,6 +46,8 @@ public class CVServiceImpl implements ICVService {
         cv.setUser(user);
         CVEntity CVupdate = cvRepository.findByUser(user);
         if(CVupdate==null){
+            cv.setRatedNumbers(0);
+            cv.setAverageStar(0);
             cvRepository.save(cv);
         }
         else{

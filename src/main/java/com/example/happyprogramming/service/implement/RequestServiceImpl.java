@@ -58,15 +58,6 @@ public class RequestServiceImpl implements RequestService {
         requestUpdate.setBudget(request.getBudget());
         requestUpdate.setDeliveryTime(request.getDeliveryTime());
         requestRepository.save(requestUpdate);
-
-    }
-
-    @Override
-    public void deleteRequest(Long id) {
-        Optional<RequestEntity> requestOptional = requestRepository.findById(id);
-        RequestEntity deleteRequest = requestOptional.get();
-        deleteRequest.setStatus(4);
-        requestRepository.save(deleteRequest);
     }
 
     @Override

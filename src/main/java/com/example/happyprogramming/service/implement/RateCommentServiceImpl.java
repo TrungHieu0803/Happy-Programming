@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Component
 public class RateCommentServiceImpl implements RateCommentService {
@@ -26,17 +27,17 @@ public class RateCommentServiceImpl implements RateCommentService {
     private CVRepository cvRepository;
 
     @Override
-    public String getRateComment(int mentorId, Long menteeId) {
-        UserEntity user = userRepository.findById(mentorId);
-        CVEntity mentor = cvRepository.findByUser(user);
-        CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMenteeId(mentor,menteeId);
+    public String getRateComment(int mentorId, UserEntity mentee) {
+        UserEntity mentor = userRepository.findById(mentorId);
+        CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMentee(mentor,mentee);
+        String comment = commentAndRate.getComment()!=null?commentAndRate.getComment():"";
         String result="<form class=\"form\" action=\"\">\n" +
                 "            <input id=\"mentor-id\" type=\"hidden\">\n" +
                 "            <input id=\"rate-comment-id\" value =\""+commentAndRate.getId()+"\" type=\"hidden\">\n" +
                 "            <a class=\"icon-close\" onclick=\"hideRate()\">Close</a>\n" +
                 "            <input id=\"ratings-hidden\" name=\"rating\" type=\"hidden\">\n" +
                 "            <textarea class=\"form-control animated\" cols=\"50\" id=\"new-comment\" name=\"comment\"\n" +
-                "                      placeholder=\"Enter your review here...\" rows=\"5\">"+commentAndRate.getComment()+"</textarea>\n" +
+                "                      placeholder=\"Enter your review here...\" rows=\"5\">"+comment+"</textarea>\n" +
                 "            <div class=\"container d-flex justify-content-center\">\n" +
                 "                <div class=\"row\">\n" +
                 "                    <div class=\"col-md-12\">\n" +
@@ -66,6 +67,16 @@ public class RateCommentServiceImpl implements RateCommentService {
         CommentAndRateEntity commentAndRate = rateCommentRepository.findById(id);
         commentAndRate.setComment(comment);
         commentAndRate.setRate(starNumber);
+        rateCommentRepository.save(commentAndRate);
+    }
+
+    @Override
+    public void enableRateAndComment(UserEntity mentor, UserEntity mentee) {
+        CommentAndRateEntity commentAndRate = new CommentAndRateEntity();
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        commentAndRate.setCreatedDate(date);
+        commentAndRate.setMentor(mentor);
+        commentAndRate.setMentee(mentee);
         rateCommentRepository.save(commentAndRate);
     }
 

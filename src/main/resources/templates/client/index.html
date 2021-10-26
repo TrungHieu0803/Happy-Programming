@@ -92,34 +92,42 @@
         <div class="row">
             <div class="col-md-12">
                 <th:block th:each="mentor : ${listMentor}">
-                    <div class="job-list">
+                    <div class="job-list" style="width: 100%">
                         <div class="thumb">
-                            <a href="#"><img th:src="@{*{mentor.user.avatar}}" alt="User's avatar"></a>
+                            <a href="#"><img class="img-rounded image" th:src="@{*{mentor.user.avatar}}"
+                                             alt="User's avatar"></a>
                             <p th:utext="*{mentor.user.fullName}"></p>
                         </div>
                         <div class="job-list-content">
                             <h4>
                                 <a href="#" th:utext="*{mentor.title}"></a>
-                                <span class="full-time" th:each="skill : *{mentor.skills}" th:utext="*{skill.skillName}"></span>
+                                <span class="full-time" th:each="skill : *{mentor.skills}"
+                                      th:utext="*{skill.skillName}"></span>
                             </h4>
                             <p th:utext="*{mentor.introduction}"></p>
                             <div class="job-tag">
                                 <div class="pull-left">
                                     <div class="meta-tag">
                                         <span><a th:href="${mentor.socialMediaContact}"><i class="ti-facebook"></i></a></span>
-                                        <span><a th:href="${mentor.socialMediaContact}"><i class="ti-github"></i></a></span>
+                                        <span><a th:href="${mentor.socialMediaContact}"><i
+                                                class="ti-github"></i></a></span>
                                     </div>
                                 </div>
                                 <div class="pull-right">
                                     <div class="icon">
+                                        5 <span class="fa-star fa " style="color: #f5be47"></span>
+                                    </div>
+                                    <div class="icon">
                                         <i class="ti-heart"></i>
                                     </div>
-                                    <a th:href="@{/mentor-detail(id=${mentor.id},recommend=false)}" class="btn btn-common btn-rm">More
+                                    <a th:href="@{/mentor-detail(id=${mentor.id},recommend=false)}"
+                                       class="btn btn-common btn-rm">More
                                         Detail</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
                 </th:block>
             </div>
             <div class="col-md-12">
@@ -128,7 +136,8 @@
                 </div>
                 <ul class="pagination pull-right">
                     <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
-                    <li class="page-item" th:each="pageNumber : ${pageNumbers}" th:classappend="${pageNumber==currentPage}?active">
+                    <li class="page-item" th:each="pageNumber : ${pageNumbers}"
+                        th:classappend="${pageNumber==currentPage}?active">
                         <a class="page-link" th:href="@{/home(pageNumber=${pageNumber})}" th:text="${pageNumber}">1</a>
                     </li>
                     <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>

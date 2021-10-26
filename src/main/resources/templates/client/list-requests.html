@@ -123,14 +123,10 @@
                             <div class="col-md-3">
                                 <h3 th:utext="*{request.getTitle()}"></h3>
                             </div>
-                            <div class="col-md-3" th:if="*{request.getStatus()==0}">
+                            <div class="col-md-3" th:if="*{request.getStatus()==0 && request.isReceived()}">
                                 <a href="#"><h3>Find mentors</h3></a>
                             </div>
                             <div class="col-md-3" th:if="*{request.getStatus()==1}">
-                                <a th:href="@{/mentor-detail(id=*{request.getMentorId().getId()})}"><h3
-                                        th:utext="*{request.getMentorName()}"></h3></a><br>
-                            </div>
-                            <div class="col-md-3" th:if="*{request.getStatus()==2}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId().getId()})}"><h3
                                         th:utext="*{request.getMentorName()}"></h3></a><br>
                             </div>
@@ -143,8 +139,6 @@
                                 <a th:href="@{delete-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Delete" type="button"></a>
                                 <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
                                 <a th:href="@{cancel-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==1}" value="Cancel" type="button"></a>
-                                <a th:href="@{delete-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==2}" value="Delete" type="button"></a>
-                                <input th:if="*{request.getStatus()==2}" value="View detail" type="button">
                                 <input th:if="*{request.getStatus()==3}" value="View detail" type="button">
                             </div>
                         </div>

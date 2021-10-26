@@ -17,6 +17,5 @@ public interface RequestService {
     Optional<RequestEntity> findById(Long id);
     Pagination<RequestEntity> findByStatus(int status, int pageNumber);
     void updateRequest(RequestEntity request);
-    void deleteRequest(Long id);
     void cancelRequest(Long id);
 }

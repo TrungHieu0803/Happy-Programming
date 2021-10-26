@@ -21,8 +21,12 @@ public class CommentAndRateEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "mentee_id")
+    private UserEntity mentee;
+
+    @ManyToOne
     @JoinColumn(name = "mentor_id")
-    private CVEntity mentor;
+    private UserEntity mentor;
 
     @Column(name = "comment",length = 2000)
     private String comment;
@@ -33,7 +37,5 @@ public class CommentAndRateEntity {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Column(name = "mentee_id")
-    private Long menteeId;
 
 }

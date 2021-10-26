@@ -7,6 +7,7 @@ import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.RateCommentService;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;
 import com.example.happyprogramming.service.UserService;
@@ -44,6 +45,9 @@ public class RequestController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RateCommentService rateCommentService;
+
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
@@ -58,7 +62,6 @@ public class RequestController {
                                 @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         if(recommend){
-
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
@@ -72,6 +75,7 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             requestEntity.setCreatedDate(date);
+            requestEntity.setReceived(true);
             requestService.createRequest(requestEntity,1);
             return "redirect:/home";
         }
@@ -81,7 +85,7 @@ public class RequestController {
     public String listWaitingRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
-        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
         List<RequestEntity> listApproved = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
         int k = list.size()+listApproved.size()+listRejected.size();
         model.addAttribute("l1",(float)list.size()*100/k);
@@ -94,7 +98,7 @@ public class RequestController {
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
         model.addAttribute("listRejectedRequest",list);
         return "client/rejected-requests";
     }
@@ -112,7 +116,7 @@ public class RequestController {
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
-            req.setStatus(2);
+            req.setStatus(0);
             req.setResponseMess(response);
             requestRepository.save(req);
         }
@@ -127,6 +131,7 @@ public class RequestController {
             RequestEntity req = re.get();
             req.setResponseMess(response);
             req.setStatus(3);
+            rateCommentService.enableRateAndComment(req.getMentorId(),req.getMenteeId());
             requestRepository.save(req);
         }
         return "redirect:/invited-request-wait";
@@ -154,12 +159,6 @@ public class RequestController {
         requestEntity.setId(requestId);
         requestService.updateRequest(requestEntity);
         return "redirect:/list-requests?status=0";
-    }
-
-    @GetMapping("/delete-request")
-    public String deleteRequest(@RequestParam("id") Long id){
-        requestService.deleteRequest(id);
-    return "redirect:/list-requests?status=0";
     }
 
     @GetMapping("/cancel-request")

@@ -6,11 +6,14 @@ import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.CVRepository;
 import com.example.happyprogramming.repository.RateCommentRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.NotificationService;
 import com.example.happyprogramming.service.RateCommentService;
 import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +28,9 @@ public class RateCommentServiceImpl implements RateCommentService {
 
     @Autowired
     private CVRepository cvRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public String getRateComment(int mentorId, UserEntity mentee) {
@@ -81,14 +87,16 @@ public class RateCommentServiceImpl implements RateCommentService {
         commentAndRate.setRate(starNumber);
         rateCommentRepository.save(commentAndRate);
         cvRepository.save(mentor);
+        notificationService.ratedNotification(mentor.getUser(),commentAndRate.getMentee());
     }
 
     @Override
     public void enableRateAndComment(UserEntity mentor, UserEntity mentee) {
         CommentAndRateEntity commentAndRate = new CommentAndRateEntity();
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
         CVEntity mentorUpdate = cvRepository.findByUser(mentor);
-        commentAndRate.setCreatedDate(date);
+        commentAndRate.setCreatedDate(dtf.format(now));
         commentAndRate.setMentor(mentorUpdate);
         commentAndRate.setMentee(mentee);
         commentAndRate.setRate(0);

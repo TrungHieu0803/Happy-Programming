@@ -2,6 +2,7 @@ package com.example.happyprogramming.service;
 
 
 import com.example.happyprogramming.Entity.NotificationEntity;
+import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,19 @@ import java.util.ArrayList;
 @Service
 public interface NotificationService {
 
-    int getUncheckedNoti();
+    int getUncheckedNoti(UserEntity user);
 
-    String getNotification();
+    String getNotification(UserEntity user);
+
+    void welcomeNotification(UserEntity user);
+
+    void menteeSendRequestNotification(UserEntity mentor, UserEntity mentee);
+
+    void acceptedNotification(UserEntity mentor, UserEntity mentee);
+
+    void rejectedNotification(UserEntity mentor, UserEntity mentee);
+
+    void receivedNotification(UserEntity mentor, UserEntity mentee);
+
+    void ratedNotification(UserEntity mentor, UserEntity mentee);
 }

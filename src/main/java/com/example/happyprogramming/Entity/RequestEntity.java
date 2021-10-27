@@ -42,7 +42,7 @@ public class RequestEntity {
     private String content;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private String createdDate;
 
     @Column(name = "response_mess")
     private String responseMess;

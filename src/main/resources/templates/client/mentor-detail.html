@@ -112,7 +112,9 @@
                             </div>
                             <div class="name">
                                 <h4 th:utext="${mentor.user.fullName}" ></h4>
-                                <p>8 Current jobs openings</p>
+                                <div class="icon">
+                                    <span class="fa-star fa " style="color: #f5be47" th:utext="${mentor.getAverageStar()}"></span><span th:text="${' ('+ mentor.getRatedNumbers()+')'}"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="clearfix">
@@ -132,12 +134,62 @@
                             <div th:utext="${mentor.profession}"></div>
                             <h3>Achievement</h3>
                             <div th:utext="${mentor.achievement}"></div>
-                            <a href="#" class="btn btn-common">Apply for this Job Now</a>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class="box">
+                            <div id="comments">
+                                <h3>There are 5 comments on this post</h3>
+                                <ol class="comments-list">
+                                    <li th:each="comment : ${mentor.getCommentAndRateEntities()}" style="border-bottom: 1px solid #5d5a5a">
+                                        <div class="media">
+                                            <div class="thumb-left">
+                                                <a href="#">
+                                                    <img alt="" th:src="@{*{comment.getMentee().getAvatar()}}">
+                                                </a>
+                                            </div>
+                                            <div class="info-body">
+                                                <h4 class="name" th:utext="*{comment.getMentee().getFullName()}"></h4>
+                                                <p th:utext="*{comment.getComment()}"></p>
+                                                <span class="comment-date" th:utext="*{comment.getCreatedDate()}"></span>
+                                                <a href="#" class="reply-link">Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                                <a class="active" href="#" onclick="showMoreComment()">+ See more</a><br>
+                                <div id="respond">
+                                    <h2 class="respond-title">Leave a comment</h2>
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group is-empty">
+                                                    <input id="author" class="form-control" name="author" type="text" value="" size="30" placeholder="Enter your name">
+                                                    <span class="material-input"></span></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group is-empty">
+                                                    <input id="email" class="form-control" name="author" type="text" value="" size="30" placeholder="Enter your email">
+                                                    <span class="material-input"></span></div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group is-empty">
+                                                    <input id="subject" class="form-control" name="author" type="text" value="" size="30" placeholder="Subject (optional)">
+                                                    <span class="material-input"></span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group is-empty">
+                                                    <textarea id="comment" class="form-control" name="comment" cols="45" rows="8" placeholder="Here goes your comment"></textarea>
+                                                    <span class="material-input"></span></div>
+                                                <button type="submit" id="submit" class="btn btn-common">Submit Comment</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,8 +209,10 @@
                                 <a href="#" class="text"><i class="fa fa-map-marker"></i>Moorgate, London</a>
                                 <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
                                 <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
-                                <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Apply for this Job</a>
-                                <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Apply for this Job</a>
+                                <div th:if="${mentor.getUser().id!=session.userInformation.id}">
+                                    <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Apply for this Job</a>
+                                    <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Apply for this Job</a>
+                                </div>
                             </div>
                         </div>
                     </div>

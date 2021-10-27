@@ -1,10 +1,13 @@
 package com.example.happyprogramming.service.implement;
+import com.example.happyprogramming.Entity.NotificationEntity;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.RoleEntity;
 import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.RoleRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.NotificationService;
 import com.example.happyprogramming.service.UserService;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -98,6 +106,7 @@ public class UserServiceImpl implements UserService {
             user.setVerificationCode(null);
             user.setEnabled(true);
             userRepo.save(user);
+            notificationService.welcomeNotification(user);
             return true;
         }
     }

@@ -40,12 +40,13 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 
         // Admin account
-        if (userRepository.findByEmail("admin@gmail.com") == null) {
+        if (userRepository.findByEmail("admin") == null) {
             UserEntity admin = new UserEntity();
-            admin.setEmail("admin@gmail.com");
-            admin.setPassword(passwordEncoder.encode("123456"));
+            admin.setEmail("admin");
+            admin.setPassword(passwordEncoder.encode("12"));
+            admin.setFullName("hieu");
+            admin.setEnabled(true);
             HashSet<RoleEntity> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_ADMIN"));
             roles.add(roleRepository.findByName("ROLE_MENTEE"));
             admin.setRoles(roles);
             userRepository.save(admin);
@@ -63,17 +64,17 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             user.setRoles(roles);
             userRepository.save(user);
         }
-        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
-            UserEntity user = new UserEntity();
-            user.setEmail("xuhao9xx@gmail.com");
-            user.setPassword(passwordEncoder.encode("12"));
-            user.setFullName("Trung Hieu");
-            user.setEnabled(true);
-            HashSet<RoleEntity> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_MENTEE"));
-            user.setRoles(roles);
-            userRepository.save(user);
-        }
+//        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
+//            UserEntity user = new UserEntity();
+//            user.setEmail("xuhao9xx@gmail.com");
+//            user.setPassword(passwordEncoder.encode("12"));
+//            user.setFullName("Trung Hieu");
+//            user.setEnabled(true);
+//            HashSet<RoleEntity> roles = new HashSet<>();
+//            roles.add(roleRepository.findByName("ROLE_MENTEE"));
+//            user.setRoles(roles);
+//            userRepository.save(user);
+//        }
     }
 
 }

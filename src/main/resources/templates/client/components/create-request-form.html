@@ -45,7 +45,7 @@
                                 <option th:each="listSkills : ${listSkill}" th:value="${listSkills.getId()}"
                                         th:utext="${listSkills.getSkillName()}"></option>
                             </select>
-                            <input type="text" th:if="${recommend==false}" th:name="mentorId" th:value="${mentorId}">
+                            <input type="hidden" th:if="${recommend==false}" th:name="mentorId" th:value="${mentorId}">
                             <span class="material-input"></span>
                             <span class="material-input"></span></div>
                         <button type="submit" class="btn btn-common">OK</button>

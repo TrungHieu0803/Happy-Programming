@@ -35,7 +35,7 @@ public class CommentAndRateEntity {
     private int rate;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private String createdDate;
 
 
 }

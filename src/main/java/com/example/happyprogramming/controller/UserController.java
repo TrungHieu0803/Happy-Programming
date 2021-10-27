@@ -16,10 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -171,6 +168,22 @@ public class UserController {
         session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
         return "client/user-profile";
 
+    }
+
+    @GetMapping("/user-profile")
+    public String updateProfile(@RequestParam("id") Long id, Model model){
+        UserEntity user = userRepository.getById(id);
+        model.addAttribute("user",user);
+        model.addAttribute("userForm", new UserEntity());
+        return "client/user-profile";
+    }
+
+    @PostMapping("/user-profile")
+    public  String profileUpdate(@ModelAttribute("userForm") UserEntity userEntity, HttpServletRequest user){
+        long userID = Integer.parseInt(user.getParameter("userID"));
+        userEntity.setId(userID);
+        userService.updateProfile(userEntity);
+        return "redirect:/user-profile";
     }
 }
 

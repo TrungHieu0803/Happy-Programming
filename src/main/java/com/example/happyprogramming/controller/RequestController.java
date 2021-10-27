@@ -180,4 +180,5 @@ public class RequestController {
         requestService.cancelRequest(id);
         return "redirect:/list-requests?status=1";
     }
+
 }

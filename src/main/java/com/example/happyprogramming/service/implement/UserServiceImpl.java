@@ -13,6 +13,7 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -190,4 +192,14 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public void updateProfile(UserEntity user) {
+        Optional<UserEntity> userOptional = userRepo.findById(user.getId());
+        UserEntity userUpdate = userOptional.get();
+        userUpdate.setFullName(user.getFullName());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setPhone(user.getPhone());
+        userUpdate.setDoB(user.getDoB());
+        userRepo.save(userUpdate);
+    }
 }

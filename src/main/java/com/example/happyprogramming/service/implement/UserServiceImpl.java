@@ -1,15 +1,19 @@
 package com.example.happyprogramming.service.implement;
+import com.example.happyprogramming.Entity.NotificationEntity;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.RoleEntity;
 import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.RoleRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.NotificationService;
 import com.example.happyprogramming.service.UserService;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +26,11 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -39,6 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -98,13 +108,14 @@ public class UserServiceImpl implements UserService {
             user.setVerificationCode(null);
             user.setEnabled(true);
             userRepo.save(user);
+            notificationService.welcomeNotification(user);
             return true;
         }
     }
 
     @Override
     public boolean checkEmail(String email) {
-        return userRepo.findByEmail(email)==null?true:false;
+        return userRepo.findByEmail(email) == null ? true : false;
     }
 
     @Override
@@ -112,7 +123,7 @@ public class UserServiceImpl implements UserService {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         userRepo.save(user);
-        sendEmailChangePassword(user,siteURL);
+        sendEmailChangePassword(user, siteURL);
     }
 
     @Override
@@ -133,7 +144,7 @@ public class UserServiceImpl implements UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getFullName());
-        String verifyURL = siteURL + "/do-change-password?code=" + user.getVerificationCode()+"&email="+user.getEmail();
+        String verifyURL = siteURL + "/do-change-password?code=" + user.getVerificationCode() + "&email=" + user.getEmail();
         content = content.replace("[[URL]]", verifyURL);
 
         helper.setText(content, true);
@@ -148,13 +159,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean doChangePassword(String newpPassword,String oldPassword, UserEntity user) {
+    public boolean doChangePassword(String newpPassword, String oldPassword, UserEntity user) {
         UserEntity currentUser = userRepo.findByEmail(user.getEmail());
-        if(passwordEncoder.matches(oldPassword,currentUser.getPassword())){
+        if (passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
             currentUser.setPassword(passwordEncoder.encode(newpPassword));
             userRepo.save(currentUser);
             return true;
-        }else
+        } else
             return false;
 
     }
@@ -174,11 +185,10 @@ public class UserServiceImpl implements UserService {
         try (OutputStream os = Files.newOutputStream(file)) {
             os.write(avatar.getBytes());
         }
-        user.setAvatar("/img/"+pathAvatar);
+        user.setAvatar("/img/" + pathAvatar);
         userRepo.save(user);
         return user;
 
     }
-
 
 }

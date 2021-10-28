@@ -1,15 +1,11 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.Entity.*;
+import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.UserRepository;
-import com.example.happyprogramming.service.RequestService;
-import com.example.happyprogramming.service.SkillService;
-import com.example.happyprogramming.service.UserService;
+import com.example.happyprogramming.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,6 +42,15 @@ public class RequestController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RateCommentService rateCommentService;
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
@@ -57,22 +64,26 @@ public class RequestController {
     public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity,
                                 @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
         if(recommend){
-
             requestEntity.setMenteeId(user);
-            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            requestEntity.setCreatedDate(date);
+            requestEntity.setCreatedDate(dtf.format(now));
             requestService.createRequest(requestEntity,0);
             return "redirect:/home";
         }else{
             int mentorId= Integer.parseInt(request.getParameter("mentorId"));
-            UserEntity userEntity = userRepository.findById(mentorId);
-            requestEntity.setMentorId(userEntity);
-            requestEntity.setMentorName(userEntity.getFullName());
+            UserEntity mentor = userRepository.findById(mentorId);
+            requestEntity.setMentorId(mentor);
+            requestEntity.setMentorName(mentor.getFullName());
             requestEntity.setMenteeId(user);
-            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            requestEntity.setCreatedDate(date);
+            requestEntity.setCreatedDate(dtf.format(now));
+            requestEntity.setReceived(true);
             requestService.createRequest(requestEntity,1);
+            //notification for mentee
+            notificationService.menteeSendRequestNotification(mentor,user);
+            //notification for mentor
+            notificationService.receivedNotification(mentor,user);
             return "redirect:/home";
         }
     }
@@ -81,7 +92,7 @@ public class RequestController {
     public String listWaitingRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
-        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
         List<RequestEntity> listApproved = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
         int k = list.size()+listApproved.size()+listRejected.size();
         model.addAttribute("l1",(float)list.size()*100/k);
@@ -94,7 +105,7 @@ public class RequestController {
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
+        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
         model.addAttribute("listRejectedRequest",list);
         return "client/rejected-requests";
     }
@@ -110,11 +121,14 @@ public class RequestController {
         Long id = Long.parseLong(request.getParameter("id"));
         String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
         if (re.isPresent()){
             RequestEntity req = re.get();
-            req.setStatus(2);
+            req.setStatus(0);
             req.setResponseMess(response);
             requestRepository.save(req);
+            notificationService.rejectedNotification(req.getMentorId(),req.getMenteeId());
         }
         return "redirect:/invited-request-wait";
     }
@@ -123,18 +137,23 @@ public class RequestController {
         Long id = Long.parseLong(request.getParameter("id"));
         String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setResponseMess(response);
             req.setStatus(3);
+            rateCommentService.enableRateAndComment(req.getMentorId(),req.getMenteeId());
             requestRepository.save(req);
+            notificationService.acceptedNotification(req.getMentorId(),req.getMenteeId());
         }
         return "redirect:/invited-request-wait";
     }
     @GetMapping("/list-requests")
     public String listRequest(Model model, @RequestParam ("status") int status,
                               @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
-        Pagination<RequestEntity> listRequest = requestService.findByStatus(status,pageNumber);
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        Pagination<RequestEntity> listRequest = requestService.findByStatus(user,status,pageNumber);
         model.addAttribute("listRequests", listRequest.getPaginatedList());
         model.addAttribute("pageNumbers",listRequest.getPageNumbers());
         model.addAttribute("status",status);
@@ -154,12 +173,6 @@ public class RequestController {
         requestEntity.setId(requestId);
         requestService.updateRequest(requestEntity);
         return "redirect:/list-requests?status=0";
-    }
-
-    @GetMapping("/delete-request")
-    public String deleteRequest(@RequestParam("id") Long id){
-        requestService.deleteRequest(id);
-    return "redirect:/list-requests?status=0";
     }
 
     @GetMapping("/cancel-request")

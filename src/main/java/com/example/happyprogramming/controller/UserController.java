@@ -16,11 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -113,7 +111,6 @@ public class UserController {
         } else {
             userService.changePassword(user, getSiteURL(request));
             response.getWriter().print("<p class=\"text-success\">Check your email for change the password</p>");
-
         }
     }
 
@@ -166,11 +163,22 @@ public class UserController {
 
     @PostMapping("/upload-avatar")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadImage(@RequestParam("avatar") MultipartFile avatar) throws IOException{
+    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException{
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
         return "client/user-profile";
+    }
 
+    @PostMapping("/update-profile")
+    public void profileUpdate(HttpServletRequest request) {
+        String fullName = request.getParameter("fullName");
+        String DoB = request.getParameter("DoB");
+        String phone = request.getParameter("phone");
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        user.setFullName(fullName);
+        user.setDoB(DoB);
+        user.setPhone(phone);
+        userRepository.save(user);
     }
 }
 

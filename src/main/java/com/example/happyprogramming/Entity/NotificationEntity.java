@@ -31,7 +31,7 @@ public class NotificationEntity {
     private String content;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private String createdDate;
 
     @Column
     private int status;

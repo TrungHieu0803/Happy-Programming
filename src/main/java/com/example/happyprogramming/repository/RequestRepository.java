@@ -16,6 +16,5 @@ import java.util.Optional;
 public interface RequestRepository  extends JpaRepository<RequestEntity,Long> {
     List<RequestEntity> findRequestEntitiesByMentorIdAndStatus(UserEntity mentorId, int status);
     Optional<RequestEntity> findById(Long id);
-    Page<RequestEntity> findByStatus(Pageable pageable, int status);
-    int numberOfRequest(int month);
+    Page<RequestEntity> findByStatusAndAndMenteeId(Pageable pageable, int status,UserEntity mentee);
 }

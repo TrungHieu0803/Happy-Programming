@@ -42,7 +42,7 @@ public class RequestEntity {
     private String content;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private String createdDate;
 
     @Column(name = "response_mess")
     private String responseMess;
@@ -52,6 +52,10 @@ public class RequestEntity {
 
     @Column(name = "mentor_name")
     private String mentorName;
+
+    @Column(name="is_received")
+    private boolean isReceived;
+
 
     @ManyToMany
     @JoinTable(name = "request_skills",

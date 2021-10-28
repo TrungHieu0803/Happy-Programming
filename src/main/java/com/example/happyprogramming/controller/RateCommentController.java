@@ -26,11 +26,8 @@ public class RateCommentController {
 
     @GetMapping("/get-rate-comment")
     public void getRateComment(@RequestParam("mentorId")int mentorId, HttpServletResponse response)throws IOException {
-        UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        Long menteeId = new Long(user.getId());
-
-
-        response.getWriter().print(rateCommentService.getRateComment(mentorId,user.getId()));
+        UserEntity mentee =(UserEntity) session.getAttribute("userInformation");
+        response.getWriter().print(rateCommentService.getRateComment(mentorId,mentee));
 
     }
 

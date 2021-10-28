@@ -465,6 +465,25 @@ function displayNotification(){
     }
 }
 
+function  updateProfile(){
+    var fullName = document.getElementById('fullName').value;
+    var DoB = document.getElementById('DoB').value;
+    var phone = document.getElementById('phone').value;
+    jQuery.ajax({
+        url: "/update-profile",
+        type: "post",
+        data: {
+            fullName: fullName,
+            DoB: DoB,
+            phone: phone,
+        },
+        success: function (result) {
+        }, error: function () {
+        }
+    });
+    modal.style.display = "none";
+}
+
 
 
 

@@ -145,12 +145,46 @@
                         <p th:if="${session.userInformation.isSex() == true}">Male </p>
                         <p th:if="${session.userInformation.isSex() == false}">Female </p>
                     </div>
+                    <!-- Trigger/Open The Modal -->
+                    <button id="myBtn">Update Profile</button>
+
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div id="cd-signup" class="is-selected">
+                                <div class="page-login-form register">
+                                    <form class="form">
+                                        <div class="form-group is-empty">
+                                            <div class="input-icon">
+                                                <input th:name="fullName" th:id="fullName" type="text" class="form-control" name="fullName"
+                                                       placeholder="Username" th:value="${userinfo.getFullName()}">
+                                            </div>
+                                            <span class="material-input"></span></div>
+                                        <div class="form-group is-empty">
+                                            <div class="input-icon">
+                                                <input  th:name="DoB" th:id="DoB" type="text" class="form-control" name="DoB"
+                                                       placeholder="Date Of Birth" th:value="${userinfo.getDoB()}">
+                                            </div>
+                                            <span class="material-input"></span></div>
+                                        <div class="form-group is-empty">
+                                            <div class="input-icon">
+                                                <input  th:name="phone" th:id="phone" type="text" class="form-control" name="phone"
+                                                        placeholder="Phone" th:value="${userinfo.getPhone()}">
+                                            </div>
+                                        <button  onclick="updateProfile()"  class="btn btn-common log-btn">Update</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Footer Section Start -->
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
 <!-- Footer Section End -->

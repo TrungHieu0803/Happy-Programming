@@ -39,9 +39,9 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Pagination<RequestEntity> findByStatus(int status, int pageNumber) {
+    public Pagination<RequestEntity> findByStatus(UserEntity mentee,int status, int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber-1,10);
-        Page<RequestEntity> page = requestRepository.findByStatus(pageRequest,status);
+        Page<RequestEntity> page = requestRepository.findByStatusAndAndMenteeId(pageRequest,status,mentee);
         int totalPages = page.getTotalPages();
         List<RequestEntity> requestList = page.getContent();
         List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
@@ -58,15 +58,6 @@ public class RequestServiceImpl implements RequestService {
         requestUpdate.setBudget(request.getBudget());
         requestUpdate.setDeliveryTime(request.getDeliveryTime());
         requestRepository.save(requestUpdate);
-
-    }
-
-    @Override
-    public void deleteRequest(Long id) {
-        Optional<RequestEntity> requestOptional = requestRepository.findById(id);
-        RequestEntity deleteRequest = requestOptional.get();
-        deleteRequest.setStatus(4);
-        requestRepository.save(deleteRequest);
     }
 
     @Override

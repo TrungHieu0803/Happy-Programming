@@ -6,12 +6,16 @@ import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.CVRepository;
 import com.example.happyprogramming.repository.RateCommentRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.NotificationService;
 import com.example.happyprogramming.service.RateCommentService;
 import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Component
 public class RateCommentServiceImpl implements RateCommentService {
@@ -25,18 +29,22 @@ public class RateCommentServiceImpl implements RateCommentService {
     @Autowired
     private CVRepository cvRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
-    public String getRateComment(int mentorId, Long menteeId) {
+    public String getRateComment(int mentorId, UserEntity mentee) {
         UserEntity user = userRepository.findById(mentorId);
         CVEntity mentor = cvRepository.findByUser(user);
-        CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMenteeId(mentor,menteeId);
+        CommentAndRateEntity commentAndRate = rateCommentRepository.findByMentorAndMentee(mentor,mentee);
+        String comment = commentAndRate.getComment()!=null?commentAndRate.getComment():"";
         String result="<form class=\"form\" action=\"\">\n" +
                 "            <input id=\"mentor-id\" type=\"hidden\">\n" +
                 "            <input id=\"rate-comment-id\" value =\""+commentAndRate.getId()+"\" type=\"hidden\">\n" +
                 "            <a class=\"icon-close\" onclick=\"hideRate()\">Close</a>\n" +
                 "            <input id=\"ratings-hidden\" name=\"rating\" type=\"hidden\">\n" +
                 "            <textarea class=\"form-control animated\" cols=\"50\" id=\"new-comment\" name=\"comment\"\n" +
-                "                      placeholder=\"Enter your review here...\" rows=\"5\">"+commentAndRate.getComment()+"</textarea>\n" +
+                "                      placeholder=\"Enter your review here...\" rows=\"5\">"+comment+"</textarea>\n" +
                 "            <div class=\"container d-flex justify-content-center\">\n" +
                 "                <div class=\"row\">\n" +
                 "                    <div class=\"col-md-12\">\n" +
@@ -57,17 +65,44 @@ public class RateCommentServiceImpl implements RateCommentService {
                 "            </div>\n" +
                 "            <button class=\"btn btn-success btn-lg\" type=\"button\" onclick=\"saveReview()\">Save</button>\n" +
                 "        </form>";
-
         return result;
     }
 
     @Override
     public void saveRateComment(int id, String comment, int starNumber) {
         CommentAndRateEntity commentAndRate = rateCommentRepository.findById(id);
+        CVEntity mentor = commentAndRate.getMentor();
+        if(mentor.getRatedNumbers()==0 && commentAndRate.getRate()==0){
+            mentor.setAverageStar(starNumber);
+            mentor.setRatedNumbers(1);
+        }else if(mentor.getRatedNumbers()!=0 && commentAndRate.getRate()==0){
+            double aveStar = (mentor.getAverageStar() * mentor.getRatedNumbers() + starNumber) / (mentor.getRatedNumbers()+1);
+            mentor.setAverageStar(aveStar);
+            mentor.setRatedNumbers(mentor.getRatedNumbers()+1);
+        }else{
+            double aveStar = (mentor.getAverageStar() * mentor.getRatedNumbers() - commentAndRate.getRate() + starNumber)/mentor.getRatedNumbers();
+            mentor.setAverageStar(aveStar);
+        }
         commentAndRate.setComment(comment);
         commentAndRate.setRate(starNumber);
         rateCommentRepository.save(commentAndRate);
+        cvRepository.save(mentor);
+        notificationService.ratedNotification(mentor.getUser(),commentAndRate.getMentee());
     }
+
+    @Override
+    public void enableRateAndComment(UserEntity mentor, UserEntity mentee) {
+        CommentAndRateEntity commentAndRate = new CommentAndRateEntity();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        CVEntity mentorUpdate = cvRepository.findByUser(mentor);
+        commentAndRate.setCreatedDate(dtf.format(now));
+        commentAndRate.setMentor(mentorUpdate);
+        commentAndRate.setMentee(mentee);
+        commentAndRate.setRate(0);
+        rateCommentRepository.save(commentAndRate);
+    }
+
 
     public String getRateNumber(int star, int ratedStar){
         return star==ratedStar?"checked":"";

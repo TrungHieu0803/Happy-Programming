@@ -26,19 +26,19 @@ public class CVEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(name = "title",length = 50)
+    @Column(name = "title",length = 100)
     private String title;
 
-    @Column(length = 500)
+    @Column(length = 20000)
     private String profession;
 
-    @Column(name = "social_media_contact",length = 500)
+    @Column(name = "social_media_contact",length = 20000)
     private String socialMediaContact;
 
-    @Column(length = 2000)
+    @Column(length = 20000)
     private String introduction;
 
-    @Column(length = 1000)
+    @Column(length = 20000)
     private String achievement;
 
     @Column(name = "rated_numbers")

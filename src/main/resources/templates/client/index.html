@@ -54,10 +54,10 @@
                         <div class="col-md-12">
                             <h1>Find the mentor that fits your request</h1><br>
                             <h2>More than <strong>12,000</strong> mentors are waiting to help you!</h2>
-                            <div class="content">
+                            <div class="content" style="width: 78%">
                                 <form method="" action="" th:object="${listSkillForSearch}">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6">
+                                    <div class="row" >
+                                        <div class="col-md-6 col-sm-6" style="width: 90%">
                                             <div class="search-category-container">
                                                 <label class="styled-select">
                                                     <select class="dropdown-product selectpicker"
@@ -131,9 +131,6 @@
                 </th:block>
             </div>
             <div class="col-md-12">
-                <div class="showing pull-left">
-                    <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
-                </div>
                 <ul class="pagination pull-right">
                     <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
                     <li class="page-item" th:each="pageNumber : ${pageNumbers}"
@@ -146,336 +143,89 @@
         </div>
     </div>
 </section>
-Find Job Section End
 
-Category Section Start
-<section class="section text-center">
-    <div class="container">
-        <!-- Start Animations Text -->
-        <h1>
-
-            You are using Free Lite version of Job Board<br> Purchase Full version to Get all Pages and Features
-        </h1>
-        <br>
-        <!-- End Animations Text -->
-
-        <!-- Start Buttons -->
-        <a rel="nofollow" target="_blank" href="https://rebrand.ly/gg-jobboard-purchase"
-           class="btn btn-common btn-large"><i class="fa fa-cart"></i> Purchase Now</a>
-    </div>
-    </div>
-</section>
-<!-- Category Section End -->
-
-<!-- Featured Jobs Section Start -->
-<section class="featured-jobs section">
-    <div class="container">
-        <h2 class="section-title">
-            Featured Jobs
-        </h2>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img th:src="@{/img/features/img-1.jpg}" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 4 months ago</span>
-                        <span><i class="ti-time"></i> Full Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img th:src="@{/img/features/img-2.jpg}" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> Delaware, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 5 months ago</span>
-                        <span><i class="ti-time"></i> Part Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img th:src="@{/img/features/img-3.jpg}" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 3 months ago</span>
-                        <span><i class="ti-time"></i> Full Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img th:src="@{/img/features/img-3.jpg}" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> Washington, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 1 months ago</span>
-                        <span><i class="ti-time"></i> Part Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img th:src="@{/img/features/img-2.jpg}" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 6 months ago</span>
-                        <span><i class="ti-time"></i> Full Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="featured-item">
-                    <div class="featured-wrap">
-                        <div class="featured-inner">
-                            <figure class="item-thumb">
-                                <a class="hover-effect" href="job-page.html">
-                                    <img src="assets/img/features/img-1.jpg" alt="">
-                                </a>
-                            </figure>
-                            <div class="item-body">
-                                <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
-                                <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-foot">
-                        <span><i class="ti-calendar"></i> 7 months ago</span>
-                        <span><i class="ti-time"></i> Part Time</span>
-                        <div class="view-iocn">
-                            <a href="job-page.html"><i class="ti-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Featured Jobs Section End -->
-
-<!-- Start Purchase Section -->
-<section class="section purchase" data-stellar-background-ratio="0.5">
-    <div class="container">
-        <div class="row">
-            <div class="section-content text-center">
-                <h1 class="title-text">
-                    Looking for a Job
-                </h1>
-                <p>Join thousand of employers and earn what you deserve!</p>
-                <a href="my-account.html" class="btn btn-common">Get Started Now</a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Purchase Section -->
-
-<!-- Blog Section -->
-<section id="blog" class="section">
-    <!-- Container Starts -->
-    <div class="container">
-        <h2 class="section-title">
-            Latest News
-        </h2>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 blog-item">
-                <!-- Blog Item Starts -->
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img src="assets/img/blog/home-items/img1.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="date"><i class="ti-calendar"></i> Dec 20, 2017</span>
-                            <span class="comments"><a href="#"><i class="ti-comment-alt"></i> 5 Comments</a></span>
-                        </div>
-                        <a href="single-post.html">
-                            <h3>
-                                Tips to write an impressive resume online for beginner
-                            </h3>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
-                            vitae.
-                        </p>
-                        <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-                    </div>
-                </div>
-                <!-- Blog Item Wrapper Ends-->
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 blog-item">
-                <!-- Blog Item Starts -->
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img src="assets/img/blog/home-items/img2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="date"><i class="ti-calendar"></i> Jan 20, 2018</span>
-                            <span class="comments"><a href="#"><i class="ti-comment-alt"></i> 5 Comments</a></span>
-                        </div>
-                        <a href="single-post.html">
-                            <h3>
-                                Let's explore 5 cool new features in JobBoard theme
-                            </h3>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
-                            vitae.
-                        </p>
-                        <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-                    </div>
-                </div>
-                <!-- Blog Item Wrapper Ends-->
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 blog-item">
-                <!-- Blog Item Starts -->
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img src="assets/img/blog/home-items/img3.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="date"><i class="ti-calendar"></i> Mar 20, 2018</span>
-                            <span class="comments"><a href="#"><i class="ti-comment-alt"></i> 5 Comments</a></span>
-                        </div>
-                        <a href="single-post.html">
-                            <h3>
-                                How to convince recruiters and get your dream job
-                            </h3>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad
-                            vitae.
-                        </p>
-                        <a href="single-post.html" class="btn btn-common btn-rm">Read More</a>
-                    </div>
-                </div>
-                <!-- Blog Item Wrapper Ends-->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- blog Section End -->
-
-<!-- Testimonial Section Start -->
-
-<!-- Testimonial Section End -->
-
-<!-- Clients Section -->
-<section class="clients section">
-    <div class="container">
-        <h2 class="section-title">
-            Clients & Partners
-        </h2>
-        <div class="row">
-            <div id="clients-scroller">
-                <div class="items">
-                    <img src="assets/img/clients/img1.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img2.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img3.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img4.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img5.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img6.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img6.png" alt="">
-                </div>
-                <div class="items">
-                    <img src="assets/img/clients/img6.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- Client Section End -->
+<section class="category section">
+    <div class="container">
+        <h2 class="section-title">Language Categories</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon" >
+                            <img src="https://icon-library.com/images/java-icon-image/java-icon-image-0.jpg" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>Java</h3>
+                        <p>4286 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/python-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>Python</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/javascript-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>JavaScript</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/docker-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>Docker</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Counter Section Start -->
 <section id="counter">

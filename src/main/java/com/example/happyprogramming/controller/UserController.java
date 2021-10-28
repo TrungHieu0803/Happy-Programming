@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -110,7 +111,6 @@ public class UserController {
         } else {
             userService.changePassword(user, getSiteURL(request));
             response.getWriter().print("<p class=\"text-success\">Check your email for change the password</p>");
-
         }
     }
 
@@ -163,11 +163,10 @@ public class UserController {
 
     @PostMapping("/upload-avatar")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadImage(@RequestParam("avatar") MultipartFile avatar) throws IOException{
+    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException{
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
         return "client/user-profile";
-
     }
 
     @GetMapping("/user-profile")

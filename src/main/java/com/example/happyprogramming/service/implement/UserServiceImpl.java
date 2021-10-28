@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkEmail(String email) {
-        return userRepo.findByEmail(email)==null?true:false;
+        return userRepo.findByEmail(email) == null ? true : false;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         userRepo.save(user);
-        sendEmailChangePassword(user,siteURL);
+        sendEmailChangePassword(user, siteURL);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getFullName());
-        String verifyURL = siteURL + "/do-change-password?code=" + user.getVerificationCode()+"&email="+user.getEmail();
+        String verifyURL = siteURL + "/do-change-password?code=" + user.getVerificationCode() + "&email=" + user.getEmail();
         content = content.replace("[[URL]]", verifyURL);
 
         helper.setText(content, true);
@@ -159,13 +159,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean doChangePassword(String newpPassword,String oldPassword, UserEntity user) {
+    public boolean doChangePassword(String newpPassword, String oldPassword, UserEntity user) {
         UserEntity currentUser = userRepo.findByEmail(user.getEmail());
-        if(passwordEncoder.matches(oldPassword,currentUser.getPassword())){
+        if (passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
             currentUser.setPassword(passwordEncoder.encode(newpPassword));
             userRepo.save(currentUser);
             return true;
-        }else
+        } else
             return false;
 
     }
@@ -185,21 +185,10 @@ public class UserServiceImpl implements UserService {
         try (OutputStream os = Files.newOutputStream(file)) {
             os.write(avatar.getBytes());
         }
-        user.setAvatar("/img/"+pathAvatar);
+        user.setAvatar("/img/" + pathAvatar);
         userRepo.save(user);
         return user;
 
     }
 
-
-    @Override
-    public void updateProfile(UserEntity user) {
-        Optional<UserEntity> userOptional = userRepo.findById(user.getId());
-        UserEntity userUpdate = userOptional.get();
-        userUpdate.setFullName(user.getFullName());
-        userUpdate.setEmail(user.getEmail());
-        userUpdate.setPhone(user.getPhone());
-        userUpdate.setDoB(user.getDoB());
-        userRepo.save(userUpdate);
-    }
 }

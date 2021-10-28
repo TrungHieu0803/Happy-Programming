@@ -30,5 +30,4 @@ public interface UserService {
 
     UserEntity saveAvatar(MultipartFile avatar, String email) throws IOException;
 
-    void updateProfile(UserEntity user);
 }

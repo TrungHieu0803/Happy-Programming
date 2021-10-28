@@ -169,20 +169,16 @@ public class UserController {
         return "client/user-profile";
     }
 
-    @GetMapping("/user-profile")
-    public String updateProfile(@RequestParam("id") Long id, Model model){
-        UserEntity user = userRepository.getById(id);
-        model.addAttribute("user",user);
-        model.addAttribute("userForm", new UserEntity());
-        return "client/user-profile";
-    }
-
-    @PostMapping("/user-profile")
-    public  String profileUpdate(@ModelAttribute("userForm") UserEntity userEntity, HttpServletRequest user){
-        long userID = Integer.parseInt(user.getParameter("userID"));
-        userEntity.setId(userID);
-        userService.updateProfile(userEntity);
-        return "redirect:/user-profile";
+    @PostMapping("/update-profile")
+    public void profileUpdate(HttpServletRequest request) {
+        String fullName = request.getParameter("fullName");
+        String DoB = request.getParameter("DoB");
+        String phone = request.getParameter("phone");
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        user.setFullName(fullName);
+        user.setDoB(DoB);
+        user.setPhone(phone);
+        userRepository.save(user);
     }
 }
 

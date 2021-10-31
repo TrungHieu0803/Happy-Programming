@@ -73,7 +73,7 @@ public class RequestController {
             SkillEntity skillEntity = skillRepository.findAll().get(0);
             skillEntitySet.add(skillEntity);
             requestEntity.setSkills(skillEntitySet);
-//            requestEntity.setCreatedDate(dtf.format(now));
+            requestEntity.setCreatedDate(dtf.format(now));
             requestService.createRequest(requestEntity,0);
             return "redirect:/home";
         }else{

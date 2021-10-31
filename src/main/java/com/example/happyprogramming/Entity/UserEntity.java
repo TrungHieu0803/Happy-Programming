@@ -20,7 +20,8 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user", nullable = false)
+    @Column(name = "id", nullable = false)
+//    @Column(name = "id_user", nullable = false)
     private Long id;
     @Column(name = "full_name")
     private String fullName;

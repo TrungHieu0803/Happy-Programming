@@ -4,6 +4,7 @@ package com.example.happyprogramming.controller;
 import com.example.happyprogramming.Entity.*;
 import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.repository.RequestRepository;
+import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -51,6 +49,9 @@ public class RequestController {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
+
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
@@ -68,7 +69,11 @@ public class RequestController {
         LocalDateTime now = LocalDateTime.now();
         if(recommend){
             requestEntity.setMenteeId(user);
-            requestEntity.setCreatedDate(dtf.format(now));
+            Set<SkillEntity> skillEntitySet = new HashSet<>();
+            SkillEntity skillEntity = skillRepository.findAll().get(0);
+            skillEntitySet.add(skillEntity);
+            requestEntity.setSkills(skillEntitySet);
+//            requestEntity.setCreatedDate(dtf.format(now));
             requestService.createRequest(requestEntity,0);
             return "redirect:/home";
         }else{
@@ -79,6 +84,11 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             requestEntity.setCreatedDate(dtf.format(now));
             requestEntity.setReceived(true);
+            Set<SkillEntity> skillEntitySet = new HashSet<>();
+            SkillEntity skillEntity = new SkillEntity();
+            skillEntity.setSkillName("Java");
+            skillEntitySet.add(skillEntity);
+            requestEntity.setSkills(skillEntitySet);
             requestService.createRequest(requestEntity,1);
             //notification for mentee
             notificationService.menteeSendRequestNotification(mentor,user);

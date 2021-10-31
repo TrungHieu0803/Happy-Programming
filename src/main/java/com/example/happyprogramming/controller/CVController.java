@@ -18,16 +18,16 @@ import java.util.ArrayList;
 @Controller
 public class CVController {
 
-    @Autowired
     private HttpSession session;
-
-    @Autowired
     private SkillRepository skillRepository;
-
-    @Autowired
     private ICVService ICVService;
 
-
+    @Autowired
+    public CVController(HttpSession session, SkillRepository skillRepository, com.example.happyprogramming.service.ICVService ICVService) {
+        this.session = session;
+        this.skillRepository = skillRepository;
+        this.ICVService = ICVService;
+    }
 
     @GetMapping("/createCV")
     public String goToCreateCV(Model model){

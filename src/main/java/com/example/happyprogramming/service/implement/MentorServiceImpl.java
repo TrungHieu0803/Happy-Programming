@@ -1,8 +1,10 @@
 package com.example.happyprogramming.service.implement;
 
 import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.MentorEntity;
 import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.repository.CVRepository;
+import com.example.happyprogramming.repository.MentorRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class MentorServiceImpl implements MentorService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MentorRepository mentorRepository;
+
     @Override
     public ArrayList<CVEntity> getAllMentor() {
         return cvRepository.findAll();
@@ -44,5 +49,10 @@ public class MentorServiceImpl implements MentorService {
         List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
         Pagination<CVEntity> result = new Pagination<>(cvList,pageNumbers);
         return result;
+    }
+
+    @Override
+    public List<MentorEntity> getListMentor() {
+        return mentorRepository.findAll();
     }
 }

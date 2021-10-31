@@ -17,11 +17,12 @@ public interface SkillRepository extends JpaRepository<SkillEntity,Long> {
     @Query(value = "select s from SkillEntity s")
     ArrayList<SkillEntity> getAllSkill();
 
-    @Query(value = "SELECT top 3 COUNT(skill_id)\n" +
-            "FROM request_skills\n" +
-            "GROUP BY skill_id\n" +
-            "ORDER BY COUNT(skill_id) DESC")
-    HashMap<SkillEntity, Integer> mostSeekedSkill();
+
+//    @Query(value = "SELECT top 3 COUNT(skill_id)\n" +
+//            "FROM request_skills\n" +
+//            "GROUP BY skill_id\n" +
+//            "ORDER BY COUNT(skill_id) DESC")
+//    HashMap<SkillEntity, Integer> mostSeekedSkill();
 
 
 }

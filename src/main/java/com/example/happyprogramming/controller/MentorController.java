@@ -1,6 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
+import com.example.happyprogramming.Entity.MentorEntity;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.service.MentorService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MentorController {
@@ -25,9 +27,15 @@ public class MentorController {
     private SkillService skillService;
 
     @GetMapping("/list-suggestion-mentor")
-    public String getListSuggestionMentor(){
-        return "client/index";
+    public List<MentorEntity> getListSuggestionMentor() {
+        return mentorService.getListMentor();
     }
+
+//    @GetMapping("/mentor-detail")
+//    public String mentorDetail(@RequestParam("id") int mentorId, Model model) {
+//        model.addAttribute("mentor", mentorService.findMentorById(mentorId));
+//        return "client/mentor-detail";
+//    }
 
     @GetMapping("/mentor-detail")
     public String mentorDetail(@RequestParam("id") long mentorId,@RequestParam(value = "recommend",required = false) boolean recommend, Model model){

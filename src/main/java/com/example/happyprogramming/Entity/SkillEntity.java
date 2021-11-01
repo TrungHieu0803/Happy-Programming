@@ -2,6 +2,7 @@ package com.example.happyprogramming.Entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Entity
+@Data
 @Table(name = "skill")
 public class SkillEntity {
     @Id

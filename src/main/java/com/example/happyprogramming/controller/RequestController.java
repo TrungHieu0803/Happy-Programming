@@ -4,6 +4,7 @@ package com.example.happyprogramming.controller;
 import com.example.happyprogramming.Entity.*;
 import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.repository.RequestRepository;
+import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -50,6 +48,9 @@ public class RequestController {
 
     @Autowired
     private NotificationRepository notificationRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     @GetMapping("/create-request")
     public String createRequestPage(Model model){

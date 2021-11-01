@@ -2,8 +2,6 @@ package com.example.happyprogramming.service;
 
 import com.example.happyprogramming.Entity.CVEntity;
 import com.example.happyprogramming.Entity.Pagination;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MentorController {
@@ -23,11 +22,6 @@ public class MentorController {
 
     @Autowired
     private SkillService skillService;
-
-    @GetMapping("/list-suggestion-mentor")
-    public String getListSuggestionMentor(){
-        return "client/index";
-    }
 
     @GetMapping("/mentor-detail")
     public String mentorDetail(@RequestParam("id") long mentorId,@RequestParam(value = "recommend",required = false) boolean recommend, Model model){

@@ -50,4 +50,13 @@ public class CVController {
         }
         return "redirect:/home";
     }
+
+    @GetMapping("/admin/request")
+    public String test(){
+        return "admin/index";
+    }
+    @GetMapping("/403")
+    public String asdj(){
+        return "client/my-account";
+    }
 }

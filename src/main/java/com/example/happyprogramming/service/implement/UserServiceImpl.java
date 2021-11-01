@@ -119,15 +119,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+    public void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         userRepo.save(user);
-        sendEmailChangePassword(user, siteURL);
-    }
-
-    @Override
-    public void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String toAddress = user.getEmail();
         String fromAddress = "hieunthe150001@fpt.edu.vn";
         String senderName = "Happry-Programming";

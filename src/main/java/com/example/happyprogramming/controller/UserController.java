@@ -102,14 +102,14 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-    public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
+    public void processResetPassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");
         UserEntity user = userRepository.findByEmail(email);
         if (user == null) {
             response.getWriter().print("<p class=\"text-danger\">This email address is not registered!</p>");
         } else {
-            userService.changePassword(user, getSiteURL(request));
+            userService.sendEmailChangePassword(user, getSiteURL(request));
             response.getWriter().print("<p class=\"text-success\">Check your email for change the password</p>");
         }
     }
@@ -125,7 +125,7 @@ public class UserController {
     }
 
     @PostMapping("/do-reset-password")
-    public String resetPassword(HttpServletRequest request) {
+    public String doResetPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
         userService.doResetPassword(email, newPassword);

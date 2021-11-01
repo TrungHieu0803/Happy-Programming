@@ -69,10 +69,6 @@ public class RequestController {
         LocalDateTime now = LocalDateTime.now();
         if(recommend){
             requestEntity.setMenteeId(user);
-            Set<SkillEntity> skillEntitySet = new HashSet<>();
-            SkillEntity skillEntity = skillRepository.findAll().get(0);
-            skillEntitySet.add(skillEntity);
-            requestEntity.setSkills(skillEntitySet);
             requestEntity.setCreatedDate(dtf.format(now));
             requestService.createRequest(requestEntity,0);
             return "redirect:/home";
@@ -84,11 +80,6 @@ public class RequestController {
             requestEntity.setMenteeId(user);
             requestEntity.setCreatedDate(dtf.format(now));
             requestEntity.setReceived(true);
-            Set<SkillEntity> skillEntitySet = new HashSet<>();
-            SkillEntity skillEntity = new SkillEntity();
-            skillEntity.setSkillName("Java");
-            skillEntitySet.add(skillEntity);
-            requestEntity.setSkills(skillEntitySet);
             requestService.createRequest(requestEntity,1);
             //notification for mentee
             notificationService.menteeSendRequestNotification(mentor,user);

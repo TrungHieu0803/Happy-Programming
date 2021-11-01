@@ -1,9 +1,0 @@
-package com.example.happyprogramming.repository;
-
-import com.example.happyprogramming.Entity.MentorEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface MentorRepository extends JpaRepository<MentorEntity, Long> {
-}

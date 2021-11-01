@@ -14,7 +14,7 @@ import java.util.HashSet;
 @Repository
 public interface SkillRepository extends JpaRepository<SkillEntity,Long> {
 
-    @Query(value = "select s from SkillEntity s")
-    ArrayList<SkillEntity> getAllSkill();
+
+    ArrayList<SkillEntity> findAll();
 
 }

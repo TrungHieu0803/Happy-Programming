@@ -20,18 +20,8 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public ArrayList<SkillEntity> getAllSkill() {
-        return skillRepository.getAllSkill();
+        return skillRepository.findAll();
     }
 
-    @Override
-    public HashMap<SkillEntity, Integer> mostSeekedSkill(){
-        String sql = "SELECT top 3 COUNT(skill_id) as [Count], skill_id\\n\" +\n" +
-                "            \"FROM request_skills\\n\" +\n" +
-                "            \"GROUP BY skill_id\\n\" +\n" +
-                "            \"ORDER BY COUNT(skill_id) DESC";
-
-        HashMap<SkillEntity, Integer> mostSeeked = new HashMap<>();
-        return mostSeeked;
-    }
 
 }

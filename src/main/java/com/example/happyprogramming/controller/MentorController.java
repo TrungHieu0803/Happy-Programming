@@ -23,17 +23,6 @@ public class MentorController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/list-suggestion-mentor")
-    public List<MentorEntity> getListSuggestionMentor() {
-        return mentorService.getListMentor();
-    }
-
-//    @GetMapping("/mentor-detail")
-//    public String mentorDetail(@RequestParam("id") int mentorId, Model model) {
-//        model.addAttribute("mentor", mentorService.findMentorById(mentorId));
-//        return "client/mentor-detail";
-//    }
-
     @GetMapping("/mentor-detail")
     public String mentorDetail(@RequestParam("id") long mentorId,@RequestParam(value = "recommend",required = false) boolean recommend, Model model){
         model.addAttribute("recommend", recommend);

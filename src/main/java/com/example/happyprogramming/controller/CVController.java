@@ -31,7 +31,7 @@ public class CVController {
 
     @GetMapping("/createCV")
     public String goToCreateCV(Model model){
-        ArrayList<SkillEntity> list  = skillRepository.getAllSkill();
+        ArrayList<SkillEntity> list  = skillRepository.findAll();
         model.addAttribute("listSkills", list);
         CVEntity cv = ICVService.findByUser((UserEntity) session.getAttribute("userInformation"));
         model.addAttribute("cv",cv);

@@ -1,10 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.Entity.*;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.SkillService;
@@ -30,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 @Controller
 public class UserController {
@@ -54,6 +52,7 @@ public class UserController {
     @GetMapping({"/", "/home"})
     public String home(Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
         Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
+        model.addAttribute("popularSkill",skillService.getPopularSkill());
         model.addAttribute("listMentor",page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
         model.addAttribute("listSkill",skillService.getAllSkill());

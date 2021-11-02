@@ -2,10 +2,7 @@ package com.example.happyprogramming.controller;
 
 
 import com.example.happyprogramming.Entity.*;
-import com.example.happyprogramming.repository.NotificationRepository;
-import com.example.happyprogramming.repository.RequestRepository;
-import com.example.happyprogramming.repository.SkillRepository;
-import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.repository.*;
 import com.example.happyprogramming.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +49,9 @@ public class RequestController {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    MentorRepository mentorRepository;
+
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
@@ -63,7 +63,7 @@ public class RequestController {
 
     @PostMapping("/create-request")
     public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity,
-                                @RequestParam("recommend") boolean recommend,HttpServletRequest request) {
+                                @RequestParam("recommend") boolean recommend,HttpServletRequest request, Model model) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -75,7 +75,6 @@ public class RequestController {
             requestEntity.setSkills(skillEntitySet);
             requestEntity.setCreatedDate(dtf.format(now));
             requestService.createRequest(requestEntity,0);
-            return "redirect:/home";
         }else{
             int mentorId= Integer.parseInt(request.getParameter("mentorId"));
             UserEntity mentor = userRepository.findById(mentorId);
@@ -90,12 +89,11 @@ public class RequestController {
             skillEntitySet.add(skillEntity);
             requestEntity.setSkills(skillEntitySet);
             requestService.createRequest(requestEntity,1);
-            //notification for mentee
             notificationService.menteeSendRequestNotification(mentor,user);
-            //notification for mentor
             notificationService.receivedNotification(mentor,user);
-            return "redirect:/home";
         }
+        model.addAttribute("mentors", mentorRepository.findAll());
+        return "client/mentor-suggestion";
     }
 
     @GetMapping("/invited-request-wait")

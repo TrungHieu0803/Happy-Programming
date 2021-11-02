@@ -179,5 +179,10 @@ public class UserController {
         user.setPhone(phone);
         userRepository.save(user);
     }
+
+    @GetMapping("/skill")
+    public String getSkill(){
+        return "client/skill";
+    }
 }
 

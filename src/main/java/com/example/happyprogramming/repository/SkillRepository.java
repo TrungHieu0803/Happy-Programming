@@ -25,7 +25,7 @@ public interface SkillRepository extends JpaRepository<SkillEntity,Long> {
     @Query(value = "SELECT top 3 COUNT(skill_id) as count, skill_id\n" +
             "FROM request_skills\n" +
             "GROUP BY skill_id\n" +
-            "ORDER BY COUNT(skill_id) DESC")
+            "ORDER BY COUNT(skill_id) DESC",nativeQuery = true)
     List<SkillCount> mostSeekedSkills();
 
     ArrayList<SkillEntity> findAll();

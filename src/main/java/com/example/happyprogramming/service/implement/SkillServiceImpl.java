@@ -28,7 +28,6 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-
     public List<SkillCount> mostSeekedSkills(){
         return skillRepository.mostSeekedSkills();
     }

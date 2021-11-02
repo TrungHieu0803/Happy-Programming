@@ -34,4 +34,11 @@ public class MentorController {
         return "client/mentor-detail";
     }
 
+    @GetMapping("/mentor/search-by-skill")
+    public String searchMentorBySkill(@RequestParam("id") Long skillId,Model model){
+        model.addAttribute("listMentors",mentorService.findMentorBySkill(skillId));
+        model.addAttribute("listSkills",skillService.getPopularSkill());
+        return "client/search-by-skill";
+    }
+
 }

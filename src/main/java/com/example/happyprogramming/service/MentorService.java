@@ -16,4 +16,6 @@ public interface MentorService {
 
     Pagination<CVEntity> getPaginatedMentors(int pageNumber);
 
+    ArrayList<CVEntity> findMentorBySkill(Long skillId);
+
 }

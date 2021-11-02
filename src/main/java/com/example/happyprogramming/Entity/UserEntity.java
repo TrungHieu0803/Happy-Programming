@@ -55,6 +55,15 @@ public class UserEntity {
     @OneToMany(mappedBy = "mentorId")
     private Set<RequestEntity> requestForMentor;
 
+    @OneToMany(mappedBy = "fromUser")
+    private Set<ConversationEntity> fromUser;
+
+    @OneToMany(mappedBy = "toUser")
+    private Set<ConversationEntity> toUser;
+
+    @OneToMany(mappedBy = "replyUser")
+    private Set<ConversationReplyEntity> replyUser;
+
     @OneToMany(mappedBy = "mentee")
     private Set<CommentAndRateEntity> reviewOfMentee;
 

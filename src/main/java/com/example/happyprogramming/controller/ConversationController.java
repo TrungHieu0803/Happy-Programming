@@ -40,7 +40,6 @@ public class ConversationController {
         ConversationReplyEntity c = new ConversationReplyEntity();
         c.setContext(mess);
         UserEntity sender = userRepository.findById(senderId);
-        System.out.println("++++++++++++++++++++++++++====================================");
         conversationService.saveConversation(conversationId,sender,mess);
         simpMessagingTemplate.convertAndSend("/topic/messages/"+id, c);
     }
@@ -51,9 +50,14 @@ public class ConversationController {
         UserEntity receiver = userRepository.findById(id);
         UserEntity sender = (UserEntity) session.getAttribute("userInformation");
         int conversationId = conversationService.checkConversationExist(sender,receiver);
-        model.addAttribute("conversationMessage",conversationService.getConversation(conversationId));
-        model.addAttribute("conversationId",conversationId);
-        model.addAttribute("receiver",receiver);
-        return "client/box-chat";
+        if(conversationId==-1){
+            return "client/404-error";
+        }else{
+            model.addAttribute("conversationMessage",conversationService.getConversation(conversationId));
+            model.addAttribute("conversationId",conversationId);
+            model.addAttribute("receiver",receiver);
+            return "client/box-chat";
+        }
+
     }
 }

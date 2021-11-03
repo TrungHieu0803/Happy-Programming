@@ -58,7 +58,7 @@ public class ConversationServiceImpl implements ConversationService {
             conversation = conversationRepository.findByUser1AndUser2(user2,user1);
             return conversation.getId().intValue();
         }else{
-            return createConversation(user1,user2);
+            return -1;
         }
     }
 

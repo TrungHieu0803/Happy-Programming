@@ -44,10 +44,7 @@ public class RequestController {
     private NotificationService notificationService;
 
     @Autowired
-    private NotificationRepository notificationRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
+    private ConversationService conversationService;
 
 
     @GetMapping("/create-request")
@@ -117,8 +114,6 @@ public class RequestController {
         Long id = Long.parseLong(request.getParameter("id"));
         String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime now = LocalDateTime.now();
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setStatus(0);
@@ -133,12 +128,11 @@ public class RequestController {
         Long id = Long.parseLong(request.getParameter("id"));
         String response = request.getParameter("response");
         Optional<RequestEntity> re = requestService.findById(id);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime now = LocalDateTime.now();
         if (re.isPresent()){
             RequestEntity req = re.get();
             req.setResponseMess(response);
             req.setStatus(3);
+            conversationService.createConversation(req.getMentorId(),req.getMenteeId());
             rateCommentService.enableRateAndComment(req.getMentorId(),req.getMenteeId());
             requestRepository.save(req);
             notificationService.acceptedNotification(req.getMentorId(),req.getMenteeId());

@@ -61,10 +61,14 @@ public class UserController {
         return "client/index";
     }
 
-
     @GetMapping("/login")
     public String loginPage() {
         return "client/my-account";
+    }
+
+    @GetMapping("/404")
+    public String errorPage(){
+        return "client/404-error";
     }
 
 

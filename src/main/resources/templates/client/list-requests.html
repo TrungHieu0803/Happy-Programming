@@ -133,13 +133,14 @@
                             <div class="col-md-3" th:if="*{request.getStatus()==3}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId().getId()})}"><h3
                                         th:utext="*{request.getMentorName()}"></h3></a><br>
+                                <a th:href="@{/contact(id=${request.getMentorId().getId()})}" type="button">Contact</a>
                                 <a th:onclick="'javascript:displayRate(\'' + ${request.mentorId.id} + '\');'" th:id="${request.getMentorId().getId()}">Rate</a>
                             </div>
                             <div class="col-md-3">
                                 <a th:href="@{delete-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Delete" type="button"></a>
                                 <a th:href="@{update-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==0}" value="Update" type="button"></a>
                                 <a th:href="@{cancel-request(id=${request.getId()})}"><input th:if="*{request.getStatus()==1}" value="Cancel" type="button"></a>
-                                <a th:href="@{/details}" th:if="*{request.getStatus()==3}" value="View detail" type="button"></a>
+                                <a th:href="@{/details}" th:if="*{request.getStatus()==3}"  type="button">View detail</a>
                             </div>
                         </div>
                     </div>

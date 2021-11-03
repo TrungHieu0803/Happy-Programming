@@ -49,8 +49,6 @@ public class RequestController {
     @Autowired
     private SkillRepository skillRepository;
 
-    @Autowired
-    MentorRepository mentorRepository;
 
     @GetMapping("/create-request")
     public String createRequestPage(Model model){
@@ -83,7 +81,6 @@ public class RequestController {
             notificationService.menteeSendRequestNotification(mentor,user);
             notificationService.receivedNotification(mentor,user);
         }
-        model.addAttribute("mentors", mentorRepository.findAll());
         return "client/mentor-suggestion";
     }
 

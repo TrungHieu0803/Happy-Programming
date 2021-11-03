@@ -41,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/change-password").hasRole("MENTOR")
                 .antMatchers("/change-password").hasRole("MENTEE")
                 .antMatchers("/admin").hasRole("ADMIN")
-
                 .and()
                 .formLogin()
                 .loginPage("/login")

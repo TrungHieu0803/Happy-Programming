@@ -21,12 +21,12 @@ public class ConversationEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "from_user")
-    private UserEntity fromUser;
+    @JoinColumn(name = "user_1")
+    private UserEntity user1;
 
     @ManyToOne
-    @JoinColumn(name = "to_user")
-    private UserEntity toUser;
+    @JoinColumn(name = "user_2")
+    private UserEntity user2;
 
     @Column
     private int status;

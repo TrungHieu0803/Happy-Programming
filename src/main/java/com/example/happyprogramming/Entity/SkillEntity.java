@@ -1,14 +1,17 @@
 package com.example.happyprogramming.Entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Data
 @Table(name = "skill")
 public class SkillEntity {
     @Id
@@ -25,14 +28,8 @@ public class SkillEntity {
     @ManyToMany(mappedBy = "skills")
     private Set<RequestEntity>  requestEntities;
 
-    public SkillEntity(Long id, String skillName) {
-        this.id = id;
-        this.skillName = skillName;
-    }
-
-    public SkillEntity() {
-
-    }
+    @Column(name = "img")
+    private String img;
 
     public Long getId() {
         return id;

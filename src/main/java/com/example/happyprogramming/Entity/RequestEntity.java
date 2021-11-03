@@ -64,7 +64,6 @@ public class RequestEntity {
     private Set<SkillEntity> skills ;
 
 
-
     public String getTitle() {
         return title;
     }

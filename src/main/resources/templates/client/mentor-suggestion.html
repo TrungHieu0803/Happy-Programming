@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Jobboard">
+    <title>JobBoard - Bootstrap HTML5 Job Portal Template</title>
+
+    <link rel="shortcut icon" th:href="@{/img/favicon.png}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+
+    <link rel="stylesheet" th:href="@{/css/jasny-bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}" type="text/css">
+    <!-- Material CSS -->
+    <link rel="stylesheet" th:href="@{/css/material-kit.css}" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/fonts/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/extras/animate.css}" type="text/css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" th:href="@{/extras/owl.carousel.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/extras/owl.theme.css}" type="text/css">
+    <!-- Rev Slider CSS -->
+    <link rel="stylesheet" th:href="@{/extras/settings.css}" type="text/css">
+    <!-- Slicknav js -->
+    <link rel="stylesheet" th:href="@{/css/slicknav.css}" type="text/css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css">
+    <!-- Responsive CSS Styles -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css">
+
+    <!-- Color CSS Styles  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/colors/red.css}" media="screen"/>
+</head>
+<body>
+<div class="header">
+    <div class="logo-menu">
+        <div class="main-navigation" th:insert="~{/components/navbar :: navbar1}"></div>
+
+        <!-- Off Canvas Navigation -->
+        <div class="navmenu navmenu-default navmenu-fixed-left offcanvas">
+            <!--- Off Canvas Side Menu -->
+            <div class="close" data-toggle="offcanvas" data-target=".navmenu">
+                <i class="ti-close"></i>
+            </div>
+            <h3 class="title-menu">All Pages</h3>
+            <ul class="nav navmenu-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index-02.html">Home Page 2</a></li>
+                <li><a href="index-03.html">Home Page 3</a></li>
+                <li><a href="index-04.html">Home Page 4</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="job-page.html">Job Page</a></li>
+                <li><a href="job-details.html">Job Details</a></li>
+                <li><a href="resume.html">Resume Page</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="pricing.html">Pricing Tables</a></li>
+                <li><a href="mentor-suggestion.html">Browse Jobs</a></li>
+                <li><a href="browse-categories.html">Browse Categories</a></li>
+                <li><a href="add-resume.html">Add Resume</a></li>
+                <li><a href="manage-resumes.html">Manage Resumes</a></li>
+                <li><a href="job-alerts.html">Job Alerts</a></li>
+                <li><a href="post-job.html">Add Job</a></li>
+                <li><a href="manage-jobs.html">Manage Jobs</a></li>
+                <li><a href="manage-applications.html">Manage Applications</a></li>
+                <li><a href="browse-resumes.html">Browse Resumes</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="faq.html">Faq</a></li>
+                <li><a href="my-account.html">Login</a></li>
+            </ul><!--- End Menu -->
+        </div> <!--- End Off Canvas Side Menu -->
+        <div class="tbtn wow pulse" id="menu" data-wow-iteration="infinite" data-wow-duration="500ms"
+             data-toggle="offcanvas" data-target=".navmenu">
+            <p><i class="ti-files"></i> All Pages</p>
+        </div>
+    </div>
+</div>
+<div class="page-header" th:style="'background: url(static/img/banner1.jpg)'">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title " style="color: #ff6470">My Account</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-8">
+            <th:block th:each="item : ${mentors}">
+
+                <div class="job-list">
+                    <div class="thumb">
+                        <a href="job-details.html">
+                            <img th:src="@{${item.getImg()}}" width="120"/>
+                            <img src="" alt=""></a>
+                    </div>
+                    <div class="job-list-content">
+                        <h4><a href="job-details.html" th:text="${item.getTitle()}"></a><span
+                                class="full-time" th:text="${item.getTitle()}"></span></h4>
+                        <h3 th:utext="${item.getDescription()}"></h3>
+                        <div class="job-tag">
+                            <div class="pull-left">
+                                <div class="meta-tag">
+                                    <span><a href="browse-categories.html" th:text="${item.getSkill()}"><i
+                                            class="ti-brush"></i></a></span>
+                                    <span><i class="ti-location-pin" th:text="${item.getAddress()}"></i></span>
+                                    <span th:text="${item.getCost()}"><i class="ti-time"></i></span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="icon">
+                                    <i class="ti-heart"></i>
+                                </div>
+                                <div class="btn btn-common btn-rm">Apply Job</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <ul class="pagination">
+                <li class="active"><a href="#" class="btn btn-common"><i class="ti-angle-left"></i> prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
+            </ul>
+
+        </div>
+        <div class="col-md-3 col-sm-4">
+            <aside>
+                <div class="sidebar">
+                    <div class="inner-box">
+                        <h3>Categories</h3>
+                        <ul class="cat-list">
+                            <li>
+                                <a href="#">Finance <span class="num-posts">4,287 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Techonologies <span class="num-posts">4,256 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Art/Design<span class="num-posts">3,245 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Science <span class="num-posts">4,256 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Education Training <span class="num-posts">4,560 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Logistics <span class="num-posts">3,256 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Food Services <span class="num-posts">1,256 Jobs</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="inner-box">
+                        <h3>Job Status</h3>
+                        <ul class="cat-list">
+                            <li>
+                                <a href="#">Full Time <span class="num-posts">12,256 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Part Time <span class="num-posts">6,510 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Freelancer <span class="num-posts">1,171 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Internship <span class="num-posts">876 Jobs</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="inner-box">
+                        <h3>Locations</h3>
+                        <ul class="cat-list">
+                            <li>
+                                <a href="#">New York <span class="num-posts">4,197 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">San Francisco <span class="num-posts">2,256 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">San Diego <span class="num-posts">3,278 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Los Angeles <span class="num-posts">5,294 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Chicago <span class="num-posts">1,746 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Houston <span class="num-posts">871 Jobs</span></a>
+                            </li>
+                            <li>
+                                <a href="#">New Orleans <span class="num-posts">2,163 Jobs</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{/components/footer :: footer}"></th:block>
+
+<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material-kit.js}"></script>
+<script type="text/javascript" th:src="@{/js/color-switcher.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.parallax.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slicknav.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.counterup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/waypoints.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jasny-bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/form-validator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/contact-form-script.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.themepunch.tools.min.js}"></script>
+
+</body>
+</html>

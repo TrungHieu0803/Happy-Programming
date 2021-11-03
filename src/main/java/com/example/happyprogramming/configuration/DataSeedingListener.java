@@ -2,9 +2,12 @@ package com.example.happyprogramming.configuration;
 
 
 import com.example.happyprogramming.Entity.RoleEntity;
+import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import com.example.happyprogramming.repository.RoleRepository;
+import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
+import com.example.happyprogramming.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,6 +25,12 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private SkillService skillService;
+
+    @Autowired
+    private  SkillRepository skillRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -64,17 +73,40 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             user.setRoles(roles);
             userRepository.save(user);
         }
-//        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
-//            UserEntity user = new UserEntity();
-//            user.setEmail("xuhao9xx@gmail.com");
-//            user.setPassword(passwordEncoder.encode("12"));
-//            user.setFullName("Trung Hieu");
-//            user.setEnabled(true);
-//            HashSet<RoleEntity> roles = new HashSet<>();
-//            roles.add(roleRepository.findByName("ROLE_MENTEE"));
-//            user.setRoles(roles);
-//            userRepository.save(user);
-//        }
+        if(skillService.getAllSkill().isEmpty()){
+            SkillEntity skill1 = new SkillEntity();
+            skill1.setSkillName("Java");
+            skill1.setImg("https://icon-library.com/images/java-icon-image/java-icon-image-0.jpg");
+            skillRepository.save(skill1);
+            SkillEntity skill2 = new SkillEntity();
+            skill2.setSkillName("C#");
+            skill2.setImg("https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png");
+            skillRepository.save(skill2);
+            SkillEntity skill3 = new SkillEntity();
+            skill3.setSkillName("Python");
+            skill3.setImg("https://docs.microsoft.com/vi-vn/windows/images/python-logo.png");
+            skillRepository.save(skill3);
+            SkillEntity skill4 = new SkillEntity();
+            skill4.setSkillName("JavaScript");
+            skill4.setImg("https://docs.microsoft.com/vi-vn/windows/images/javascript-logo.png");
+            skillRepository.save(skill4);
+            SkillEntity skill5 = new SkillEntity();
+            skill5.setSkillName("PHP");
+            skill5.setImg("https://icon-library.com/images/java-icon-image/java-icon-image-0.jpg");
+            skillRepository.save(skill5);
+
+        }
+        if (userRepository.findByEmail("xuhao9xx@gmail.com") == null) {
+            UserEntity user = new UserEntity();
+            user.setEmail("xuhao9xx@gmail.com");
+            user.setPassword(passwordEncoder.encode("12"));
+            user.setFullName("Trung Hieu");
+            user.setEnabled(true);
+            HashSet<RoleEntity> roles = new HashSet<>();
+            roles.add(roleRepository.findByName("ROLE_MENTEE"));
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
     }
 
 }

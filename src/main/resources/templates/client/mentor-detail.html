@@ -110,8 +110,6 @@
                             <div class="job-list-content">
                                 <h4>
                                     <a href="#" th:utext="*{mentor.title}"></a>
-                                    <span class="full-time" th:each="skill : *{mentor.skills}"
-                                          th:utext="*{skill.skillName}"></span>
                                 </h4>
                                 <div class="icon">
                                     <span class="active" th:utext="*{mentor.user.fullName}"></span>
@@ -120,6 +118,8 @@
                                             th:text="${' ('+ mentor.getRatedNumbers()+')'}"></span>
                                 </div>
                                 <div class="job-tag">
+                                    <span class="full-time" th:each="skill : *{mentor.skills}"
+                                          th:utext="*{skill.skillName}"></span>
                                 </div>
                             </div>
                         </div>
@@ -211,16 +211,16 @@
                             </div>
                             <div class="text-box">
                                 <h4><a href="#">Web Development</a></h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. maiores aperiam quam
-                                    perspiciatis.</p>
+                                <p>Single Page Multiple Sections: Upto 5 Including: About, Contact Form, Services & As per needs</p>
                                 <a href="#" class="text"><i class="fa fa-map-marker"></i>Moorgate, London</a>
                                 <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
                                 <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
                                 <div th:if="${mentor.getUser().id!=session.userInformation.id}">
-                                    <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Apply
-                                        for this Job</a>
-                                    <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Apply for
-                                        this Job</a>
+                                    <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Hire</a>
+                                    <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Hire</a>
+                                </div>
+                                <div th:if="${session.userInformation==null}">
+                                    <a th:href="@{/login}" class="btn btn-common btn-sm">Hire</a>
                                 </div>
                             </div>
                         </div>

@@ -1,10 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.Entity.*;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.SkillService;
@@ -30,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 @Controller
 public class UserController {
@@ -54,6 +52,7 @@ public class UserController {
     @GetMapping({"/", "/home"})
     public String home(Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
         Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
+        model.addAttribute("popularSkill",skillService.getPopularSkill());
         model.addAttribute("listMentor",page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
         model.addAttribute("listSkill",skillService.getAllSkill());
@@ -102,14 +101,14 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-    public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
+    public void processResetPassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");
         UserEntity user = userRepository.findByEmail(email);
         if (user == null) {
             response.getWriter().print("<p class=\"text-danger\">This email address is not registered!</p>");
         } else {
-            userService.changePassword(user, getSiteURL(request));
+            userService.sendEmailChangePassword(user, getSiteURL(request));
             response.getWriter().print("<p class=\"text-success\">Check your email for change the password</p>");
         }
     }
@@ -125,7 +124,7 @@ public class UserController {
     }
 
     @PostMapping("/do-reset-password")
-    public String resetPassword(HttpServletRequest request) {
+    public String doResetPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
         userService.doResetPassword(email, newPassword);
@@ -179,6 +178,11 @@ public class UserController {
         user.setDoB(DoB);
         user.setPhone(phone);
         userRepository.save(user);
+    }
+
+    @GetMapping("/skill")
+    public String getSkill(){
+        return "client/skill";
     }
 }
 

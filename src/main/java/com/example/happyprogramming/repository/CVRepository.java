@@ -1,6 +1,7 @@
 package com.example.happyprogramming.repository;
 
 import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface CVRepository extends JpaRepository<CVEntity,Long> {
     ArrayList<CVEntity> findAll();
 
     Page<CVEntity> findAll(Pageable pageable);
+
+    ArrayList<CVEntity> findCVEntityBySkills(SkillEntity skill);
 }

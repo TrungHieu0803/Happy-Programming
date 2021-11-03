@@ -20,7 +20,8 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user", nullable = false)
+    @Column(name = "id", nullable = false)
+//    @Column(name = "id_user", nullable = false)
     private Long id;
     @Column(name = "full_name")
     private String fullName;
@@ -53,6 +54,15 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "mentorId")
     private Set<RequestEntity> requestForMentor;
+
+    @OneToMany(mappedBy = "user1")
+    private Set<ConversationEntity> user1;
+
+    @OneToMany(mappedBy = "user2")
+    private Set<ConversationEntity> user2;
+
+    @OneToMany(mappedBy = "replyUser")
+    private Set<ConversationReplyEntity> replyUser;
 
     @OneToMany(mappedBy = "mentee")
     private Set<CommentAndRateEntity> reviewOfMentee;

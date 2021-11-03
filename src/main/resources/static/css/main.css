@@ -3867,6 +3867,12 @@ ul {
   border-radius: 5px;
   resize: none;
 }
+#search-text{
+  width: 100%;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  border-radius: 5px;
+  resize: none;
+}
 
 .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
   font-size: 16px;

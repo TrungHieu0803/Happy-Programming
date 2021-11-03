@@ -16,7 +16,9 @@ function connectToChat() {
 }
 
 function sendMsg(sendTo, text) {
-    stompClient.send("/app/chat/" +sendTo+"/"+text);
+     var conversationId = document.getElementById('conversationId').value;
+     var senderId = document.getElementById('fromId').value;
+    stompClient.send("/app/chat/" +sendTo+"/"+conversationId+"/"+senderId+"/"+text);
 }
 
 

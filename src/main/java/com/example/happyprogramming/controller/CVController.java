@@ -52,7 +52,7 @@ public class CVController {
     }
 
     @GetMapping("/403")
-    public String asdj(){
+    public String forbiden(){
         return "client/my-account";
     }
 }

@@ -1,10 +1,9 @@
 package com.example.happyprogramming.service.implement;
 
 
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.Entity.*;
 import com.example.happyprogramming.repository.RequestRepository;
+import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +20,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     RequestRepository requestRepository;
+
+    @Autowired
+    private MentorService mentorService;
 
     @Override
     public void createRequest(RequestEntity requestEntity, int status) {
@@ -69,6 +71,23 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.save(cancelRequest);
     }
 
+    @Override
+    public Pagination<CVEntity> createRequestWithPagination(RequestEntity requestEntity, int status, int pageNumber) {
+        requestEntity.setStatus(status);
+        requestRepository.save(requestEntity);
+        Long skillId = getSkillIdFromRequest(requestEntity);
+        return mentorService.findMentorBySkill(skillId,pageNumber);
+    }
+
+    @Override
+    public Long getSkillIdFromRequest(RequestEntity request) {
+        SkillEntity skill = new SkillEntity();
+        for (SkillEntity s: request.getSkills()) {
+            skill =s;
+            break;
+        }
+        return skill.getId();
+    }
 
 
 }

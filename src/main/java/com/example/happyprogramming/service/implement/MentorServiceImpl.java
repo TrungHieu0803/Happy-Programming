@@ -2,8 +2,10 @@ package com.example.happyprogramming.service.implement;
 
 import com.example.happyprogramming.Entity.CVEntity;
 import com.example.happyprogramming.Entity.Pagination;
+import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.SkillEntity;
 import com.example.happyprogramming.repository.CVRepository;
+import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
@@ -29,6 +31,9 @@ public class MentorServiceImpl implements MentorService {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private RequestRepository requestRepository;
+
     @Override
     public ArrayList<CVEntity> getAllMentor() {
         return cvRepository.findAll();
@@ -51,10 +56,23 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
-    public ArrayList<CVEntity> findMentorBySkill(Long skillId) {
+    public Pagination<CVEntity> findMentorBySkill(Long skillId, int pageNumber) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,15);
         SkillEntity skill = skillRepository.getSkillEntityById(skillId);
-        ArrayList<CVEntity> mentor = cvRepository.findCVEntityBySkills(skill);
-        return mentor;
+        Page<CVEntity> page = cvRepository.findCVEntityBySkills(pageRequest,skill);
+        int totalPages = page.getTotalPages();
+        List<CVEntity> cvList = page.getContent();
+        List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+        Pagination<CVEntity> result = new Pagination<>(cvList,pageNumbers);
+        return result;
+    }
+
+    @Override
+    public void hireMentor(long mentorId, long requestId) {
+        RequestEntity request = requestRepository.findById(requestId);
+        request.setMentorId(userRepository.findById(mentorId));
+        request.setStatus(1);
+        requestRepository.save(request);
     }
 
 }

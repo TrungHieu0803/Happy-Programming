@@ -18,5 +18,5 @@ public interface CVRepository extends JpaRepository<CVEntity,Long> {
 
     Page<CVEntity> findAll(Pageable pageable);
 
-    ArrayList<CVEntity> findCVEntityBySkills(SkillEntity skill);
+    Page<CVEntity> findCVEntityBySkills(Pageable pageable,SkillEntity skill);
 }

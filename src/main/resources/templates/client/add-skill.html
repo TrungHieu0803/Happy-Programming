@@ -5,16 +5,11 @@
     <title>Table 03</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
     <link rel="stylesheet" th:href="@{/css/skill_style.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/skill_bootstrap.min.css}" type="text/css">
-
 </head>
 <body>
 <section class="ftco-section">
@@ -35,50 +30,34 @@
                             <th>ID</th>
                             <th>Skill Name</th>
                             <th>Status</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <th>Add</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="skill : ${skills}">
-                            <tr>
-                                <td th:text="${skill.getId()}"></td>
-                                <td th:name="id" th:text="${skill.getId()}"></td>
-                                <td>
-                                    <input type="text" th:name="skillName" th:value="${skill.getSkillName()}"/>
-                                </td>
-                                <td th:name="status" th:text="${skill.getStatus()}"></td>
-
-                                <td>
-                                    <button><a th:href="@{'/update-skill/' + ${skill.getId()}}"></a>Update
-                                    </button>
-                                </td>
-
-                                <td>
-                                    <a th:href="@{'/delete-skill/' + ${skill.getId()}}  ">
-                                        <span>Delete</span>
-                                    </a>
-                                </td>
-
-                                <td><a href="#" class="btn btn-danger">Delete</a></td>
-                            </tr>
-                        </th:block>
+                        <tr>
+                            <td>
+                                <input type="text" name="skill_name" th:value=""/>
+                            </td>
+                            <td>
+                                <input type="text" name="skill_name" th:value=""/>
+                            </td>
+                            <td>
+                                <input type="text" name="skill_name" th:value=""/>
+                            </td>
+                            <td th:text=""></td>
+                            <td><a href="#" class="btn btn-primary">Add</a></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <button>
-                    <a class="btn btn-added" th:href="@{/add-skill}"></i>Add new skill</a>
-                </button>
             </div>
         </div>
     </div>
 </section>
-
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/popper.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-
 </body>
 </html>
 

@@ -3,7 +3,6 @@ package com.example.happyprogramming.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,6 +19,9 @@ public class SkillEntity {
 
     @Column(name = "skill_name")
     private String skillName;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToMany(mappedBy = "skills")
     private Set<CVEntity> cvEntitySet;

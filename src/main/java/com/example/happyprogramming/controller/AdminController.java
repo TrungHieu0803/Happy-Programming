@@ -25,6 +25,7 @@ public class AdminController {
                                                                         -li.get(2).getCount());
         return "admin/index";
     }
+
     @GetMapping("/skill")
     public String getSkill(){
         return "client/skill";

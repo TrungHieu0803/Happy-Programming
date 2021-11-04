@@ -1,6 +1,7 @@
 package com.example.happyprogramming.service;
 
 
+import com.example.happyprogramming.Entity.CVEntity;
 import com.example.happyprogramming.Entity.Pagination;
 import com.example.happyprogramming.Entity.RequestEntity;
 import com.example.happyprogramming.Entity.UserEntity;
@@ -18,4 +19,6 @@ public interface RequestService {
     Pagination<RequestEntity> findByStatus(UserEntity mentee,int status, int pageNumber);
     void updateRequest(RequestEntity request);
     void cancelRequest(Long id);
+    Pagination<CVEntity> createRequestWithPagination(RequestEntity requestEntity, int status,int pageNumber);
+    Long getSkillIdFromRequest(RequestEntity request);
 }

@@ -58,14 +58,21 @@ public class RequestController {
 
     @PostMapping("/create-request")
     public String createRequest(@ModelAttribute("requestForm") RequestEntity requestEntity,
-                                @RequestParam("recommend") boolean recommend,HttpServletRequest request, Model model) {
+                                @RequestParam("recommend") boolean recommend,HttpServletRequest request, Model model,
+                                @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
         if(recommend){
             requestEntity.setMenteeId(user);
             requestEntity.setCreatedDate(dtf.format(now));
-            requestService.createRequest(requestEntity,0);
+            Pagination<CVEntity> page = requestService.createRequestWithPagination(requestEntity,0,pageNumber);
+            model.addAttribute("skillId",requestService.getSkillIdFromRequest(requestEntity));
+            model.addAttribute("requestId",requestEntity.getId());
+            model.addAttribute("listMentors",page.getPaginatedList());
+            model.addAttribute("pageNumbers", page.getPageNumbers());
+            model.addAttribute("currentPage",pageNumber);
+            return "client/mentor-suggestion";
         }else{
             int mentorId= Integer.parseInt(request.getParameter("mentorId"));
             UserEntity mentor = userRepository.findById(mentorId);
@@ -77,8 +84,9 @@ public class RequestController {
             requestService.createRequest(requestEntity,1);
             notificationService.menteeSendRequestNotification(mentor,user);
             notificationService.receivedNotification(mentor,user);
+            return "redirect:/home";
         }
-        return "client/mentor-suggestion";
+
     }
 
     @GetMapping("/invited-request-wait")

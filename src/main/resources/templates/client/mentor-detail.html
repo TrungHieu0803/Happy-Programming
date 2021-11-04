@@ -104,15 +104,15 @@
                     <div class="box">
                         <div class="job-list" style="width: 100%">
                             <div class="thumb">
-                                <a href="#"><img class="img-rounded image" th:src="@{*{mentor.user.avatar}}"
+                                <a href="#"><img class="img-rounded image" th:src="@{${mentor.user.avatar}}"
                                                  alt="User's avatar"></a>
                             </div>
                             <div class="job-list-content">
                                 <h4>
-                                    <a href="#" th:utext="*{mentor.title}"></a>
+                                    <a href="#" th:utext="${mentor.title}"></a>
                                 </h4>
                                 <div class="icon">
-                                    <span class="active" th:utext="*{mentor.user.fullName}"></span>
+                                    <span class="active" th:utext="${mentor.user.fullName}"></span>
                                     <span class="fa-star fa " style="color: #f5be47"
                                           th:utext="${mentor.getAverageStar()}"></span><span
                                             th:text="${' ('+ mentor.getRatedNumbers()+')'}"></span>
@@ -216,8 +216,8 @@
                                 <a href="#" class="text"><i class="fa fa-calendar"></i>Dec 22, 2017 - Mar 17, 2018 </a>
                                 <strong class="price"><i class="fa fa-money"></i>$4000 - $5000</strong>
                                 <div th:if="${mentor.getUser().id!=session.userInformation.id}">
+                                    <a th:if="${recommend==true}" th:href="@{/mentor/hire-mentor(mentorId=${mentor.getUser().getId()},requestId=${requestId})}" class="btn btn-common btn-sm">Hire</a>
                                     <a th:if="${recommend==false}" href="#" id="myBtn" class="btn btn-common btn-sm">Hire</a>
-                                    <a th:if="${recommend==true}" th:href="" class="btn btn-common btn-sm">Hire</a>
                                 </div>
                                 <div th:if="${session.userInformation==null}">
                                     <a th:href="@{/login}" class="btn btn-common btn-sm">Hire</a>
@@ -231,7 +231,7 @@
     </div>
 </section>
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
-<th:block th:insert="~{/components/notification :: notification}"></th:block>
+
 <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">

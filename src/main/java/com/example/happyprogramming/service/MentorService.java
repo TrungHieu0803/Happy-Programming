@@ -16,6 +16,7 @@ public interface MentorService {
 
     Pagination<CVEntity> getPaginatedMentors(int pageNumber);
 
-    ArrayList<CVEntity> findMentorBySkill(Long skillId);
+    Pagination<CVEntity> findMentorBySkill(Long skillId, int pageNumber);
 
+    void hireMentor(long mentorId,long requestId);
 }

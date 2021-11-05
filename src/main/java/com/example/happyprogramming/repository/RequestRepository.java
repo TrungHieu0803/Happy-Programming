@@ -18,5 +18,5 @@ public interface RequestRepository  extends JpaRepository<RequestEntity,Long> {
     Optional<RequestEntity> findById(Long id);
     Page<RequestEntity> findByStatusAndAndMenteeId(Pageable pageable, int status,UserEntity mentee);
     RequestEntity findById(long id);
-
+    ArrayList<RequestEntity> findAll();
 }

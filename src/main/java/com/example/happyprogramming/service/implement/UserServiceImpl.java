@@ -28,10 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -49,6 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private NotificationService notificationService;
+
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -186,4 +184,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public int totalUsers() {
+        int count = roleRepository.findByName("ROLE_MENTEE").getUsers().size()
+                    +roleRepository.findByName("ROLE_MENTOR").getUsers().size();
+        System.out.println(count);
+        return count;
+    }
 }

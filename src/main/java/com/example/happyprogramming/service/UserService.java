@@ -28,4 +28,5 @@ public interface UserService {
 
     UserEntity saveAvatar(MultipartFile avatar, String email) throws IOException;
 
+    int totalUsers();
 }

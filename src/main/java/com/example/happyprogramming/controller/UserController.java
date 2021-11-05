@@ -193,32 +193,7 @@ public class UserController {
         model.addAttribute("skills", skillService.getAllSkill());
         return "client/skill";
     }
-    {}
-    @GetMapping("/add-skill")
-    public String addNewSkill() {
-        return "client/add-skill";
-    }
 
-    @RequestMapping(value = "update-skill/{id}/{skillName}", method = RequestMethod.GET)
-    public String updateSkill(@PathVariable Long id, @PathVariable String skillName, Model model) {
-        Optional<SkillEntity> skill = skillRepository.findById(id);
-        if(skill.isPresent()){
-            SkillEntity skillEntity = skill.get();
-            skillEntity.setSkillName(skillName);
-            skillRepository.save(skillEntity);
-        }
-        model.addAttribute("skills", skillService.getAllSkill());
-        return "client/skill";
-    }
 
-    @RequestMapping(value = "update-skill/{id}", method = RequestMethod.GET)
-    public String deleteSkill(@PathVariable Long id, Model model) {
-        Optional<SkillEntity> skill = skillRepository.findById(id);
-        if(skill.isPresent()){
-            skillRepository.delete(skill.get());
-        }
-        model.addAttribute("skills", skillService.getAllSkill());
-        return "client/skill";
-    }
 }
 

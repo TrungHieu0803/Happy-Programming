@@ -34,7 +34,9 @@ public class NotificationServiceImpl implements NotificationService {
                     "    <span class=\"left-content\">\n" +
                     "        <img class=\"img-rounded\" src=\""+n.getFromUser().getAvatar()+"\">\n" +
                     "    </span>\n" +
+                    "    <a href=\""+n.getLink()+"\">\n"+
                     "    <span class=\"right-content\">"+n.getContent()+"</span>\n" +
+                    "    </a>\n"+
                     "</div>";
             n.setStatus(1);
             notificationRepository.save(n);
@@ -61,6 +63,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setUsers(mentee);
         notification.setFromUser(mentor);
         notification.setStatus(0);
+        notification.setLink("/list-requests?status=1");
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
 
@@ -74,6 +77,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setUsers(mentee);
         notification.setFromUser(mentor);
         notification.setStatus(0);
+        notification.setLink("/contact?id="+mentor.getId());
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
     }
@@ -86,6 +90,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setUsers(mentee);
         notification.setFromUser(mentor);
         notification.setStatus(0);
+        notification.setLink("/list-requests?status=0");
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
     }
@@ -97,6 +102,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setContent(content);
         notification.setUsers(mentor);
         notification.setFromUser(mentee);
+        notification.setLink("/invited-request-wait");
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
@@ -110,12 +116,13 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setUsers(mentor);
         notification.setFromUser(mentee);
         notification.setStatus(0);
+        notification.setLink("/mentor-detail?"+mentor.getId());
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
     }
 
     public String getCurrentDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
     }

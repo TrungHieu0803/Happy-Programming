@@ -38,6 +38,9 @@ public class NotificationEntity {
     private String createdDate;
 
     @Column
+    private String link;
+
+    @Column
     private int status;
 
 }

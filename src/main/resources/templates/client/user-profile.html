@@ -99,8 +99,9 @@
         <div class="row">
             <th:block th:insert="~{/components/inner-box :: inner-box}"></th:block>
 
-            <div class="col-md-8 col-sm-8 col-xs-12" >
-                <div class="inner-box my-resume" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="inner-box my-resume"
+                     style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;">
                     <div class="author-resume">
                         <div class="author-info col-md-4 col-sm-8">
                             <h2 th:utext="${session.userInformation.getFullName()}"></h2>
@@ -117,11 +118,13 @@
                         </div>
                         <div class="hover-img col-md-2 col-sm-8" style="width: 35%; height:35% ">
 
-                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()==null}" th:src="@{/img/banner1.jpg}" alt="">
-                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()!=null}" th:src="@{${session.userInformation.getAvatar()}}" alt="khong co anh">
+                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()==null}"
+                                 th:src="@{/img/banner1.jpg}" alt="">
+                            <img class="img-rounded image" th:if="${session.userInformation.getAvatar()!=null}"
+                                 th:src="@{${session.userInformation.getAvatar()}}" alt="khong co anh">
                             <form th:action="@{/upload-avatar}" th:method="POST" enctype="multipart/form-data">
                                 <div class="middle">
-                                    <a href="#" ><input  type="file" value="Update" id="but_upload" name="avatar"></a>
+                                    <a href="#"><input type="file" value="Update" id="but_upload" name="avatar"></a>
                                     <input type="submit" value="Update">
                                 </div>
                             </form>
@@ -159,22 +162,26 @@
                                     <form class="form">
                                         <div class="form-group is-empty">
                                             <div class="input-icon">
-                                                <input th:name="fullName" th:id="fullName" type="text" class="form-control" name="fullName"
+                                                <input th:name="fullName" th:id="fullName" type="text"
+                                                       class="form-control" name="fullName"
                                                        placeholder="Username" th:value="${userinfo.getFullName()}">
                                             </div>
                                             <span class="material-input"></span></div>
                                         <div class="form-group is-empty">
                                             <div class="input-icon">
-                                                <input  th:name="DoB" th:id="DoB" type="text" class="form-control" name="DoB"
+                                                <input th:name="DoB" th:id="DoB" type="text" class="form-control"
+                                                       name="DoB"
                                                        placeholder="Date Of Birth" th:value="${userinfo.getDoB()}">
                                             </div>
                                             <span class="material-input"></span></div>
                                         <div class="form-group is-empty">
                                             <div class="input-icon">
-                                                <input  th:name="phone" th:id="phone" type="text" class="form-control" name="phone"
-                                                        placeholder="Phone" th:value="${userinfo.getPhone()}">
+                                                <input th:name="phone" th:id="phone" type="text" class="form-control"
+                                                       name="phone"
+                                                       placeholder="Phone" th:value="${userinfo.getPhone()}">
                                             </div>
-                                        <button  onclick="updateProfile()"  class="btn btn-common log-btn">Update</button>
+                                        </div>
+                                        <button onclick="updateProfile()" class="btn btn-common log-btn">Update</button>
                                     </form>
                                 </div>
                             </div>

@@ -40,34 +40,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="skill : ${skills}">
-                            <tr>
-                                <td th:text="${skill.getId()}"></td>
-                                <td th:name="id" th:text="${skill.getId()}"></td>
-                                <td>
-                                    <input type="text" th:name="skillName" th:value="${skill.getSkillName()}"/>
-                                </td>
-                                <td th:name="status" th:text="${skill.getStatus()}"></td>
-
-                                <td>
-                                    <button><a th:href="@{'/update-skill/' + ${skill.getId()}}"></a>Update
-                                    </button>
-                                </td>
-
-                                <td>
-                                    <a th:href="@{'/delete-skill/' + ${skill.getId()}}  ">
-                                        <span>Delete</span>
-                                    </a>
-                                </td>
-
-                                <td><a href="#" class="btn btn-danger">Delete</a></td>
-                            </tr>
+                        <th:block th:each="skill,state  : ${skills}">
+                            <form th:action="@{/update-skill}" th:object="${skill}" method="post">
+                                <tr>
+                                    <td th:text="${state.count}"></td>
+                                    <td><input type="text" th:name="id" th:value="${skill.getId()}"/></td>
+                                    <td><input type="text" th:name="skillName" th:value="${skill.getSkillName()}"/></td>
+                                    <td><input type="text" th:name="status" th:value="${skill.getStatus()}"/></td>
+                                    <td>
+                                        <button><input type="submit" class="btn btn-success" value="Update"/></button>
+                                    </td>
+                                    <td><a th:href="@{'/delete-skill/' + ${skill.getId()}}"
+                                           class="btn btn-danger"><span>Delete</span></a></td>
+                                </tr>
+                            </form>
                         </th:block>
                         </tbody>
                     </table>
                 </div>
                 <button>
-                    <a class="btn btn-added" th:href="@{/add-skill}"></i>Add new skill</a>
+                    <a class="btn btn-success" th:href="@{/add-skill}"></i>Add new skill</a>
                 </button>
             </div>
         </div>

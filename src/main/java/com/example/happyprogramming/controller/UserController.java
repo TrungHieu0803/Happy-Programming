@@ -193,7 +193,7 @@ public class UserController {
         model.addAttribute("skills", skillService.getAllSkill());
         return "client/skill";
     }
-
+    {}
     @GetMapping("/add-skill")
     public String addNewSkill() {
         return "client/add-skill";

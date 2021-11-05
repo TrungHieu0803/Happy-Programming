@@ -2,16 +2,12 @@ package com.example.happyprogramming.service.implement;
 
 import com.example.happyprogramming.Entity.PopularSkill;
 import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.repository.SkillCount;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.PreparedStatement;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.*;
 
@@ -23,14 +19,11 @@ public class SkillServiceImpl implements SkillService {
     @Autowired
     SkillRepository skillRepository;
 
+    @Override
     public ArrayList<SkillEntity> getAllSkill() {
         return skillRepository.getAllSkill();
     }
 
-    @Override
-    public List<SkillCount> mostSeekedSkills(){
-        return skillRepository.mostSeekedSkills();
-    }
 
     @Override
     public SkillEntity getSkillEntityById(Long id) {
@@ -38,16 +31,6 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public HashMap<SkillEntity, Long> mostSeekedSkillEntities(List<SkillCount> list){
-        HashMap<SkillEntity, Long> li = new HashMap<>();
-        SkillEntity a;
-        for (SkillCount item : list) {
-            a = skillRepository.getSkillEntityById(item.getSkill_id()) ;
-            li.put(a, item.getCount());
-        }
-        return li;
-    }
-
     public List<PopularSkill> getPopularSkill() {
         ArrayList<SkillEntity> listSkill = skillRepository.findAll();
         List<PopularSkill> listPopularSkill = new ArrayList<>();
@@ -61,4 +44,29 @@ public class SkillServiceImpl implements SkillService {
         return listPopularSkill;
     }
 
+    @Override
+    public List<PopularSkill> getMostSoughtSkills() {
+        ArrayList<SkillEntity> listSkill = skillRepository.getAllSkill();
+        List<PopularSkill> listSoughtSkill = new ArrayList<>();
+
+        for (SkillEntity s: listSkill) {
+            listSoughtSkill.add(new PopularSkill(s.getId(),s.getSkillName(),s.getImg(),s.getRequestEntities().size()));
+        }
+        Collections.sort(listSoughtSkill);
+        for (PopularSkill s: listSoughtSkill) {
+            System.out.println(s.getCount()+ " yaaaaa");
+        }
+        return listSoughtSkill;
+    }
+
+    @Override
+    public int totalSought() {
+        ArrayList<SkillEntity> listSkill = skillRepository.getAllSkill();
+        List<PopularSkill> listSoughtSkill = new ArrayList<>();
+        int sum=0;
+        for (SkillEntity s: listSkill) {
+            sum += s.getRequestEntities().size();
+        }
+        return sum;
+    }
 }

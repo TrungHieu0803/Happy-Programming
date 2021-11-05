@@ -200,6 +200,19 @@ public class UserController {
         model.addAttribute("skill", new SkillEntity());
         return "client/add-new-skill";
     }
+    @PostMapping("/create-new-skill")
+    public String createNewSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        return getSkill(model);
+    }
+
+    @PostMapping(value = "update-skill")
+    public String updateSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
+
 
 }
 

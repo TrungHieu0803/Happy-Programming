@@ -195,5 +195,11 @@ public class UserController {
     }
 
 
+    @GetMapping("/add-skill")
+    public String addNewSkill(Model model) {
+        model.addAttribute("skill", new SkillEntity());
+        return "client/add-new-skill";
+    }
+
 }
 

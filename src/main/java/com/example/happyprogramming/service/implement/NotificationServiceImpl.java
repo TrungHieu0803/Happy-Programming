@@ -27,10 +27,15 @@ public class NotificationServiceImpl implements NotificationService {
     public String getNotification(UserEntity user) {
         ArrayList<NotificationEntity> notifiList =  notificationRepository.findTop5ByUsersOrderByCreatedDateDesc(user);
         String result = "";
+        System.out.println("=================================================================");
         for (NotificationEntity n: notifiList) {
-            result += "<div class=\"detail-notification\" >\n" +
-                    "                <p>"+n.getContent()+"</p>\n" +
-                    "            </div>";
+
+            result += "<div class=\"detail-notification\">\n" +
+                    "    <span class=\"left-content\">\n" +
+                    "        <img class=\"img-rounded\" src=\""+n.getFromUser().getAvatar()+"\">\n" +
+                    "    </span>\n" +
+                    "    <span class=\"right-content\">"+n.getContent()+"</span>\n" +
+                    "</div>";
             n.setStatus(1);
             notificationRepository.save(n);
         }
@@ -54,6 +59,7 @@ public class NotificationServiceImpl implements NotificationService {
         NotificationEntity notification = new NotificationEntity();
         notification.setContent(content);
         notification.setUsers(mentee);
+        notification.setFromUser(mentor);
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
@@ -66,6 +72,7 @@ public class NotificationServiceImpl implements NotificationService {
         NotificationEntity notification = new NotificationEntity();
         notification.setContent(content);
         notification.setUsers(mentee);
+        notification.setFromUser(mentor);
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
@@ -77,6 +84,7 @@ public class NotificationServiceImpl implements NotificationService {
         NotificationEntity notification = new NotificationEntity();
         notification.setContent(content);
         notification.setUsers(mentee);
+        notification.setFromUser(mentor);
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
@@ -88,6 +96,7 @@ public class NotificationServiceImpl implements NotificationService {
         NotificationEntity notification = new NotificationEntity();
         notification.setContent(content);
         notification.setUsers(mentor);
+        notification.setFromUser(mentee);
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);
@@ -99,6 +108,7 @@ public class NotificationServiceImpl implements NotificationService {
         NotificationEntity notification = new NotificationEntity();
         notification.setContent(content);
         notification.setUsers(mentor);
+        notification.setFromUser(mentee);
         notification.setStatus(0);
         notification.setCreatedDate(getCurrentDate());
         notificationRepository.save(notification);

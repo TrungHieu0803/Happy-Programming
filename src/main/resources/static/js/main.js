@@ -450,12 +450,14 @@ function displayNotification(){
         document.getElementById('notification').style.display="block";
         document.getElementById('noti1').innerHTML="";
         if(document.getElementById('fill-content').innerHTML==""){
+            console.log("get data ...........................")
             console.log("get data")
             jQuery.ajax({
                 url: "/get-notification-content",
                 type: "GET",
                 success: function (result) {
                     $('#fill-content').html(result);
+                    console.log(result)
                 }, error: function () {
                 }
             });

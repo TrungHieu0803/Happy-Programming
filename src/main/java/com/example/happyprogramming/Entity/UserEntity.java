@@ -74,6 +74,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "users")
     private Set<NotificationEntity> notification;
 
+    @OneToMany(mappedBy = "fromUser")
+    private Set<NotificationEntity> notificationFromUser;
+
 
     public String getFullName() {
         return fullName;

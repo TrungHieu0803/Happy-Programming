@@ -27,6 +27,10 @@ public class NotificationEntity {
     @JoinColumn(name="user_id", nullable=false)
     private UserEntity users;
 
+    @ManyToOne
+    @JoinColumn(name="from_user")
+    private UserEntity fromUser;
+
     @Column(name = "[content]",length = 2000)
     private String content;
 

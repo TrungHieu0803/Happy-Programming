@@ -35,14 +35,16 @@ public class MentorController {
 
     @GetMapping("/mentor-detail")
     public String mentorDetail(@RequestParam("id") long mentorId,@RequestParam(value = "recommend",required = false) boolean recommend,
-                               @RequestParam(value = "requestId",required = false) long requestId,Model model){
+                               @RequestParam(value = "requestId",required = false) Long requestId,Model model){
         model.addAttribute("recommend", recommend);
         model.addAttribute("mentor",mentorService.findMentorById(mentorId));
         ArrayList<SkillEntity> listSkill = skillService.getAllSkill();
         model.addAttribute("listSkill",listSkill);
         model.addAttribute("requestForm",new RequestEntity());
         model.addAttribute("mentorId",mentorId);
-        model.addAttribute("requestId",requestId);
+        if(requestId!=null){
+            model.addAttribute("requestId",requestId);
+        }
         return "client/mentor-detail";
     }
 

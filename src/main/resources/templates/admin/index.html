@@ -499,7 +499,7 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Most-sought skills</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -740,44 +740,46 @@
 
 
 
-<!--<script th:inline="javascript">-->
-<!--    // Set new default font family and font color to mimic Bootstrap's default styling-->
-<!--    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';-->
-<!--    Chart.defaults.global.defaultFontColor = '#858796';-->
+<script th:inline="javascript">
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
 
-<!--    // Pie Chart Example-->
-<!--    var ctx = document.getElementById("myPieChart");-->
-<!--    var myPieChart = new Chart(ctx, {-->
-<!--        type: 'doughnut',-->
-<!--        data: {-->
-<!--            labels: [ [[${sk0.getSkillName()}]], [[${sk1.getSkillName()}]],  [[${sk2.getSkillName()}]], "Other"],-->
-<!--            datasets: [{-->
-<!--                data: [ [[${sk0.getCount()}]], [[${sk1.getCount()}]], [[${sk2.getCount()}]], [[${otherCount}]] ],-->
-<!--                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],-->
-<!--                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],-->
-<!--                hoverBorderColor: "rgba(234, 236, 244, 1)",-->
-<!--            }],-->
-<!--        },-->
-<!--        options: {-->
-<!--            maintainAspectRatio: false,-->
-<!--            tooltips: {-->
-<!--                backgroundColor: "rgb(255,255,255)",-->
-<!--                bodyFontColor: "#858796",-->
-<!--                borderColor: '#dddfeb',-->
-<!--                borderWidth: 1,-->
-<!--                xPadding: 15,-->
-<!--                yPadding: 15,-->
-<!--                displayColors: false,-->
-<!--                caretPadding: 10,-->
-<!--            },-->
-<!--            legend: {-->
-<!--                display: false-->
-<!--            },-->
-<!--            cutoutPercentage: 80,-->
-<!--        },-->
-<!--    });-->
-<!--</script>-->
+    // Pie Chart Example
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [ [[${sk0.getSkillName()}]], [[${sk1.getSkillName()}]],  [[${sk2.getSkillName()}]], "Other" ],
+            datasets: [{
+                data:[ [[${sk0.getCount()}]], [[${sk1.getCount()}]], [[${sk2.getCount()}]], [[${otherCount}]] ],
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+            },
+            legend: {
+                display: false
+            },
+            cutoutPercentage: 80,
+        },
+    });
+</script>
 
 </body>
 
 </html>
+<!--[[${sk0.getSkillName()}]], [[${sk1.getSkillName()}]],  [[${sk2.getSkillName()}]], "Other"-->
+<!--[[${sk0.getCount()}]], [[${sk1.getCount()}]], [[${sk2.getCount()}]], [[${otherCount}]]-->

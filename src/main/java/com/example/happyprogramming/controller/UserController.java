@@ -212,7 +212,15 @@ public class UserController {
         model.addAttribute("skills", skillService.getAllSkill());
         return "client/skill";
     }
-
+    @RequestMapping(value = "delete-skill/{id}", method = RequestMethod.GET)
+    public String deleteSkill(@PathVariable Long id, Model model) {
+        Optional<SkillEntity> skill = skillRepository.findById(id);
+        if (skill.isPresent()) {
+            skillRepository.delete(skill.get());
+        }
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
 
 }
 

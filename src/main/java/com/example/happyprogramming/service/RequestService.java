@@ -1,12 +1,10 @@
 package com.example.happyprogramming.service;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.Entity.*;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +19,5 @@ public interface RequestService {
     void cancelRequest(Long id);
     Pagination<CVEntity> createRequestWithPagination(RequestEntity requestEntity, int status,int pageNumber);
     Long getSkillIdFromRequest(RequestEntity request);
+    List<TotalRequestMonthly> totalRequestMonthly();
 }

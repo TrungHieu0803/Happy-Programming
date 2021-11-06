@@ -86,7 +86,6 @@ public class RequestController {
             notificationService.receivedNotification(mentor,user);
             return "redirect:/home";
         }
-
     }
 
     @GetMapping("/invited-request-wait")

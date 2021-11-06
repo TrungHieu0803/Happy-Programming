@@ -10,8 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -89,5 +95,29 @@ public class RequestServiceImpl implements RequestService {
         return skill.getId();
     }
 
+    @Override
+    public List<TotalRequestMonthly> totalRequestMonthly() {
+        int[] listCount = {0,0,0,0,0,0,0,0,0,0,0,0};
 
+        int currentYear = LocalDateTime.now().getYear();
+        List<RequestEntity> li = requestRepository.findByYear(currentYear);
+        try{
+            for (RequestEntity req:li) {
+
+                int month =  Integer.parseInt(req.getCreatedDate().substring(3,5));
+                listCount[month-1]++;
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        List<TotalRequestMonthly> list = new ArrayList<>();
+
+        for (int i = 0; i < 12; i++) {
+            TotalRequestMonthly a = new TotalRequestMonthly(Month.of(i+1), listCount[i]);
+            list.add(a);
+            System.out.println("month" + (i+1) + ": "+listCount[i]);
+        }
+        return list;
+    }
 }

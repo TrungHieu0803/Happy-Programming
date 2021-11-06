@@ -20,6 +20,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private RequestService requestService;
     @GetMapping("/adminpage")
     public String goToAdmin(Model model){
         List<PopularSkill> li = skillService.getMostSoughtSkills();
@@ -32,6 +34,7 @@ public class AdminController {
         model.addAttribute("totalUsers", userService.totalUsers());
         model.addAttribute("totalRequests", requestRepository.findAll().size());
 
+        requestService.totalRequestMonthly();
         return "admin/index";
     }
 

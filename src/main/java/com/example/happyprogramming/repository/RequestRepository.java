@@ -5,6 +5,8 @@ import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -19,4 +21,7 @@ public interface RequestRepository  extends JpaRepository<RequestEntity,Long> {
     Page<RequestEntity> findByStatusAndAndMenteeId(Pageable pageable, int status,UserEntity mentee);
     RequestEntity findById(long id);
     ArrayList<RequestEntity> findAll();
+
+    @Query(value = "select *from request where substring(created_date, 7,4)= ?1", nativeQuery = true)
+    List<RequestEntity> findByYear(int year);
 }

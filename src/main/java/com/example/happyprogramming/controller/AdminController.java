@@ -1,6 +1,7 @@
 package com.example.happyprogramming.controller;
 
 import com.example.happyprogramming.Entity.PopularSkill;
+import com.example.happyprogramming.Entity.TotalRequestMonthly;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;
@@ -34,7 +35,8 @@ public class AdminController {
         model.addAttribute("totalUsers", userService.totalUsers());
         model.addAttribute("totalRequests", requestRepository.findAll().size());
 
-        requestService.totalRequestMonthly();
+        List<TotalRequestMonthly> list =  requestService.totalRequestMonthly();
+        model.addAttribute("monthlyRequest", list);
         return "admin/index";
     }
 

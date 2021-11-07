@@ -1,7 +1,11 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.*;
+import com.example.happyprogramming.Entity.CVEntity;
+import com.example.happyprogramming.Entity.Pagination;
+import com.example.happyprogramming.Entity.SkillEntity;
+import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.SkillService;
@@ -13,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -27,7 +32,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -49,26 +55,24 @@ public class UserController {
     @Autowired
     private SkillService skillService;
 
+    @Autowired
+    SkillRepository skillRepository;
+
     @GetMapping({"/", "/home"})
-    public String home(Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
+    public String home(Model model, @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber) {
         Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
-        model.addAttribute("popularSkill",skillService.getPopularSkill());
-        model.addAttribute("listMentor",page.getPaginatedList());
+        model.addAttribute("listMentor", page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
-        model.addAttribute("listSkill",skillService.getAllSkill());
-        model.addAttribute("listSkillForSearch",new SkillEntity());
-        model.addAttribute("currentPage",pageNumber);
+        model.addAttribute("listSkill", skillService.getAllSkill());
+        model.addAttribute("listSkillForSearch", new SkillEntity());
+        model.addAttribute("currentPage", pageNumber);
         return "client/index";
     }
+
 
     @GetMapping("/login")
     public String loginPage() {
         return "client/my-account";
-    }
-
-    @GetMapping("/404")
-    public String errorPage(){
-        return "client/404-error";
     }
 
 
@@ -105,14 +109,14 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-    public void processResetPassword(HttpServletRequest request, Model model, HttpServletResponse response)
+    public void processChangePassword(HttpServletRequest request, Model model, HttpServletResponse response)
             throws IOException, MessagingException {
         String email = request.getParameter("email");
         UserEntity user = userRepository.findByEmail(email);
         if (user == null) {
             response.getWriter().print("<p class=\"text-danger\">This email address is not registered!</p>");
         } else {
-            userService.sendEmailChangePassword(user, getSiteURL(request));
+            userService.changePassword(user, getSiteURL(request));
             response.getWriter().print("<p class=\"text-success\">Check your email for change the password</p>");
         }
     }
@@ -128,7 +132,7 @@ public class UserController {
     }
 
     @PostMapping("/do-reset-password")
-    public String doResetPassword(HttpServletRequest request) {
+    public String resetPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
         userService.doResetPassword(email, newPassword);
@@ -144,31 +148,31 @@ public class UserController {
 
     @GetMapping("/change-password")
     public String changePassword(Model model) {
-        model.addAttribute("isChanged",null);
+        model.addAttribute("isChanged", null);
         return "client/change-password";
     }
 
     @PostMapping("/change-password")
-    public String doChangePassword(HttpServletRequest request,Model model) {
+    public String doChangePassword(HttpServletRequest request, Model model) {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         model.addAttribute("alert", true);
         if (userService.doChangePassword(newPassword, oldPassword, user)) {
-            model.addAttribute("isChanged",true);
-            model.addAttribute("mess","Your password has been changed.");
+            model.addAttribute("isChanged", true);
+            model.addAttribute("mess", "Your password has been changed.");
             return "client/change-password";
         } else
-            model.addAttribute("isChanged",false);
-            model.addAttribute("mess","Password is wrong! Please enter again.");
-            return "client/change-password";
+            model.addAttribute("isChanged", false);
+        model.addAttribute("mess", "Password is wrong! Please enter again.");
+        return "client/change-password";
     }
 
     @PostMapping("/upload-avatar")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException{
+    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException {
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
-        session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
+        session.setAttribute("userInformation", userService.saveAvatar(avatar, user.getEmail()));
         return "client/user-profile";
     }
 
@@ -182,6 +186,40 @@ public class UserController {
         user.setDoB(DoB);
         user.setPhone(phone);
         userRepository.save(user);
+    }
+
+    @GetMapping("/skill")
+    public String getSkill(Model model) {
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
+
+
+    @GetMapping("/add-skill")
+    public String addNewSkill(Model model) {
+        model.addAttribute("skill", new SkillEntity());
+        return "client/add-new-skill";
+    }
+    @PostMapping("/create-new-skill")
+    public String createNewSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        return getSkill(model);
+    }
+
+    @PostMapping(value = "update-skill")
+    public String updateSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
+    @RequestMapping(value = "delete-skill/{id}", method = RequestMethod.GET)
+    public String deleteSkill(@PathVariable Long id, Model model) {
+        Optional<SkillEntity> skill = skillRepository.findById(id);
+        if (skill.isPresent()) {
+            skillRepository.delete(skill.get());
+        }
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
     }
 
 }

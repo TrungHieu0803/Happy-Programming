@@ -28,7 +28,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -46,7 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private NotificationService notificationService;
-
 
     public UserServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -117,10 +119,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+    public void changePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         userRepo.save(user);
+        sendEmailChangePassword(user, siteURL);
+    }
+
+    @Override
+    public void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException {
         String toAddress = user.getEmail();
         String fromAddress = "hieunthe150001@fpt.edu.vn";
         String senderName = "Happry-Programming";

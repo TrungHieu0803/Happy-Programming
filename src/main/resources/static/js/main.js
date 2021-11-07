@@ -484,6 +484,10 @@ function  updateProfile(){
         }
     });
     modal.style.display = "none";
+    
+    function f() {
+        
+    }
 }
 
 

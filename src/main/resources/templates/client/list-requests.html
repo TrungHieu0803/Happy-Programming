@@ -128,7 +128,7 @@
                             </div>
                             <div class="col-md-3" th:if="*{request.getStatus()==1}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId().getId()})}"><h3
-                                        th:utext="*{request.getMentorName()}"></h3></a><br>
+                                        th:utext="*{request.getMentorId().getFullName()}"></h3></a><br>
                             </div>
                             <div class="col-md-3" th:if="*{request.getStatus()==3}">
                                 <a th:href="@{/mentor-detail(id=*{request.getMentorId().getId()})}"><h3

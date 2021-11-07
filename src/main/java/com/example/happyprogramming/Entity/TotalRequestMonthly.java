@@ -14,4 +14,5 @@ import java.time.Month;
 public class TotalRequestMonthly {
     Month month;
     int numberOfRequest;
+    Double earning;
 }

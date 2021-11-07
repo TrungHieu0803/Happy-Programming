@@ -23,7 +23,6 @@ import java.util.stream.IntStream;
 
 @Component
 public class RequestServiceImpl implements RequestService {
-
     @Autowired
     RequestRepository requestRepository;
 
@@ -101,6 +100,7 @@ public class RequestServiceImpl implements RequestService {
         int currentYear = LocalDateTime.now().getYear();
         int currentMonth = LocalDateTime.now().getMonthValue();
         int[] listCount = {0,0,0,0,0,0,0,0,0,0,0,0};
+        Double[] listEarnings = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 
         List<RequestEntity> li = requestRepository.findByYear(currentYear);
@@ -109,6 +109,10 @@ public class RequestServiceImpl implements RequestService {
 
                 int month =  Integer.parseInt(req.getCreatedDate().substring(3,5));
                 listCount[month-1]++;
+                String budget = req.getBudget();
+                Double profit = 0.05* Double.parseDouble(budget.substring(0, budget.length()-1));
+
+                for (int i = month-1; i < 12; i++) listEarnings[i] += profit;
             }
         }catch(Exception e){
             System.out.println(e);
@@ -116,10 +120,10 @@ public class RequestServiceImpl implements RequestService {
 
         List<TotalRequestMonthly> list = new ArrayList<>();
 
-        for (int i = 0; i < currentMonth; i++) {
-            TotalRequestMonthly a = new TotalRequestMonthly(Month.of(i+1), listCount[i]);
+        for (int i = 0; i < 12; i++) {
+            TotalRequestMonthly a = new TotalRequestMonthly(Month.of(i+1), listCount[i], listEarnings[i]);
             list.add(a);
-            System.out.println("month" + (i+1) + ": "+listCount[i]);
+            System.out.println("month" + (i+1) + ": "+listCount[i] + "  " +listEarnings[i]);
         }
         return list;
     }

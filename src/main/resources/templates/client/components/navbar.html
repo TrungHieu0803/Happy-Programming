@@ -104,10 +104,6 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right ">
                     <li class="left">
-                        <a th:if="${session.userInformation == null}" th:href="@{/login}"><i class="ti-pencil-alt"></i>Skill</a>
-                        <a th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}" th:href="@{/skill}"><i class="ti-pencil-alt"></i>Skill</a>
-                    </li>
-                    <li class="left">
                         <a th:if="${session.userInformation == null}" th:href="@{/login}"><i class="ti-pencil-alt"></i>Post a request</a>
                         <a th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}" th:href="@{/create-request}"><i class="ti-pencil-alt"></i>Post a request</a>
                     </li>

@@ -10,29 +10,21 @@ import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.SkillService;
 import com.example.happyprogramming.service.UserService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -191,14 +183,14 @@ public class UserController {
     @GetMapping("/skill")
     public String getSkill(Model model) {
         model.addAttribute("skills", skillService.getAllSkill());
-        return "client/skill";
+        return "admin/skill";
     }
 
 
     @GetMapping("/add-skill")
     public String addNewSkill(Model model) {
         model.addAttribute("skill", new SkillEntity());
-        return "client/add-new-skill";
+        return "admin/add-new-skill";
     }
     @PostMapping("/create-new-skill")
     public String createNewSkill(SkillEntity skillEntity, Model model) {
@@ -210,16 +202,14 @@ public class UserController {
     public String updateSkill(SkillEntity skillEntity, Model model) {
         skillRepository.save(skillEntity);
         model.addAttribute("skills", skillService.getAllSkill());
-        return "client/skill";
+        return "admin/skill";
     }
     @RequestMapping(value = "delete-skill/{id}", method = RequestMethod.GET)
     public String deleteSkill(@PathVariable Long id, Model model) {
         Optional<SkillEntity> skill = skillRepository.findById(id);
-        if (skill.isPresent()) {
-            skillRepository.delete(skill.get());
-        }
+        skill.ifPresent(skillEntity -> skillRepository.delete(skillEntity));
         model.addAttribute("skills", skillService.getAllSkill());
-        return "client/skill";
+        return "admin/skill";
     }
 
 }

@@ -20,5 +20,4 @@ public interface RequestService {
     Pagination<CVEntity> createRequestWithPagination(RequestEntity requestEntity, int status,int pageNumber);
     Long getSkillIdFromRequest(RequestEntity request);
     List<TotalRequestMonthly> totalRequestMonthly();
-
 }

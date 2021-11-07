@@ -97,7 +97,7 @@
         <div class="row"  >
             <div class="col-sm-12 col-md-9 col-md-offset-2">
                 <div class="job-alerts-item" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;" >
-                    <h3 class="alerts-title">Create request</h3>
+                    <h3 class="alerts-title">Update request</h3>
                     <form class="form" th:method="POST" th:action="@{/update-request}" th:object="${requestForm}">
                         <input type="hidden" th:value="${request.getId()}" th:name="requestId">
                         <div class="form-group is-empty">

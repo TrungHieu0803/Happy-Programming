@@ -178,4 +178,12 @@ public class RequestController {
         return "redirect:/list-requests?status=1";
     }
 
+    @GetMapping("/manage-requests")
+    public String manageRequests(Model model,
+                                 @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
+        UserEntity user = (UserEntity) session.getAttribute("userInformation");
+        ArrayList<RequestEntity> ManageRequests = requestRepository.findAll();
+        model.addAttribute("manageRequests", ManageRequests);
+        return "admin/manage-requests";
+    }
 }

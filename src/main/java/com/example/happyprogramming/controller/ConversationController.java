@@ -53,6 +53,7 @@ public class ConversationController {
         if(conversationId==-1){
             return "client/404-error";
         }else{
+            model.addAttribute("userInConversation",conversationService.getUserInConversation(sender,sender));
             model.addAttribute("conversationMessage",conversationService.getConversation(conversationId));
             model.addAttribute("conversationId",conversationId);
             model.addAttribute("receiver",receiver);

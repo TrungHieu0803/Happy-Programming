@@ -97,9 +97,12 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<TotalRequestMonthly> totalRequestMonthly() {
-        int[] listCount = {0,0,0,0,0,0,0,0,0,0,0,0};
 
         int currentYear = LocalDateTime.now().getYear();
+        int currentMonth = LocalDateTime.now().getMonthValue();
+        int[] listCount = {0,0,0,0,0,0,0,0,0,0,0,0};
+
+
         List<RequestEntity> li = requestRepository.findByYear(currentYear);
         try{
             for (RequestEntity req:li) {
@@ -113,7 +116,7 @@ public class RequestServiceImpl implements RequestService {
 
         List<TotalRequestMonthly> list = new ArrayList<>();
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < currentMonth; i++) {
             TotalRequestMonthly a = new TotalRequestMonthly(Month.of(i+1), listCount[i]);
             list.add(a);
             System.out.println("month" + (i+1) + ": "+listCount[i]);

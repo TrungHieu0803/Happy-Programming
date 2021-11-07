@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -28,6 +29,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -52,12 +55,11 @@ public class UserController {
     @GetMapping({"/", "/home"})
     public String home(Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber) {
         Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
-        model.addAttribute("popularSkill",skillService.getPopularSkill());
         model.addAttribute("listMentor",page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
-        model.addAttribute("listSkill",skillService.getAllSkill());
-        model.addAttribute("listSkillForSearch",new SkillEntity());
-        model.addAttribute("currentPage",pageNumber);
+        model.addAttribute("listSkill", skillService.getAllSkill());
+        model.addAttribute("listSkillForSearch", new SkillEntity());
+        model.addAttribute("currentPage", pageNumber);
         return "client/index";
     }
 
@@ -144,31 +146,31 @@ public class UserController {
 
     @GetMapping("/change-password")
     public String changePassword(Model model) {
-        model.addAttribute("isChanged",null);
+        model.addAttribute("isChanged", null);
         return "client/change-password";
     }
 
     @PostMapping("/change-password")
-    public String doChangePassword(HttpServletRequest request,Model model) {
+    public String doChangePassword(HttpServletRequest request, Model model) {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
         model.addAttribute("alert", true);
         if (userService.doChangePassword(newPassword, oldPassword, user)) {
-            model.addAttribute("isChanged",true);
-            model.addAttribute("mess","Your password has been changed.");
+            model.addAttribute("isChanged", true);
+            model.addAttribute("mess", "Your password has been changed.");
             return "client/change-password";
         } else
-            model.addAttribute("isChanged",false);
-            model.addAttribute("mess","Password is wrong! Please enter again.");
-            return "client/change-password";
+            model.addAttribute("isChanged", false);
+        model.addAttribute("mess", "Password is wrong! Please enter again.");
+        return "client/change-password";
     }
 
     @PostMapping("/upload-avatar")
     @ResponseStatus(HttpStatus.CREATED)
-    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException{
+    public String uploadImage(@RequestParam("avatar") MultipartFile avatar, HttpServletRequest request) throws IOException {
         UserEntity user = (UserEntity) session.getAttribute("userInformation");
-        session.setAttribute("userInformation",userService.saveAvatar(avatar,user.getEmail()));
+        session.setAttribute("userInformation", userService.saveAvatar(avatar, user.getEmail()));
         return "client/user-profile";
     }
 
@@ -182,6 +184,40 @@ public class UserController {
         user.setDoB(DoB);
         user.setPhone(phone);
         userRepository.save(user);
+    }
+
+    @GetMapping("/skill")
+    public String getSkill(Model model) {
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
+
+
+    @GetMapping("/add-skill")
+    public String addNewSkill(Model model) {
+        model.addAttribute("skill", new SkillEntity());
+        return "client/add-new-skill";
+    }
+    @PostMapping("/create-new-skill")
+    public String createNewSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        return getSkill(model);
+    }
+
+    @PostMapping(value = "update-skill")
+    public String updateSkill(SkillEntity skillEntity, Model model) {
+        skillRepository.save(skillEntity);
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
+    }
+    @RequestMapping(value = "delete-skill/{id}", method = RequestMethod.GET)
+    public String deleteSkill(@PathVariable Long id, Model model) {
+        Optional<SkillEntity> skill = skillRepository.findById(id);
+        if (skill.isPresent()) {
+            skillRepository.delete(skill.get());
+        }
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "client/skill";
     }
 
 }

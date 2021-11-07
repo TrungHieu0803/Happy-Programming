@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
@@ -399,7 +400,7 @@
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-book fa-2x text-gray-300"></i>
-<!--                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
+                                        <!--                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -464,7 +465,7 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Total requests by months</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -482,8 +483,8 @@
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
+                                <div class="chart-bar">
+                                    <canvas id="myBarChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -731,9 +732,7 @@
 <script type="text/javascript" th:src="@{admin-static/vendor/chart.js/Chart.min.js}"></script>
 
 <!-- Page level custom scripts -->
-<script type="text/javascript" th:src="@{admin-static/js/demo/chart-area-demo.js}"></script>
-
-
+<!--<script type="text/javascript" th:src="@{admin-static/js/demo/chart-area-demo.js}"></script>-->
 
 <script th:inline="javascript">
     // Set new default font family and font color to mimic Bootstrap's default styling
@@ -773,8 +772,85 @@
     });
 </script>
 
+<script th:inline="javascript">
+    var ctx = document.getElementById("myBarChart");
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Revenue",
+                backgroundColor: "#4e73df",
+                hoverBackgroundColor: "#2e59d9",
+                borderColor: "#4e73df",
+                data:  [ [[${monthlyRequest.get(0).getNumberOfRequest()}]], [[${monthlyRequest.get(1).getNumberOfRequest()}]],
+                    [[${monthlyRequest.get(2).getNumberOfRequest()}]], [[${monthlyRequest.get(3).getNumberOfRequest()}]],
+                    [[${monthlyRequest.get(4).getNumberOfRequest()}]], [[${monthlyRequest.get(5).getNumberOfRequest()}]],
+                    [[${monthlyRequest.get(6).getNumberOfRequest()}]], [[${monthlyRequest.get(7).getNumberOfRequest()}]],
+                    [[${monthlyRequest.get(8).getNumberOfRequest()}]], [[${monthlyRequest.get(9).getNumberOfRequest()}]],
+                    [[${monthlyRequest.get(10).getNumberOfRequest()}]], [[${monthlyRequest.get(11).getNumberOfRequest()}]] ],
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'month'
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 12
+                    },
+                    maxBarThickness: 25,
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 5,
+                        maxTicksLimit: 5,
+                        padding: 10
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10
+            },
+        }
+    });
+</script>
+
 </body>
 
 </html>
-<!--[[${sk0.getSkillName()}]], [[${sk1.getSkillName()}]],  [[${sk2.getSkillName()}]], "Other"-->
-<!--[[${sk0.getCount()}]], [[${sk1.getCount()}]], [[${sk2.getCount()}]], [[${otherCount}]]-->

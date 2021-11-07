@@ -67,4 +67,10 @@ public class ConversationServiceImpl implements ConversationService {
         ConversationEntity conversation = conversationRepository.findById(conversationId);
         return conversationReplyRepository.findByConversationId(conversation);
     }
+
+    @Override
+    public ArrayList<ConversationEntity> getUserInConversation(UserEntity user1, UserEntity user2) {
+        ArrayList<ConversationEntity> list = conversationRepository.findByUser1OrUser2(user1,user2);
+        return list;
+    }
 }

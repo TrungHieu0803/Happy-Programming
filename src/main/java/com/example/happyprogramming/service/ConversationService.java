@@ -1,6 +1,7 @@
 package com.example.happyprogramming.service;
 
 
+import com.example.happyprogramming.Entity.ConversationEntity;
 import com.example.happyprogramming.Entity.ConversationReplyEntity;
 import com.example.happyprogramming.Entity.UserEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public interface ConversationService {
     int checkConversationExist(UserEntity user1, UserEntity user2);
 
     ArrayList<ConversationReplyEntity> getConversation(long conversationId);
+
+    ArrayList<ConversationEntity> getUserInConversation(UserEntity user1, UserEntity user2);
 
 
 }

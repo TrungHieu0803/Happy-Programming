@@ -17,6 +17,7 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private SkillService skillService;
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -40,9 +41,5 @@ public class AdminController {
         return "admin/index";
     }
 
-    @GetMapping("/skill")
-    public String getSkill(){
-        return "client/skill";
-    }
 
 }

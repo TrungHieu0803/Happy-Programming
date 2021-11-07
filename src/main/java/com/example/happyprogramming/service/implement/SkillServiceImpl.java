@@ -38,9 +38,6 @@ public class SkillServiceImpl implements SkillService {
             listPopularSkill.add(new PopularSkill(s.getId(),s.getSkillName(),s.getImg(),s.getCvEntitySet().size()));
         }
         Collections.sort(listPopularSkill);
-        for (PopularSkill s: listPopularSkill) {
-            System.out.println(s.getCount());
-        }
         return listPopularSkill;
     }
 

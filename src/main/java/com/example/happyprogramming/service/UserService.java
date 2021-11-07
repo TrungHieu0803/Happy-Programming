@@ -20,6 +20,8 @@ public interface UserService {
 
     boolean checkEmail(String email);
 
+    void changePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
+
     void sendEmailChangePassword(UserEntity user, String siteURL) throws UnsupportedEncodingException, MessagingException;
 
     void doResetPassword(String email,String newPassword);

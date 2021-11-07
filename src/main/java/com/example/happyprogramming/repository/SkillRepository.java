@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.*;
+import java.util.ArrayList;
 
 @Repository
 public interface SkillRepository extends JpaRepository<SkillEntity,Long> {
@@ -15,7 +14,9 @@ public interface SkillRepository extends JpaRepository<SkillEntity,Long> {
     @Query(value = "select s from SkillEntity s")
     ArrayList<SkillEntity> getAllSkill();
 
+    SkillEntity getSkillEntityById(Long id);
 
+    ArrayList<SkillEntity> findAll();
 
 
 //    @Query(value = "SELECT top 3 COUNT(skill_id)\n" +

@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="pull-right">
                                     <div class="icon">
-                                         <span class="fa-star fa " style="color: #f5be47" th:utext="${mentor.getAverageStar()}"> </span>
+                                        <span class="fa-star fa " style="color: #f5be47" th:utext="${mentor.getAverageStar()}"> </span>
                                     </div>
                                     <div class="icon">
                                         <i class="ti-heart"></i>
@@ -150,16 +150,78 @@
         <h2 class="section-title">Language Categories</h2>
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-3 col-sm-3 col-xs-12 f-category" th:each="listPopularSkill,stat : ${popularSkill}" th:unless="${stat.index>7}">
-                    <a th:href="@{/mentor/search-by-skill(id=${listPopularSkill.getSkillId()})}">
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
                         <div class="icon" >
-                            <img th:src="@{*{listPopularSkill.getSkillImg()}}" style="width: 30%; height: 30%;">
+                            <img src="https://icon-library.com/images/java-icon-image/java-icon-image-0.jpg" style="width: 30%; height: 30%;">
                         </div>
-                        <h3 th:utext="*{listPopularSkill.getSkillName()}"></h3>
-                        <p th:utext="*{listPopularSkill.getCount()}"></p>
+                        <h3>Java</h3>
+                        <p>4286 jobs</p>
                     </a>
                 </div>
-
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/python-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>Python</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/javascript-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>JavaScript</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/docker-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>Docker</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 f-category">
+                    <a href="browse-jobs.html">
+                        <div class="icon">
+                            <img src="https://docs.microsoft.com/vi-vn/windows/images/csharp-logo.png" style="width: 30%; height: 30%;">
+                        </div>
+                        <h3>C#</h3>
+                        <p>2000 jobs</p>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -236,7 +298,7 @@
 
 <!-- Footer Section Start -->
 <th:block th:insert="~{/components/footer :: footer}"></th:block>
-
+<th:block th:insert="~{/components/notification :: notification}"></th:block>
 <!-- Footer Section End -->
 
 <!-- Go To Top Link -->

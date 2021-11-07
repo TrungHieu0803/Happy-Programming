@@ -23,6 +23,9 @@ public class SkillEntity {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "img")
+    private String img;
+
     @ManyToMany(mappedBy = "skills")
     private Set<CVEntity> cvEntitySet;
 

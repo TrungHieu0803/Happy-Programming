@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CVController {
@@ -31,7 +32,7 @@ public class CVController {
 
     @GetMapping("/createCV")
     public String goToCreateCV(Model model){
-        ArrayList<SkillEntity> list  = skillRepository.findAll();
+        List<SkillEntity> list  = skillRepository.findAll();
         model.addAttribute("listSkills", list);
         CVEntity cv = ICVService.findByUser((UserEntity) session.getAttribute("userInformation"));
         model.addAttribute("cv",cv);

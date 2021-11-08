@@ -49,7 +49,7 @@ public class MentorController {
     }
 
     @GetMapping("/mentor/search-by-skill")
-    public String searchMentorBySkill(@RequestParam("id") Long skillId,Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
+    public String searchMentorBySkill(@RequestParam(value = "id",required = false) Long skillId,Model model,@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
         Pagination<CVEntity> page = mentorService.findMentorBySkill(skillId,pageNumber);
         model.addAttribute("listMentors",page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
@@ -80,5 +80,6 @@ public class MentorController {
         mentorService.hireMentor(mentorId,requestId);
         return "redirect:/home";
     }
+
 
 }

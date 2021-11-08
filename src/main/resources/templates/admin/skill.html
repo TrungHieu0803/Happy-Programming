@@ -94,7 +94,7 @@
                 <span>Mentee Management</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/skill}">
+            <a class="nav-link" th:href="@{/skill}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Skill</span></a>
         </li>
@@ -245,20 +245,36 @@
                                                     </thead>
                                                     <tbody>
                                                     <th:block th:each="skill,state  : ${skills}">
-                                                        <form th:action="@{/update-skill}" th:object="${skill}" method="post">
+                                                        <form th:action="@{/update-skill}" th:object="${skill}"
+                                                              method="post">
                                                             <tr>
                                                                 <td th:text="${state.count}"></td>
-                                                                <td><input type="text" th:name="id" th:value="${skill.getId()}"/></td>
-                                                                <td><input type="text" th:name="skillName" th:value="${skill.getSkillName()}"/></td>
+                                                                <td><input type="text" th:name="id"
+                                                                           th:value="${skill.getId()}"/></td>
+                                                                <td><input type="text" th:name="skillName"
+                                                                           th:value="${skill.getSkillName()}"/></td>
                                                                 <td>
-<!--                                                                    <a th:if="${skill.getStatus() == 'Active'}"><i class="ti-pencil-alt"></i>Skill</a>-->
-                                                                    <input type="text" th:name="status" th:value="${skill.getStatus()}"/>
+                                                                    <a th:if="${skill.getStatus() == 'Active' || skill.getStatus() == null}"
+                                                                       th:href="@{'/update-status-skill/' + ${skill.getId()}} "
+                                                                       class="btn btn-success>"><span>De-Active</span>
+                                                                    </a>
+
+                                                                    <a th:if="${skill.getStatus() == 'DeActive'}"
+                                                                       th:href="@{'/update-status-skill/' + ${skill.getId()}}"
+                                                                       class="btn btn-success"><span>Active</span>
+                                                                    </a>
+                                                                    <input type="text" th:name="status" th:if="${skill.getStatus() == null}"
+                                                                           th:value="Active" disabled/>
+                                                                    <input type="text" th:name="status" th:if="${skill.getStatus() != null}"
+                                                                           th:value="${skill.getStatus()}" disabled/>
                                                                 </td>
                                                                 <td>
-                                                                    <button><input type="submit" class="btn btn-success" value="Update"/></button>
+                                                                    <button><input type="submit" class="btn btn-success"
+                                                                                   value="Update"/></button>
                                                                 </td>
                                                                 <td><a th:href="@{'/delete-skill/' + ${skill.getId()}}"
-                                                                       class="btn btn-danger"><span>Delete</span></a></td>
+                                                                       class="btn btn-danger"><span>Delete</span></a>
+                                                                </td>
                                                             </tr>
                                                         </form>
                                                     </th:block>
@@ -272,28 +288,28 @@
                                     </div>
                                 </div>
                             </section>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-bar">
-                                    <canvas id="myBarChart"></canvas>
-                                </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-bar">
+                                <canvas id="myBarChart"></canvas>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2021</span>
-            </div>
+</div>
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
         </div>
-    </footer>
-    <!-- End of Footer -->
+    </div>
+</footer>
+<!-- End of Footer -->
 
 </div>
 <!-- End of Content Wrapper -->
@@ -343,243 +359,8 @@
 <!--<script type="text/javascript" th:src="@{admin-static/js/demo/chart-area-demo.js}"></script>-->
 
 <!--Draw pie chart-->
-<script th:inline="javascript">
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
-
-    // Pie Chart Example
-    var ctx = document.getElementById("myPieChart");
-    var myPieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: [[[${sk0.getSkillName()}]], [[${sk1.getSkillName()}]], [[${sk2.getSkillName()}]], "Other"],
-            datasets: [{
-                data: [[[${sk0.getCount()}]], [[${sk1.getCount()}]], [[${sk2.getCount()}]], [[${otherCount}]]],
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-            },
-            legend: {
-                display: false
-            },
-            cutoutPercentage: 80,
-        },
-    });
-</script>
 
 <!--Draw bar chart-->
-<script th:inline="javascript">
-    var ctx = document.getElementById("myBarChart");
-    var myBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Revenue",
-                backgroundColor: "#4e73df",
-                hoverBackgroundColor: "#2e59d9",
-                borderColor: "#4e73df",
-                data: [[[${monthlyRequest.get(0).getNumberOfRequest()}]], [[${monthlyRequest.get(1).getNumberOfRequest()}]],
-                    [[${monthlyRequest.get(2).getNumberOfRequest()}]], [[${monthlyRequest.get(3).getNumberOfRequest()}]],
-                    [[${monthlyRequest.get(4).getNumberOfRequest()}]], [[${monthlyRequest.get(5).getNumberOfRequest()}]],
-                    [[${monthlyRequest.get(6).getNumberOfRequest()}]], [[${monthlyRequest.get(7).getNumberOfRequest()}]],
-                    [[${monthlyRequest.get(8).getNumberOfRequest()}]], [[${monthlyRequest.get(9).getNumberOfRequest()}]],
-                    [[${monthlyRequest.get(10).getNumberOfRequest()}]], [[${monthlyRequest.get(11).getNumberOfRequest()}]]],
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0
-                }
-            },
-            scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'month'
-                    },
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 12
-                    },
-                    maxBarThickness: 25,
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 10,
-                        maxTicksLimit: 5,
-                        padding: 10
-                    },
-                    gridLines: {
-                        color: "rgb(234, 236, 244)",
-                        zeroLineColor: "rgb(234, 236, 244)",
-                        drawBorder: false,
-                        borderDash: [2],
-                        zeroLineBorderDash: [2]
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            },
-            tooltips: {
-                titleMarginBottom: 10,
-                titleFontColor: '#6e707e',
-                titleFontSize: 14,
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10
-            },
-        }
-    });
-</script>
 
-<script th:inline="javascript">
-    function number_format(number, decimals, dec_point, thousands_sep) {
-        // *     example: number_format(1234.56, 2, ',', ' ');
-        // *     return: '1 234,56'
-        number = (number + '').replace(',', '').replace(' ', '');
-        var n = !isFinite(+number) ? 0 : +number,
-            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-            s = '',
-            toFixedFix = function (n, prec) {
-                var k = Math.pow(10, prec);
-                return '' + Math.round(n * k) / k;
-            };
-        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-        if (s[0].length > 3) {
-            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-        }
-        if ((s[1] || '').length < prec) {
-            s[1] = s[1] || '';
-            s[1] += new Array(prec - s[1].length + 1).join('0');
-        }
-        return s.join(dec);
-    }
-
-    var ctx = document.getElementById("myAreaChart");
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Earnings",
-                lineTension: 0.3,
-                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgba(78, 115, 223, 1)",
-                pointRadius: 3,
-                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointBorderColor: "rgba(78, 115, 223, 1)",
-                pointHoverRadius: 3,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: [[[${monthlyRequest.get(0).getEarning()}]], [[${monthlyRequest.get(1).getEarning()}]],
-                    [[${monthlyRequest.get(2).getEarning()}]], [[${monthlyRequest.get(3).getEarning()}]],
-                    [[${monthlyRequest.get(4).getEarning()}]], [[${monthlyRequest.get(5).getEarning()}]],
-                    [[${monthlyRequest.get(6).getEarning()}]], [[${monthlyRequest.get(7).getEarning()}]],
-                    [[${monthlyRequest.get(8).getEarning()}]], [[${monthlyRequest.get(9).getEarning()}]],
-                    [[${monthlyRequest.get(10).getEarning()}]], [[${monthlyRequest.get(11).getEarning()}]]],
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0
-                }
-            },
-            scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'date'
-                    },
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 7
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        maxTicksLimit: 5,
-                        padding: 10,
-                        // Include a dollar sign in the ticks
-                        callback: function (value, index, values) {
-                            return '$' + number_format(value);
-                        }
-                    },
-                    gridLines: {
-                        color: "rgb(234, 236, 244)",
-                        zeroLineColor: "rgb(234, 236, 244)",
-                        drawBorder: false,
-                        borderDash: [2],
-                        zeroLineBorderDash: [2]
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            },
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                titleMarginBottom: 10,
-                titleFontColor: '#6e707e',
-                titleFontSize: 14,
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                intersect: false,
-                mode: 'index',
-                caretPadding: 10,
-                callbacks: {
-                    label: function (tooltipItem, chart) {
-                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                        return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                    }
-                }
-            }
-        }
-    });
-</script>
 </body>
 </html>

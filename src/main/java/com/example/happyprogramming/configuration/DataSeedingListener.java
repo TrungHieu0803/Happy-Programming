@@ -69,7 +69,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             user.setFullName("Anh");
             user.setEnabled(true);
             HashSet<RoleEntity> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_MENTEE"));
+            roles.add(roleRepository.findByName("ROLE_ADMIN"));
             user.setRoles(roles);
             userRepository.save(user);
         }

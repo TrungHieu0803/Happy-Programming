@@ -193,6 +193,7 @@ public class UserController {
         model.addAttribute("skill", new SkillEntity());
         return "admin/add-new-skill";
     }
+
     @PostMapping("/create-new-skill")
     public String createNewSkill(SkillEntity skillEntity, Model model) {
         skillRepository.save(skillEntity);
@@ -201,14 +202,33 @@ public class UserController {
 
     @PostMapping(value = "update-skill")
     public String updateSkill(SkillEntity skillEntity, Model model) {
+        SkillEntity skill = skillRepository.getById(skillEntity.getId());
+        skillEntity.setStatus(skill.getStatus());
         skillRepository.save(skillEntity);
         model.addAttribute("skills", skillService.getAllSkill());
         return "admin/skill";
     }
+
     @RequestMapping(value = "delete-skill/{id}", method = RequestMethod.GET)
     public String deleteSkill(@PathVariable Long id, Model model) {
         Optional<SkillEntity> skill = skillRepository.findById(id);
         skill.ifPresent(skillEntity -> skillRepository.delete(skillEntity));
+        model.addAttribute("skills", skillService.getAllSkill());
+        return "admin/skill";
+    }
+
+    @GetMapping(value = "update-status-skill/{id}")
+    public String updateStatusSkill(@PathVariable Long id, Model model) {
+        Optional<SkillEntity> skill = skillRepository.findById(id);
+        if (skill.isPresent()) {
+            SkillEntity skillEntity = skill.get();
+            if (skillEntity.getStatus() == null || skillEntity.getStatus().equalsIgnoreCase("DeActive")) {
+                skillEntity.setStatus("Active");
+            } else {
+                skillEntity.setStatus("DeActive");
+            }
+            skillRepository.save(skillEntity);
+        }
         model.addAttribute("skills", skillService.getAllSkill());
         return "admin/skill";
     }

@@ -97,7 +97,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="product-title " style="color: #ff6470">My Account</h2>
+                    <h2 class="product-title " style="color: #ff6470">Create your CV</h2>
 
                 </div>
             </div>
@@ -160,16 +160,9 @@
                             <input type="text" class="form-control" name="phone" th:name="user.phone" th:id="user.phone" th:value="${session.userInformation.getPhone()}">
                             <span class="material-input"></span>
                         </div>
-                        <div class="form-group is-empty">
-                            <label class="control-label">Social media contact <span>(optional)</span></label>
-                            <input type="text" name="socialContact" class="form-control" placeholder="http://" th:name="socialMediaContact" th:id="socialMediaContact" th:if="${cv != null}" th:value="${cv.getSocialMediaContact()}">
-                            <input type="text" name="socialContact" class="form-control" placeholder="http://" th:name="socialMediaContact" th:id="socialMediaContact" th:if="${cv == null}">
-
-                            <span class="material-input"></span>
-                        </div>
                         <div class="form-group">
                             <label class="control-label">Skills</label> <br>
-                                <input th:field="*{skills}" type="checkbox" name="skills_CV" th:each="item : ${listSkills}" th:value="${item.id}" th:text="${item.skillName}"> <br>
+                                <input style="margin-left: 10px" th:field="*{skills}" type="checkbox" name="skills_CV" th:each="item : ${listSkills}" th:value="${item.id}" th:text="${item.skillName}"> <br>
                             <span class="material-input"></span>
                         </div>
                         <input type="submit" value="Submit">

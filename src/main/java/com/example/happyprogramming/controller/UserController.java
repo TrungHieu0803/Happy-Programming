@@ -53,6 +53,7 @@ public class UserController {
     @GetMapping({"/", "/home"})
     public String home(Model model, @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber) {
         Pagination<CVEntity> page = mentorService.getPaginatedMentors(pageNumber);
+        model.addAttribute("popularSkill",skillService.getPopularSkill());
         model.addAttribute("listMentor", page.getPaginatedList());
         model.addAttribute("pageNumbers", page.getPageNumbers());
         model.addAttribute("listSkill", skillService.getAllSkill());

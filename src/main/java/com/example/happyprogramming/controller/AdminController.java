@@ -31,13 +31,16 @@ public class AdminController {
         model.addAttribute("sk1", li.get(1));
         model.addAttribute("sk2", li.get(2));
         model.addAttribute("otherCount", skillService.totalSought()-li.get(0).getCount()
-                                                                        -li.get(1).getCount()
-                                                                        -li.get(2).getCount());
+                -li.get(1).getCount()
+                -li.get(2).getCount());
         model.addAttribute("totalUsers", userService.totalUsers());
         model.addAttribute("totalRequests", requestRepository.findAll().size());
 
         List<TotalRequestMonthly> list =  requestService.totalRequestMonthly();
         model.addAttribute("monthlyRequest", list);
+        model.addAttribute("rateOfSuccessful", requestService.rateOfSuccessful());
+        model.addAttribute("rateOfSuccessfulFormatted", String.format("%.02f", requestService.rateOfSuccessful()).concat("%") );
+
         return "admin/index";
     }
 

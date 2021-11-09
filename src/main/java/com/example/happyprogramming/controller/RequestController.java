@@ -92,7 +92,7 @@ public class RequestController {
     public String listWaitingRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
         List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 1);
-        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
+        List<RequestEntity> listRejected = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
         List<RequestEntity> listApproved = requestService.findRequestEntitiesByMentorIdAndStatus(user, 3);
         int k = list.size()+listApproved.size()+listRejected.size();
         model.addAttribute("l1",(float)list.size()*100/k);
@@ -105,7 +105,7 @@ public class RequestController {
     @GetMapping("/invited-request-rejected")
     public String listRejectedRequestPage(Model model){
         UserEntity user =(UserEntity) session.getAttribute("userInformation");
-        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 0);
+        List<RequestEntity> list = requestService.findRequestEntitiesByMentorIdAndStatus(user, 2);
         model.addAttribute("listRejectedRequest",list);
         return "client/rejected-requests";
     }
@@ -123,7 +123,7 @@ public class RequestController {
         Optional<RequestEntity> re = requestService.findById(id);
         if (re.isPresent()){
             RequestEntity req = re.get();
-            req.setStatus(0);
+            req.setStatus(2);
             req.setResponseMess(response);
             requestRepository.save(req);
             notificationService.rejectedNotification(req.getMentorId(),req.getMenteeId());

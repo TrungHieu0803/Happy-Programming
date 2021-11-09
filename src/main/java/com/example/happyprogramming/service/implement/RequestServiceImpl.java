@@ -109,10 +109,12 @@ public class RequestServiceImpl implements RequestService {
 
                 int month =  Integer.parseInt(req.getCreatedDate().substring(3,5));
                 listCount[month-1]++;
-                String budget = req.getBudget();
-                Double profit = 0.05* Double.parseDouble(budget.substring(0, budget.length()-1));
+                if (req.getStatus() == 3) {
+                    String budget = req.getBudget();
+                    Double profit = 0.05* Double.parseDouble(budget.substring(0, budget.length()-1));
+                    for (int i = month-1; i < 12; i++) listEarnings[i] += profit;
+                }
 
-                for (int i = month-1; i < 12; i++) listEarnings[i] += profit;
             }
         }catch(Exception e){
             System.out.println(e);
@@ -128,4 +130,13 @@ public class RequestServiceImpl implements RequestService {
         return list;
     }
 
+    @Override
+    public Double rateOfSuccessful() {
+        List<RequestEntity> li = requestRepository.findAll();
+        int count = 0;
+        for (RequestEntity re : li) {
+            count += re.getStatus()==3? 1:0;
+        }
+        return 1.0*count*100/li.size();
+    }
 }

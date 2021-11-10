@@ -147,12 +147,13 @@
     </script>
 </head>
 <body>
+<div id="wrapper">
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" >
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -177,27 +178,6 @@
             Management
         </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>
-
         <!-- Nav Item - Mentor management -->
         <li class="nav-item">
             <a class="nav-link" href="#">
@@ -205,12 +185,6 @@
                 <span>Mentor management</span></a>
         </li>
 
-        <!-- Nav Item - Mentee Management -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Mentee Management</span></a>
-        </li>
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/skill}">
                 <i class="fas fa-fw fa-table"></i>
@@ -229,8 +203,6 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
         <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
@@ -298,53 +270,53 @@
                                                         </div>
                                                     </div>
                                                     <span class="material-input"></span></div>
+                                                <div class="form-group is-empty">
+                                                    <div class="input-icon">
+                                                        <input th:name="content" th:id="content" type="text" class="form-control"
+                                                               name="content"
+                                                               placeholder="Content" th:value="${request.getContent()}">
+                                                    </div>
+                                                </div>
+                                                <span class="material-input"></span></div>
                                             <div class="form-group is-empty">
                                                 <div class="input-icon">
-                                                    <input th:name="content" th:id="content" type="text" class="form-control"
-                                                           name="content"
-                                                           placeholder="Content" th:value="${request.getContent()}">
+                                                    <input th:name="createdDate" th:id="createdDate" type="text" class="form-control"
+                                                           name="createdDate"
+                                                           placeholder="CreatedDate" th:value="${request.getCreatedDate()}">
                                                 </div>
                                             </div>
-                                            <span class="material-input"></span></div>
-                                        <div class="form-group is-empty">
-                                            <div class="input-icon">
-                                                <input th:name="createdDate" th:id="createdDate" type="text" class="form-control"
-                                                       name="createdDate"
-                                                       placeholder="CreatedDate" th:value="${request.getCreatedDate()}">
+                                            <div class="form-group is-empty">
+                                                <div class="input-icon">
+                                                    <input th:name="createdDate" th:id="createdDate" type="text" class="form-control"
+                                                           name="createdDate"
+                                                           placeholder="CreatedDate" th:value="${request.getCreatedDate()}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group is-empty">
-                                            <div class="input-icon">
-                                                <input th:name="createdDate" th:id="createdDate" type="text" class="form-control"
-                                                       name="createdDate"
-                                                       placeholder="CreatedDate" th:value="${request.getCreatedDate()}">
+                                            <div class="form-group is-empty">
+                                                <div class="input-icon">
+                                                    <input th:name="title" th:id="title" type="text" class="form-control"
+                                                           name="title"
+                                                           placeholder="Title" th:value="${request.getTitle()}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group is-empty">
-                                            <div class="input-icon">
-                                                <input th:name="title" th:id="title" type="text" class="form-control"
-                                                       name="title"
-                                                       placeholder="Title" th:value="${request.getTitle()}">
+                                            <div class="form-group is-empty">
+                                                <div class="input-icon">
+                                                    <input th:name="mentorName" th:id="mentorName" type="text" class="form-control"
+                                                           name="mentorName"
+                                                           placeholder="MentorName" th:value="${request.getMentorId().getFullName()}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group is-empty">
-                                            <div class="input-icon">
-                                                <input th:name="mentorName" th:id="mentorName" type="text" class="form-control"
-                                                       name="mentorName"
-                                                       placeholder="MentorName" th:value="${request.getMentorId().getFullName()}">
+                                            <div class="form-group is-empty">
+                                                <div class="input-icon">
+                                                    <input th:name="menteeName" th:id="menteeName" type="text" class="form-control"
+                                                           name="menteeName"
+                                                           placeholder="MenteeName" th:value="${request.getMenteeId().getFullName()}">
+                                                </div>
                                             </div>
+                                            <button onclick="viewProfile()" class="btn btn-common log-btn">View</button>
+                                            </form>
                                         </div>
-                                        <div class="form-group is-empty">
-                                            <div class="input-icon">
-                                                <input th:name="menteeName" th:id="menteeName" type="text" class="form-control"
-                                                       name="menteeName"
-                                                       placeholder="MenteeName" th:value="${request.getMenteeId().getFullName()}">
-                                            </div>
-                                        </div>
-                                        <button onclick="viewProfile()" class="btn btn-common log-btn">View</button>
-                                        </form>
                                     </div>
-                                </div>
                                 </div>
                             </td>
                         </tr>
@@ -365,6 +337,8 @@
                 </div>
             </div>
         </div>
+        <!-- Main Content -->
+
         <!-- End of Main Content -->
 
         <!-- Footer -->
@@ -379,6 +353,7 @@
 
     </div>
     <!-- End of Content Wrapper -->
+</div>
 <!-- End -->
 </body>
 </html>

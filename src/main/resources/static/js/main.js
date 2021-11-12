@@ -489,7 +489,81 @@ function  updateProfile(){
         
     }
 }
+function isValidDate(s) {
+    // Assumes s is "dd/mm/yyyy"
 
+    if ( ! /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s) ) {
+        return false;
+    }
+    const parts = s.split('/').map((p) => parseInt(p, 10));
+    parts[1] -= 1;
+    const d = new Date(parts[2],parts[1], parts[0]);
+    return d.getMonth() === parts[1] && d.getDate() === parts[0] && d.getFullYear() === parts[2];
+}
+function isValidPhone(s) {
+    // Assumes s is "dd/mm/yyyy"
+
+    if ( ! /^\d{9, 11}$/.test(s) ) {
+        return false;
+    }
+    return truel;
+}
+
+function testValidDate() {
+    let s = document.getElementById('dob').value;
+    console.log("dob: "+s);
+    if (isValidDate(s) == false) document.getElementById('dob').value = "";
+    else document.getElementById('dob').value =s;
+}
+
+
+function testValidInputCV() {
+    var name = document.getElementById('mentorName')==null? null : document.getElementById('mentorName').value;
+    var dob = document.getElementById('dob')==null? null :document.getElementById('dob').value;
+    var title = document.getElementById('title')==null? null: document.getElementById('title').value;
+    var title1 = document.getElementById('title1')==null? null: document.getElementById('title1').value;
+    var profession = document.getElementById('profession')==null? null : document.getElementById('profession').value;
+    var profession1 = document.getElementById('profession1')==null? null :document.getElementById('profession1').value;
+    var intro = document.getElementById('introduction')==null? null: document.getElementById('introduction').value;
+    var intro1 = document.getElementById('introduction1')==null? null: document.getElementById('introduction1').value;
+    var checkboxs=document.getElementsByName("skills");
+    var  okay = false;
+    for(var i=0,l=checkboxs.length;i<l;i++)
+    {
+        if(checkboxs[i].checked){
+            okay=true;
+            break;
+        }
+    }
+    if (!okay) return false;
+
+    if ((title==""||title==null) && (title1=="" || title1== null)){
+        console.log("title");
+        return false;
+    }
+    else if ((profession == ""|| profession == null) && (profession1 == "" ||  profession1 == null)) {
+        console.log("pro")
+        return false;
+    }
+    else if ((intro == "" || intro == null) && (intro1 == "" || intro1 == null)) {
+        console.log("intro")
+        return false;
+    }    else if (dob== null || dob == ""){
+        console.log("dob");
+        return false;
+    }
+    else if (name == "" || name == null )  {
+        console.log("name" + name + "....");
+        return false;
+    }
+    return  true;
+}
+function testValidCV() {
+    if (testValidInputCV()==false) {
+        alert("There are some empty fields. Please fill them out.");
+        return false;
+    }
+}
 
 
 

@@ -146,6 +146,12 @@ public class RequestController {
         }
         return "redirect:/invited-request-wait";
     }
+    @GetMapping("/request-detail")
+    public  String goToDetail(Model model, @RequestParam("id") long id){
+       RequestEntity re= requestRepository.findById(id);
+        model.addAttribute("requestDetail", re);
+        return "client/request-detail";
+    }
     @GetMapping("/list-requests")
     public String listRequest(Model model, @RequestParam ("status") int status,
                               @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){

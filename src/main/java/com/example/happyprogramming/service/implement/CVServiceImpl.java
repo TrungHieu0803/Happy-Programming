@@ -54,8 +54,8 @@ public class CVServiceImpl implements ICVService {
             CVupdate.setAchievement(cv.getAchievement());
             CVupdate.setIntroduction(cv.getIntroduction());
             CVupdate.setProfession(cv.getProfession());
+            CVupdate.setTitle(cv.getTitle());
             CVupdate.setSkills(cv.getSkills());
-            CVupdate.setSocialMediaContact(cv.getSocialMediaContact());
             cvRepository.save(CVupdate);
         }
     }

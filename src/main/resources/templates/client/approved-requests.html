@@ -117,7 +117,7 @@
                                 <p>Content</p>
                             </div>
                             <div class="col-md-3">
-                                <p>Actions</p>
+                                <p>Your response</p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                         <div class="alerts-content" >
                             <div class="row" >
                                 <div class="col-md-3" >
-                                    <h3 th:utext="${item.getTitle()}"></h3>
+                                    <a th:href="@{/request-detail(id=*{item.id})}"><h3 th:utext="${item.getTitle()}"></h3></a>
                                     <span >$<i th:utext="${item.budget}"></i></span>
                                 </div>
                                 <div class="col-md-3">
@@ -135,17 +135,12 @@
                                     <p><span th:text="${item.getContent()}"></span></p>
                                 </div>
                                 <div class="col-md-3">
-                                    <p><a th:href="@{/details}"></a>View details</p>
-                                    <a th:href="@{/contact(id=${item.getMenteeId().getId()})}"><p>Contact</p></a>
+                                    <p><span th:text="${item.getResponseMess()}"></span></p>
                                 </div>
                             </div>
                         </div>
                     </th:block>
-
-
                     <br>
-                    <!--                    Paging-->
-
                 </div>
             </div>
         </div>

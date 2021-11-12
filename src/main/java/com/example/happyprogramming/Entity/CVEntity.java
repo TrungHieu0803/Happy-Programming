@@ -26,7 +26,7 @@ public class CVEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(name = "title",length = 100)
+    @Column(length = 100)
     private String title;
 
     @Column(length = 20000)

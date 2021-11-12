@@ -131,8 +131,13 @@
                                     Profile
                                 </a>
                             </li>
-                            <li>
+                            <li th:if="${session.role == 'mentorAndMentee'}">
                                 <a th:href="@{/invited-request-wait}">
+                                    List request
+                                </a>
+                            </li>
+                            <li th:if="${session.role == 'mentee'}">
+                                <a th:href="@{/list-requests(status=0)}">
                                     List request
                                 </a>
                             </li>

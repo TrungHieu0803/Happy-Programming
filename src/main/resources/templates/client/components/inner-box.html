@@ -55,14 +55,14 @@
                 <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li>
                 <li><a th:href="@{/change-password}">Change Password</a></li>
             </ul>
-            <h3>List requests</h3>
-            <ul class="lest item ">
+            <h3 th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}">List requests</h3>
+            <ul class="lest item " th:if="${session.role == 'mentee' || session.role == 'mentorAndMentee'}">
                 <li><a th:href="@{/list-requests(status=0)}">Pending</a></li>
                 <li><a th:href="@{/list-requests(status=1)}">Active</a></li>
                 <li><a th:href="@{/list-requests(status=3)}">Approved</a></li>
             </ul>
-            <h3>Manage requests invited to me</h3>
-            <ul class="lest item">
+            <h3 th:if="${session.role == 'mentorAndMentee'}">Manage requests invited to me</h3>
+            <ul class="lest item" th:if="${session.role == 'mentorAndMentee'}">
                 <li><a th:href="@{/invited-request-wait}">Waiting</a></li>
                 <li><a th:href="@{/invited-request-rejected}">Rejected</a></li>
                 <li><a th:href="@{/invited-request-approved}">Approved</a></li>

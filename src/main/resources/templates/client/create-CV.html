@@ -97,7 +97,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="product-title " style="color: #ff6470">Create your CV</h2>
+                    <h2 class="product-title " th:if="${cv == null}" style="color: #ff6470">Create your CV</h2>
+                    <h2 class="product-title " th:if="${cv != null}" style="color: #ff6470">Update your CV</h2>
 
                 </div>
             </div>
@@ -110,10 +111,10 @@
         <div class="row">
             <div class="col-sm-12 col-md-9 col-md-offset-2">
                 <div class="page-ads box">
-                    <form class="form-ad" th:method="POST" th:action="@{/createCV}" th:object="${newCV}">
+                    <form class="form-ad" th:method="POST" th:action="@{/createCV}" th:object="${newCV}" onsubmit="return testValidCV()">
                         <div class="form-group is-empty">
                             <label class="control-label">Name</label>
-                            <input type="text" class="form-control"  th:name="user.fullName" th:id="user.fullName" th:value="${session.userInformation.getFullName()}">
+                            <input type="text" class="form-control" id="mentorName" name="mentorName" th:name="user.fullName" th:value="${session.userInformation.getFullName()}">
                             <span class="material-input"></span>
                         </div>
                         <div class="form-group is-empty hidden" >
@@ -123,27 +124,27 @@
                         </div>
                         <div class="form-group is-empty">
                             <label class="control-label">Date of birth</label>
-                            <input type="text" class="form-control" name="dob" placeholder="dd/MM/yyyy" th:name="user.doB" th:id="user.doB" th:value="${session.userInformation.getDoB()}">
+                            <input type="text" class="form-control" name="dob" id="dob" onchange="testValidDate()" placeholder="dd/MM/yyyy" th:name="user.doB" th:value="${session.userInformation.getDoB()}">
                             <span class="material-input"></span>
                         </div>
                         <div class="form-group is-empty">
                             <label class="control-label">Title</label>
-                            <textarea class="form-control"  th:name="title" th:id="title" th:if="${cv != null}" th:utext="${cv.getTitle()}" maxlength="100" placeholder="I will do Java programming for you..."></textarea>
-                            <textarea class="form-control"  th:name="title" th:id="title" th:if="${cv == null}" maxlength="100" placeholder="I will do Java programming for you..."></textarea>
+                            <textarea class="form-control" id = "title" th:name="title" th:id="title" th:if="${cv != null}" th:utext="${cv.getTitle()}" maxlength="100" placeholder="I will do Java programming for you..."></textarea>
+                            <textarea class="form-control"  id = "title1" th:name="title" th:id="title" th:if="${cv == null}" maxlength="100" placeholder="I will do Java programming for you..."></textarea>
 
                             <span class="material-input"></span>
                         </div>
                         <div class="form-group is-empty">
                             <label class="control-label">Profession</label>
-                            <textarea class="form-control"  th:name="profession" th:id="profession" th:if="${cv != null}" th:utext="${cv.getProfession()}" ></textarea>
-                            <textarea class="form-control"  th:name="profession" th:id="profession" th:if="${cv == null}" ></textarea>
+                            <textarea class="form-control" id="profession" th:name="profession" th:id="profession" th:if="${cv != null}" th:utext="${cv.getProfession()}" ></textarea>
+                            <textarea class="form-control" id="profession1" th:name="profession" th:id="profession" th:if="${cv == null}" ></textarea>
 
                             <span class="material-input"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group is-empty">
                             <label class="control-label">Introduction</label><br>
-                            <textarea name="description" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv != null}" th:utext="${cv.getIntroduction()}" ></textarea>
-                            <textarea name="description" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv == null}" ></textarea>
+                            <textarea name="description" id="introduction" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv != null}" th:utext="${cv.getIntroduction()}" ></textarea>
+                            <textarea name="description" id="introduction1" cols="30" rows="30" class="form-control" th:name="introduction" th:id="introduction" th:if="${cv == null}" ></textarea>
 
                             <span class="material-input"></span>
                         </div>
@@ -157,7 +158,7 @@
                         </div>
                         <div class="form-group is-empty">
                             <label class="control-label">Phone</label>
-                            <input type="text" class="form-control" name="phone" th:name="user.phone" th:id="user.phone" th:value="${session.userInformation.getPhone()}">
+                            <input type="text" class="form-control" name="phone" id="phone" th:name="user.phone" th:id="user.phone" th:value="${session.userInformation.getPhone()}">
                             <span class="material-input"></span>
                         </div>
                         <div class="form-group">

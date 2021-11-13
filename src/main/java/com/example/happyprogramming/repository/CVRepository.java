@@ -1,8 +1,8 @@
 package com.example.happyprogramming.repository;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.SkillEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

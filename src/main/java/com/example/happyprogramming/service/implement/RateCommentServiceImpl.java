@@ -1,21 +1,18 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.CommentAndRateEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.CommentAndRateEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.CVRepository;
 import com.example.happyprogramming.repository.RateCommentRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.NotificationService;
 import com.example.happyprogramming.service.RateCommentService;
-import com.example.happyprogramming.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 @Component
 public class RateCommentServiceImpl implements RateCommentService {

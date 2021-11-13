@@ -1,8 +1,8 @@
 package com.example.happyprogramming.service;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 @Service

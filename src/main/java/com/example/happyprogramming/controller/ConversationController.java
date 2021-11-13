@@ -1,8 +1,8 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.ConversationReplyEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.ConversationReplyEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.ConversationService;
 import com.example.happyprogramming.service.UserService;

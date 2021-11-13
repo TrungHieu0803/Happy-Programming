@@ -1,9 +1,8 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.RoleEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.RoleEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.CVRepository;
 import com.example.happyprogramming.repository.RoleRepository;
 import com.example.happyprogramming.repository.UserRepository;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.List;
 
 
 @Component

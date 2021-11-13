@@ -1,8 +1,8 @@
 package com.example.happyprogramming.controller;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.SkillEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.service.ICVService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

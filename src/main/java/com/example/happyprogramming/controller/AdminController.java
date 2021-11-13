@@ -1,7 +1,7 @@
 package com.example.happyprogramming.controller;
 
-import com.example.happyprogramming.Entity.PopularSkill;
-import com.example.happyprogramming.Entity.TotalRequestMonthly;
+import com.example.happyprogramming.entity.PopularSkill;
+import com.example.happyprogramming.entity.TotalRequestMonthly;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.service.RequestService;
 import com.example.happyprogramming.service.SkillService;

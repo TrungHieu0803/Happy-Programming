@@ -1,7 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.NotificationEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.NotificationEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.NotificationRepository;
 import com.example.happyprogramming.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;

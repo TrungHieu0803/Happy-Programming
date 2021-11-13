@@ -1,10 +1,10 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.Pagination;
+import com.example.happyprogramming.entity.SkillEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;
 import com.example.happyprogramming.service.MentorService;

@@ -1,9 +1,9 @@
 package com.example.happyprogramming.service;
 
 
-import com.example.happyprogramming.Entity.ConversationEntity;
-import com.example.happyprogramming.Entity.ConversationReplyEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.ConversationEntity;
+import com.example.happyprogramming.entity.ConversationReplyEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

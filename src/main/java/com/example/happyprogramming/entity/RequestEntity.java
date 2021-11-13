@@ -1,4 +1,4 @@
-package com.example.happyprogramming.Entity;
+package com.example.happyprogramming.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Set;
 
 @Setter

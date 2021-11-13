@@ -1,7 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.RoleEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.RoleEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

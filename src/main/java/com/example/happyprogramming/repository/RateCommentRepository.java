@@ -1,12 +1,10 @@
 package com.example.happyprogramming.repository;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.CommentAndRateEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.CommentAndRateEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
 
 
 @Repository

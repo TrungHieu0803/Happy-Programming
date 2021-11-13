@@ -1,10 +1,10 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.Pagination;
+import com.example.happyprogramming.entity.RequestEntity;
+import com.example.happyprogramming.entity.SkillEntity;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.RequestService;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class MentorController {

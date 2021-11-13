@@ -1,14 +1,12 @@
-package com.example.happyprogramming.Entity;
+package com.example.happyprogramming.entity;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 
 @Setter

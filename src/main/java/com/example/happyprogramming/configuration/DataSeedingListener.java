@@ -1,9 +1,9 @@
 package com.example.happyprogramming.configuration;
 
 
-import com.example.happyprogramming.Entity.RoleEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.RoleEntity;
+import com.example.happyprogramming.entity.SkillEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.RoleRepository;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.repository.UserRepository;

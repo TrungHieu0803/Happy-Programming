@@ -1,11 +1,8 @@
 package com.example.happyprogramming.service;
 
 
-import com.example.happyprogramming.Entity.NotificationEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public interface NotificationService {

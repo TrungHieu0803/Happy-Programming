@@ -1,7 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
 
-import com.example.happyprogramming.Entity.*;
+import com.example.happyprogramming.entity.*;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.service.MentorService;
 import com.example.happyprogramming.service.RequestService;
@@ -10,13 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

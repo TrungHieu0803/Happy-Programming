@@ -1,9 +1,9 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
-import com.example.happyprogramming.Entity.RequestEntity;
-import com.example.happyprogramming.Entity.SkillEntity;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.Pagination;
+import com.example.happyprogramming.entity.RequestEntity;
+import com.example.happyprogramming.entity.SkillEntity;
 import com.example.happyprogramming.repository.CVRepository;
 import com.example.happyprogramming.repository.RequestRepository;
 import com.example.happyprogramming.repository.SkillRepository;

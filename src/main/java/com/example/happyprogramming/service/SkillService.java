@@ -1,8 +1,8 @@
 package com.example.happyprogramming.service;
 
 
-import com.example.happyprogramming.Entity.PopularSkill;
-import com.example.happyprogramming.Entity.SkillEntity;
+import com.example.happyprogramming.entity.PopularSkill;
+import com.example.happyprogramming.entity.SkillEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

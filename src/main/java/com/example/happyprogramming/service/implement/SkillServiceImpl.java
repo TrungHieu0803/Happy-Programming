@@ -1,7 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.PopularSkill;
-import com.example.happyprogramming.Entity.SkillEntity;
+import com.example.happyprogramming.entity.PopularSkill;
+import com.example.happyprogramming.entity.SkillEntity;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;

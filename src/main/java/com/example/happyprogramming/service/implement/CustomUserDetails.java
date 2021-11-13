@@ -1,8 +1,7 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;

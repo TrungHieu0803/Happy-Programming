@@ -1,9 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.PopularSkill;
-import com.example.happyprogramming.Entity.SkillEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.SkillRepository;
 import com.example.happyprogramming.service.RateCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @Controller
 public class RateCommentController {

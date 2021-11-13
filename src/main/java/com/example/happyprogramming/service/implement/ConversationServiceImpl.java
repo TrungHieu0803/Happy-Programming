@@ -1,8 +1,8 @@
 package com.example.happyprogramming.service.implement;
 
-import com.example.happyprogramming.Entity.ConversationEntity;
-import com.example.happyprogramming.Entity.ConversationReplyEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.ConversationEntity;
+import com.example.happyprogramming.entity.ConversationReplyEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.repository.ConversationReplyRepository;
 import com.example.happyprogramming.repository.ConversationRepository;
 import com.example.happyprogramming.service.ConversationService;

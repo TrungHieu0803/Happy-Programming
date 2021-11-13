@@ -1,7 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import com.example.happyprogramming.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

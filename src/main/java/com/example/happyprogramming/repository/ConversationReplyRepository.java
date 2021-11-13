@@ -1,7 +1,7 @@
 package com.example.happyprogramming.repository;
 
-import com.example.happyprogramming.Entity.ConversationEntity;
-import com.example.happyprogramming.Entity.ConversationReplyEntity;
+import com.example.happyprogramming.entity.ConversationEntity;
+import com.example.happyprogramming.entity.ConversationReplyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

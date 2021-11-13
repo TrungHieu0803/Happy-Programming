@@ -1,11 +1,10 @@
 package com.example.happyprogramming.service;
 
-import com.example.happyprogramming.Entity.CVEntity;
-import com.example.happyprogramming.Entity.Pagination;
+import com.example.happyprogramming.entity.CVEntity;
+import com.example.happyprogramming.entity.Pagination;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public interface MentorService {

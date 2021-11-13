@@ -1,7 +1,7 @@
 package com.example.happyprogramming.repository;
 
-import com.example.happyprogramming.Entity.NotificationEntity;
-import com.example.happyprogramming.Entity.UserEntity;
+import com.example.happyprogramming.entity.NotificationEntity;
+import com.example.happyprogramming.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

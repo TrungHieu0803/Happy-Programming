@@ -1,4 +1,4 @@
-package com.example.happyprogramming.Entity;
+package com.example.happyprogramming.entity;
 
 
 import lombok.AllArgsConstructor;

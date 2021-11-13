@@ -1,7 +1,7 @@
 package com.example.happyprogramming.controller;
 
 
-import com.example.happyprogramming.Entity.*;
+import com.example.happyprogramming.entity.*;
 import com.example.happyprogramming.repository.*;
 import com.example.happyprogramming.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
